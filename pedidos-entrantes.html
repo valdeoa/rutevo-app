@@ -1,5 +1,5 @@
 <!doctype html>
-<html><head><style>
+<html><head><script>try{document.documentElement.style.visibility="hidden";setTimeout(function(){document.documentElement.style.visibility=""},4000)}catch(e){}</script><style>
     .sc-placeholder{background:color-mix(in srgb,currentColor 8%,transparent);
       border:1px solid color-mix(in srgb,currentColor 50%,transparent);
       border-radius:2px;box-sizing:border-box;overflow:hidden}
@@ -572,4 +572,6 @@ input::placeholder{color:#9aa4b8}
 
 
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>(async()=>{try{const db=supabase.createClient("https://bcfeawgxswvtlklrkzii.supabase.co","sb_publishable_eSca9huQfloG321aY7UV9A_m50pucxw");const{data:{session}}=await db.auth.getSession();if(!session){location.replace("/login");return;}window.__db=db;}catch(e){}document.documentElement.style.visibility="";})();</script>
 </body></html>

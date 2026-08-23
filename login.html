@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Entrar · Rutevo</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M11 35 C 20 35, 22 13, 33 13' stroke='%232563EB' stroke-width='4.4' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='11' cy='35' r='5.2' fill='%232563EB'/%3E%3Ccircle cx='33' cy='13' r='6.2' fill='%2310B981'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=Hanken+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+  :root{--navy:#0e1f3d;--brand:#2563EB;--brand2:#1d4ed8;--ink:#132038;--muted:#69758d;--line:#e4e9f2;--paper:#f5f6f8;--card:#fff;--red:#ef4444}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Hanken Grotesk',system-ui,sans-serif;background:var(--paper);color:var(--ink);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+  .card{width:100%;max-width:380px;background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:0 10px 34px -14px rgba(19,32,56,.22);padding:34px}
+  .brand{display:flex;align-items:center;gap:11px;margin-bottom:24px}
+  .brand .wm{font-family:'Newsreader',Georgia,serif;font-size:26px;font-weight:600;letter-spacing:-.01em;color:var(--navy)}
+  .brand .wm b{color:var(--brand);font-weight:600}
+  h1{font-family:'Newsreader',Georgia,serif;font-size:21px;font-weight:600;margin-bottom:3px}
+  .sub{font-size:13px;color:var(--muted);margin-bottom:24px}
+  label{display:block;font-size:12.5px;font-weight:700;color:#3a465f;margin-bottom:6px}
+  .field{margin-bottom:16px}
+  input{width:100%;border:1px solid #d9dee8;border-radius:10px;padding:11px 13px;font:inherit;font-size:14px;color:var(--ink);outline:none;transition:.15s}
+  input:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(37,99,235,.12)}
+  input::placeholder{color:#9aa4b8}
+  .btn{width:100%;background:var(--navy);color:#fff;border:0;border-radius:10px;padding:12px;font:inherit;font-weight:700;font-size:14px;cursor:pointer;transition:.15s}
+  .btn:hover{background:#0a1830}
+  .btn:disabled{opacity:.6;cursor:default}
+  .err{font-size:13px;color:var(--red);margin-bottom:14px;display:none}
+  .demo{margin-top:22px;padding-top:18px;border-top:1px solid #eef2f7}
+  .demo p{font-size:11.5px;color:#9aa4b8;margin-bottom:8px}
+  .demo .row{display:flex;gap:8px}
+  .demo button{flex:1;font:inherit;font-size:12px;font-weight:600;color:var(--muted);background:#fff;border:1px solid var(--line);border-radius:9px;padding:8px;cursor:pointer}
+  .demo button:hover{border-color:#cfd5e0;color:var(--ink)}
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="brand">
+      <svg width="28" height="28" viewBox="0 0 48 48" fill="none" aria-label="Rutevo"><path d="M11 35 C 20 35, 22 13, 33 13" stroke="#2563EB" stroke-width="4.4" stroke-linecap="round"/><circle cx="11" cy="35" r="5.2" fill="#2563EB"/><circle cx="33" cy="13" r="6.2" fill="#10B981"/><circle cx="33" cy="13" r="2.4" fill="#f5f6f8"/></svg>
+      <span class="wm">rutev<b>o</b></span>
+    </div>
+    <h1>Entrar</h1>
+    <div class="sub">Panel de operaciones</div>
+    <p class="err" id="err"></p>
+    <form id="f">
+      <div class="field"><label>Email</label><input id="email" type="email" autocomplete="username" placeholder="tucorreo@empresa.com" required></div>
+      <div class="field"><label>Contraseña</label><input id="pass" type="password" autocomplete="current-password" placeholder="••••••••" required></div>
+      <button class="btn" id="btn" type="submit">Entrar</button>
+    </form>
+    <div class="demo">
+      <p>Accesos demo (pruebas):</p>
+      <div class="row">
+        <button data-u="demo.hcl@rutevo.app">HCL Express</button>
+        <button data-u="demo.acme@rutevo.app">ACME 3PL</button>
+      </div>
+    </div>
+  </div>
+<script>
+const db = supabase.createClient('https://bcfeawgxswvtlklrkzii.supabase.co','sb_publishable_eSca9huQfloG321aY7UV9A_m50pucxw');
+const $=id=>document.getElementById(id);
+(async()=>{ const {data:{session}}=await db.auth.getSession(); if(session) location.replace('/agenda'); })();
+$('f').addEventListener('submit',async e=>{
+  e.preventDefault(); const b=$('btn'), er=$('err'); er.style.display='none'; b.disabled=true; b.textContent='Entrando…';
+  const {error}=await db.auth.signInWithPassword({email:$('email').value.trim(),password:$('pass').value});
+  b.disabled=false; b.textContent='Entrar';
+  if(error){ er.textContent='No se pudo entrar: '+error.message; er.style.display='block'; return; }
+  location.replace('/agenda');
+});
+document.querySelectorAll('.demo button').forEach(x=>x.addEventListener('click',()=>{ $('email').value=x.dataset.u; $('pass').value='Rutevo2026!'; }));
+</script>
+</body>
+</html>
