@@ -69,10 +69,10 @@ select{font:inherit;color:inherit}
 
     <div style="margin: 0px 16px 6px; padding: 11px 13px 12px; background: rgb(21, 41, 74); border: 1px solid rgb(33, 52, 88); border-radius: 8px;">
       <div style="display: flex; align-items: center; gap: 9px;">
-        <span style="width: 23px; height: 23px; border-radius: 5px; background: rgb(37, 99, 235); display: grid; place-items: center; font-weight: 800; font-size: 12px; color: rgb(255, 255, 255); flex: 0 0 auto;">H</span>
-        <span style="font-weight: 700; font-size: 14px; color: rgb(255, 255, 255);">HCL Express</span>
+        <span style="width: 23px; height: 23px; border-radius: 5px; background: rgb(37, 99, 235); display: grid; place-items: center; font-weight: 800; font-size: 12px; color: rgb(255, 255, 255); flex: 0 0 auto;" id="rt-tavatar">H</span>
+        <span id="rt-tname" style="font-weight: 700; font-size: 14px; color: rgb(255, 255, 255);">HCL Express</span>
       </div>
-      <div style="font-size: 11.5px; color: rgb(126, 145, 183); margin-top: 5px; padding-left: 32px; letter-spacing: 0.01em;">Courier · GLS Alcalá</div>
+      <div id="rt-tsub" style="font-size: 11.5px; color: rgb(126, 145, 183); margin-top: 5px; padding-left: 32px; letter-spacing: 0.01em;">Courier · GLS Alcalá</div>
     </div>
 
     <nav style="padding: 6px 14px; display: flex; flex-direction: column;">
@@ -112,7 +112,7 @@ select{font:inherit;color:inherit}
         <span style="position: absolute; top: 7px; right: 8px; width: 6px; height: 6px; border-radius: 50%; background: rgb(239, 68, 68); border: 1.5px solid rgb(255, 255, 255);"></span>
       </button>
       <div style="display: flex; align-items: center; gap: 9px; padding-left: 3px;">
-        <div style="width: 36px; height: 36px; border-radius: 6px; background: rgb(14, 31, 61); color: rgb(255, 255, 255); display: grid; place-items: center; font-weight: 700; font-size: 12px; font-family: &quot;JetBrains Mono&quot;, monospace;">JG</div>
+        <div style="width: 36px; height: 36px; border-radius: 6px; background: rgb(14, 31, 61); color: rgb(255, 255, 255); display: grid; place-items: center; font-weight: 700; font-size: 12px; font-family: &quot;JetBrains Mono&quot;, monospace;" id="rt-uinit">JG</div>
       </div>
     </header>
 
@@ -159,7 +159,7 @@ select{font:inherit;color:inherit}
             <div style="display: flex; align-items: baseline; justify-content: space-between; padding: 14px 18px 12px; border-bottom: 1px solid rgb(232, 234, 239); gap: 12px; flex-wrap: wrap;">
               <div>
                 <span style="font-family: Newsreader, Georgia, serif; font-size: 17px; font-weight: 500;">Cartera de clientes</span>
-                <span style="display: block; font-size: 12px; font-weight: 600; color: rgb(105, 117, 141); margin-top: 2px;"><span class="sc-interp">12 de 12 clientes</span></span>
+                <span style="display: block; font-size: 12px; font-weight: 600; color: rgb(105, 117, 141); margin-top: 2px;"><span class="sc-interp" id="rt-clients-count">12 de 12 clientes</span></span>
               </div>
               <span style="font-size: 12.5px; color: rgb(154, 164, 184); font-family: Newsreader, Georgia, serif; font-style: italic;">el alta y el mapeo los hace el operador, sin tocar código</span>
             </div>
@@ -177,7 +177,7 @@ select{font:inherit;color:inherit}
                     <th style="text-align: right; padding: 9px 18px 9px 10px; background: rgb(250, 251, 252); border-bottom: 1px solid rgb(221, 225, 233); font-size: 9.5px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: rgb(105, 117, 141); white-space: nowrap;">Acción</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody id="rt-clients-body">
                   
                     <tr style="cursor: pointer;">
                       <td style="padding: 12px 10px 12px 18px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; font-weight: 600; min-width: 210px;"><span style="display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 5px; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 10px; font-weight: 700; flex: 0 0 auto; background: rgb(14, 31, 61); color: rgb(255, 255, 255); margin-right: 9px; vertical-align: middle;"><span class="sc-interp">CS</span></span><span class="sc-interp">Clínica Dental Sanz</span><span style="display: block; font-size: 11px; font-weight: 500; color: rgb(154, 164, 184); margin-top: 1px; padding-left: 29px;"><span class="sc-interp">Alcalá de Henares · desde 2024</span></span></td>
@@ -322,4 +322,55 @@ select{font:inherit;color:inherit}
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>(async()=>{try{const db=supabase.createClient("https://bcfeawgxswvtlklrkzii.supabase.co","sb_publishable_eSca9huQfloG321aY7UV9A_m50pucxw");const{data:{session}}=await db.auth.getSession();if(!session){location.replace("/login");return;}window.__db=db;}catch(e){}document.documentElement.style.visibility="";})();</script>
+<script id="rt-hydrate">
+(async function(){
+  const U="https://bcfeawgxswvtlklrkzii.supabase.co",K="sb_publishable_eSca9huQfloG321aY7UV9A_m50pucxw";
+  let n=0; while(!window.supabase && n++<60){ await new Promise(r=>setTimeout(r,80)); }
+  const db = window.__db || (window.supabase && window.supabase.createClient(U,K)); if(!db) return;
+  const $=id=>document.getElementById(id);
+  const A={courier:'Courier','3pl':'3PL',almacen:'Almac\u00e9n'};
+  try{
+    const {data:{user}}=await db.auth.getUser();
+    const {data:tn}=await db.from('tenants').select('name,archetype').limit(1);
+    const t=tn&&tn[0];
+    if(t){ if($('rt-tname'))$('rt-tname').textContent=t.name; if($('rt-tsub'))$('rt-tsub').textContent=A[t.archetype]||t.archetype; if($('rt-tavatar'))$('rt-tavatar').textContent=(t.name||'?').trim().charAt(0).toUpperCase(); }
+    if(user&&$('rt-uinit')){ const p=(user.email||'').split('@')[0].split(/[._-]+/).filter(Boolean); let i=((p[0]||'')[0]||'')+((p[1]||'')[0]||''); if(!i)i=(user.email||'?').slice(0,2); $('rt-uinit').textContent=i.toUpperCase(); }
+  }catch(e){}
+})();
+</script>
+<script id="rt-clients">
+(async function(){
+  const U="https://bcfeawgxswvtlklrkzii.supabase.co", K="sb_publishable_eSca9huQfloG321aY7UV9A_m50pucxw";
+  let n=0; while(!window.supabase && n++<60){ await new Promise(r=>setTimeout(r,80)); }
+  const db = window.__db || (window.supabase && window.supabase.createClient(U,K)); if(!db) return;
+  const $=id=>document.getElementById(id);
+  const body=$('rt-clients-body'); if(!body) return;
+  const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+  const CH={api:{l:'API',d:'rgb(37, 99, 235)'},connector:{l:'Conector',d:'rgb(21, 41, 74)'},csv:{l:'CSV',d:'rgb(245, 158, 11)'},email:{l:'Email',d:'rgb(105, 117, 141)'},manual:{l:'Manual',d:'rgb(16, 185, 129)'}};
+  const PLANT={courier:'Mensajería','3pl':'3PL · E-commerce',almacen:'Almacén'};
+  let arche='';
+  try{ const {data:tn}=await db.from('tenants').select('archetype').limit(1); arche=tn&&tn[0]&&tn[0].archetype; }catch(e){}
+  const {data:cls,error}=await db.from('clients').select('name,intake_channel,active,mapping,orders(count)').order('name');
+  if(error){ body.innerHTML='<tr><td colspan="7" style="padding:22px;text-align:center;color:#c53030;font-size:12.5px">Error: '+esc(error.message)+'</td></tr>'; return; }
+  if($('rt-clients-count')) $('rt-clients-count').textContent=cls.length+' de '+cls.length+' cliente'+(cls.length===1?'':'s');
+  const initials=nm=>{const p=(nm||'?').trim().split(/\s+/);return (((p[0]||'')[0]||'')+((p[1]||'')[0]||'')).toUpperCase();};
+  if(!cls.length){ body.innerHTML='<tr><td colspan="7" style="padding:30px;text-align:center;color:rgb(154,164,184);font-size:13px">Sin clientes todavía.</td></tr>'; return; }
+  body.innerHTML=cls.map(function(c){
+    const ch=CH[c.intake_channel]||{l:c.intake_channel||'—',d:'rgb(105, 117, 141)'};
+    const orders=(c.orders&&c.orders[0]&&c.orders[0].count)||0;
+    const conf=!!c.active;
+    const mapBg=conf?'rgb(233, 248, 242)':'rgb(253, 244, 228)', mapC=conf?'rgb(14, 127, 95)':'rgb(154, 98, 6)', mapB=conf?'rgb(201, 233, 220)':'rgb(243, 221, 180)', mapD=conf?'rgb(16, 185, 129)':'rgb(245, 158, 11)', mapL=conf?'Configurado':'Borrador';
+    const est=c.active?'Activo':'Inactivo', estC=c.active?'rgb(14, 127, 95)':'rgb(105, 117, 141)';
+    return '<tr style="cursor: pointer;">'
+     +'<td style="padding: 12px 10px 12px 18px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; font-weight: 600; min-width: 210px;"><span style="display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 5px; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 10px; font-weight: 700; flex: 0 0 auto; background: rgb(14, 31, 61); color: rgb(255, 255, 255); margin-right: 9px; vertical-align: middle;">'+esc(initials(c.name))+'</span>'+esc(c.name)+'</td>'
+     +'<td style="padding: 12px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle;"><span style="font-size: 12.5px; font-weight: 600; color: rgb(58, 70, 95); white-space: nowrap;">'+esc(PLANT[arche]||'—')+'</span></td>'
+     +'<td style="padding: 12px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle;"><span style="display: inline-flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 700; color: rgb(58, 70, 95); white-space: nowrap;"><span style="display: inline-block; width: 7px; height: 7px; border-radius: 2px; flex: 0 0 auto; background: '+ch.d+';"></span>'+esc(ch.l)+'</span></td>'
+     +'<td style="padding: 12px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; text-align: right; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-weight: 600; font-variant-numeric: tabular-nums;">'+orders+'</td>'
+     +'<td style="padding: 12px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle;"><span style="display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 3px; white-space: nowrap; background: '+mapBg+'; color: '+mapC+'; border: 1px solid '+mapB+';"><span style="width: 5px; height: 5px; border-radius: 50%; flex: 0 0 auto; background: '+mapD+';"></span>'+mapL+'</span></td>'
+     +'<td style="padding: 12px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle;"><span style="font-size: 11.5px; font-weight: 700; letter-spacing: 0.02em; color: '+estC+';">'+est+'</span></td>'
+     +'<td style="padding: 12px 18px 12px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; text-align: right; white-space: nowrap;"><button style="font-family: inherit; font-size: 12px; font-weight: 700; border-radius: 4px; padding: 6px 11px; cursor: pointer; background: rgb(255, 255, 255); color: rgb(19, 32, 56); border: 1px solid rgb(221, 225, 233);">Configurar</button></td>'
+     +'</tr>';
+  }).join('');
+})();
+</script>
 </body></html>

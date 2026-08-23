@@ -68,10 +68,10 @@ input::placeholder{color:#9aa4b8}
 
     <div style="margin: 0px 16px 6px; padding: 11px 13px 12px; background: rgb(21, 41, 74); border: 1px solid rgb(33, 52, 88); border-radius: 8px;">
       <div style="display: flex; align-items: center; gap: 9px;">
-        <span style="width: 23px; height: 23px; border-radius: 5px; background: rgb(37, 99, 235); display: grid; place-items: center; font-weight: 800; font-size: 12px; color: rgb(255, 255, 255); flex: 0 0 auto;">H</span>
-        <span style="font-weight: 700; font-size: 14px; color: rgb(255, 255, 255);">HCL Express</span>
+        <span style="width: 23px; height: 23px; border-radius: 5px; background: rgb(37, 99, 235); display: grid; place-items: center; font-weight: 800; font-size: 12px; color: rgb(255, 255, 255); flex: 0 0 auto;" id="rt-tavatar">H</span>
+        <span id="rt-tname" style="font-weight: 700; font-size: 14px; color: rgb(255, 255, 255);">HCL Express</span>
       </div>
-      <div style="font-size: 11.5px; color: rgb(126, 145, 183); margin-top: 5px; padding-left: 32px; letter-spacing: 0.01em;">Courier · GLS Alcalá</div>
+      <div id="rt-tsub" style="font-size: 11.5px; color: rgb(126, 145, 183); margin-top: 5px; padding-left: 32px; letter-spacing: 0.01em;">Courier · GLS Alcalá</div>
     </div>
 
     <nav style="padding: 6px 14px; display: flex; flex-direction: column;">
@@ -111,7 +111,7 @@ input::placeholder{color:#9aa4b8}
         <span style="position: absolute; top: 7px; right: 8px; width: 6px; height: 6px; border-radius: 50%; background: rgb(239, 68, 68); border: 1.5px solid rgb(255, 255, 255);"></span>
       </button>
       <div style="display: flex; align-items: center; gap: 9px; padding-left: 3px;">
-        <div style="width: 36px; height: 36px; border-radius: 6px; background: rgb(14, 31, 61); color: rgb(255, 255, 255); display: grid; place-items: center; font-weight: 700; font-size: 12px; font-family: &quot;JetBrains Mono&quot;, monospace;">JG</div>
+        <div style="width: 36px; height: 36px; border-radius: 6px; background: rgb(14, 31, 61); color: rgb(255, 255, 255); display: grid; place-items: center; font-weight: 700; font-size: 12px; font-family: &quot;JetBrains Mono&quot;, monospace;" id="rt-uinit">JG</div>
       </div>
     </header>
 
@@ -183,7 +183,7 @@ input::placeholder{color:#9aa4b8}
           <div style="display: flex; align-items: baseline; justify-content: space-between; padding: 14px 18px 12px; border-bottom: 1px solid rgb(232, 234, 239); gap: 12px; flex-wrap: wrap;">
             <div>
               <span style="font-family: Newsreader, Georgia, serif; font-size: 17px; font-weight: 500;">Registro de incidencias</span>
-              <span style="display: block; font-size: 12px; font-weight: 600; color: rgb(105, 117, 141); margin-top: 2px;"><span class="sc-interp">13 incidencias · todos los tipos</span></span>
+              <span style="display: block; font-size: 12px; font-weight: 600; color: rgb(105, 117, 141); margin-top: 2px;"><span class="sc-interp" id="rt-inc-count">13 incidencias · todos los tipos</span></span>
             </div>
             <span style="font-size: 12.5px; color: rgb(154, 164, 184); font-family: Newsreader, Georgia, serif; font-style: italic;"><span class="sc-interp">ordenadas por prioridad</span></span>
           </div>
@@ -203,7 +203,7 @@ input::placeholder{color:#9aa4b8}
                   <th style="text-align: right; padding: 9px 18px 9px 10px; background: rgb(250, 251, 252); border-bottom: 1px solid rgb(221, 225, 233); font-size: 9.5px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: rgb(105, 117, 141); white-space: nowrap;">Acción</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody id="rt-inc-body">
                 
                   <tr style="cursor: pointer; box-shadow: rgb(37, 99, 235) 2px 0px 0px inset;">
                     <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; background: rgb(247, 250, 255); font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 12px; font-weight: 600; white-space: nowrap; color: rgb(19, 32, 56);"><span class="sc-interp">WM-4455</span><span style="display: block; font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 10.5px; color: rgb(154, 164, 184); font-weight: 500; margin-top: 1px;"><span class="sc-interp">INC-0412</span></span></td>
@@ -485,4 +485,57 @@ input::placeholder{color:#9aa4b8}
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>(async()=>{try{const db=supabase.createClient("https://bcfeawgxswvtlklrkzii.supabase.co","sb_publishable_eSca9huQfloG321aY7UV9A_m50pucxw");const{data:{session}}=await db.auth.getSession();if(!session){location.replace("/login");return;}window.__db=db;}catch(e){}document.documentElement.style.visibility="";})();</script>
+<script id="rt-hydrate">
+(async function(){
+  const U="https://bcfeawgxswvtlklrkzii.supabase.co",K="sb_publishable_eSca9huQfloG321aY7UV9A_m50pucxw";
+  let n=0; while(!window.supabase && n++<60){ await new Promise(r=>setTimeout(r,80)); }
+  const db = window.__db || (window.supabase && window.supabase.createClient(U,K)); if(!db) return;
+  const $=id=>document.getElementById(id);
+  const A={courier:'Courier','3pl':'3PL',almacen:'Almac\u00e9n'};
+  try{
+    const {data:{user}}=await db.auth.getUser();
+    const {data:tn}=await db.from('tenants').select('name,archetype').limit(1);
+    const t=tn&&tn[0];
+    if(t){ if($('rt-tname'))$('rt-tname').textContent=t.name; if($('rt-tsub'))$('rt-tsub').textContent=A[t.archetype]||t.archetype; if($('rt-tavatar'))$('rt-tavatar').textContent=(t.name||'?').trim().charAt(0).toUpperCase(); }
+    if(user&&$('rt-uinit')){ const p=(user.email||'').split('@')[0].split(/[._-]+/).filter(Boolean); let i=((p[0]||'')[0]||'')+((p[1]||'')[0]||''); if(!i)i=(user.email||'?').slice(0,2); $('rt-uinit').textContent=i.toUpperCase(); }
+  }catch(e){}
+})();
+</script>
+<script id="rt-incidents">
+(async function(){
+  const U="https://bcfeawgxswvtlklrkzii.supabase.co", K="sb_publishable_eSca9huQfloG321aY7UV9A_m50pucxw";
+  let n=0; while(!window.supabase && n++<60){ await new Promise(r=>setTimeout(r,80)); }
+  const db=window.__db||(window.supabase&&window.supabase.createClient(U,K)); if(!db) return;
+  const $=id=>document.getElementById(id);
+  const body=$('rt-inc-body'); if(!body) return;
+  const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+  const TIPO={direccion:{l:'Dirección',d:'rgb(37, 99, 235)'},paqueteria:{l:'Paquetería',d:'rgb(245, 158, 11)'},stock:{l:'Stock',d:'rgb(21, 41, 74)'},pago:{l:'Pago',d:'rgb(239, 68, 68)'},cliente:{l:'Cliente',d:'rgb(16, 185, 129)'},otro:{l:'Otro',d:'rgb(105, 117, 141)'}};
+  const PRIO={alta:{bg:'rgb(253, 238, 238)',c:'rgb(197, 48, 48)',b:'rgb(246, 207, 207)'},media:{bg:'rgb(253, 244, 228)',c:'rgb(154, 98, 6)',b:'rgb(243, 221, 180)'},baja:{bg:'rgb(240, 242, 245)',c:'rgb(105, 117, 141)',b:'rgb(221, 225, 233)'}};
+  const EST={abierta:{l:'Abierta',bg:'rgb(253, 238, 238)',c:'rgb(197, 48, 48)',b:'rgb(246, 207, 207)',d:'rgb(239, 68, 68)'},en_curso:{l:'En curso',bg:'rgb(253, 244, 228)',c:'rgb(154, 98, 6)',b:'rgb(243, 221, 180)',d:'rgb(245, 158, 11)'},resuelta:{l:'Resuelta',bg:'rgb(233, 248, 242)',c:'rgb(14, 127, 95)',b:'rgb(201, 233, 220)',d:'rgb(16, 185, 129)'}};
+  const ago=iso=>{const s=(Date.now()-new Date(iso).getTime())/1000;if(s<90)return 'hace 1 min';const m=Math.floor(s/60);if(m<60)return 'hace '+m+' min';const h=Math.floor(m/60);if(h<24)return 'hace '+h+' h';return 'hace '+Math.floor(h/24)+' d';};
+  const ini=nm=>{const p=(nm||'').trim().split(/\s+/);return (((p[0]||'')[0]||'')+((p[1]||'')[0]||'')).toUpperCase();};
+  const {data:rows,error}=await db.from('incidents').select('tipo,prioridad,descripcion,estado,responsable,created_at,orders(external_ref,ship_to,clients(name))').order('created_at',{ascending:false});
+  if(error){ body.innerHTML='<tr><td colspan="9" style="padding:22px;text-align:center;color:#c53030;font-size:12.5px">Error: '+esc(error.message)+'</td></tr>'; return; }
+  if($('rt-inc-count')) $('rt-inc-count').textContent=rows.length+' incidencia'+(rows.length===1?'':'s')+' · todos los tipos';
+  if(!rows.length){ body.innerHTML='<tr><td colspan="9" style="padding:30px;text-align:center;color:rgb(154,164,184);font-size:13px">Sin incidencias abiertas.</td></tr>'; return; }
+  const BB='border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle;';
+  body.innerHTML=rows.map(function(r){
+    const o=r.orders||{}; const dest=o.ship_to||{}; const cli=(o.clients&&o.clients.name)||'—';
+    const tp=TIPO[r.tipo]||TIPO.otro; const pr=PRIO[r.prioridad]||PRIO.media; const es=EST[r.estado]||EST.abierta;
+    const loc=[dest.city,dest.postal].filter(Boolean).join(' · ');
+    const resp=r.responsable||'';
+    return '<tr style="cursor: pointer;">'
+     +'<td style="padding: 11px 10px; '+BB+' font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 12px; font-weight: 600; white-space: nowrap; color: rgb(19, 32, 56);">'+esc(o.external_ref||'—')+'</td>'
+     +'<td style="padding: 11px 10px; '+BB+' font-weight: 600; min-width: 150px;">'+esc(cli)+'<span style="display: block; font-size: 11px; font-weight: 500; color: rgb(154, 164, 184); margin-top: 1px;">'+esc(loc)+'</span></td>'
+     +'<td style="padding: 11px 10px; '+BB+'"><span style="display: inline-flex; align-items: center; gap: 7px; font-size: 11.5px; font-weight: 700; white-space: nowrap; color: rgb(58, 70, 95);"><span style="display: inline-block; width: 7px; height: 7px; border-radius: 2px; flex: 0 0 auto; background: '+tp.d+';"></span>'+esc(tp.l)+'</span></td>'
+     +'<td style="padding: 11px 10px; '+BB+'"><span style="display: inline-block; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 7px; border-radius: 3px; background: '+pr.bg+'; color: '+pr.c+'; border: 1px solid '+pr.b+';">'+esc(r.prioridad)+'</span></td>'
+     +'<td style="padding: 11px 10px; '+BB+' color: rgb(58, 70, 95); min-width: 180px;"><span style="display: block; max-width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">'+esc(r.descripcion||'')+'</span></td>'
+     +'<td style="padding: 11px 10px; '+BB+' color: rgb(105, 117, 141); font-size: 12.5px; white-space: nowrap;">'+esc(ago(r.created_at))+'</td>'
+     +'<td style="padding: 11px 10px; '+BB+'"><span style="display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 3px; white-space: nowrap; background: '+es.bg+'; color: '+es.c+'; border: 1px solid '+es.b+';"><span style="width: 5px; height: 5px; border-radius: 50%; flex: 0 0 auto; background: '+es.d+';"></span>'+esc(es.l)+'</span></td>'
+     +'<td style="padding: 11px 10px; '+BB+'"><span style="display: inline-flex; align-items: center; gap: 7px; font-size: 12px; white-space: nowrap; color: rgb(58, 70, 95); font-weight: 600;"><span style="display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 4px; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 9.5px; font-weight: 700; flex: 0 0 auto; background: rgb(240, 242, 245); color: rgb(58, 70, 95);">'+(resp?esc(ini(resp)):'—')+'</span>'+(resp?esc(resp):'sin asignar')+'</span></td>'
+     +'<td style="padding: 11px 18px 11px 10px; '+BB+' text-align: right; white-space: nowrap;"><button style="font-family: inherit; font-size: 12px; font-weight: 700; border-radius: 4px; padding: 6px 11px; cursor: pointer; background: rgb(37, 99, 235); color: rgb(255, 255, 255); border: 1px solid rgb(37, 99, 235);">Gestionar</button></td>'
+     +'</tr>';
+  }).join('');
+})();
+</script>
 </body></html>

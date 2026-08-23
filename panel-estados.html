@@ -68,10 +68,10 @@ input::placeholder{color:#9aa4b8}
 
     <div style="margin: 0px 16px 6px; padding: 11px 13px 12px; background: rgb(21, 41, 74); border: 1px solid rgb(33, 52, 88); border-radius: 8px;">
       <div style="display: flex; align-items: center; gap: 9px;">
-        <span style="width: 23px; height: 23px; border-radius: 5px; background: rgb(37, 99, 235); display: grid; place-items: center; font-weight: 800; font-size: 12px; color: rgb(255, 255, 255); flex: 0 0 auto;">H</span>
-        <span style="font-weight: 700; font-size: 14px; color: rgb(255, 255, 255);">HCL Express</span>
+        <span style="width: 23px; height: 23px; border-radius: 5px; background: rgb(37, 99, 235); display: grid; place-items: center; font-weight: 800; font-size: 12px; color: rgb(255, 255, 255); flex: 0 0 auto;" id="rt-tavatar">H</span>
+        <span id="rt-tname" style="font-weight: 700; font-size: 14px; color: rgb(255, 255, 255);">HCL Express</span>
       </div>
-      <div style="font-size: 11.5px; color: rgb(126, 145, 183); margin-top: 5px; padding-left: 32px; letter-spacing: 0.01em;">Courier · GLS Alcalá</div>
+      <div id="rt-tsub" style="font-size: 11.5px; color: rgb(126, 145, 183); margin-top: 5px; padding-left: 32px; letter-spacing: 0.01em;">Courier · GLS Alcalá</div>
     </div>
 
     <nav style="padding: 6px 14px; display: flex; flex-direction: column;">
@@ -111,7 +111,7 @@ input::placeholder{color:#9aa4b8}
         <span style="position: absolute; top: 7px; right: 8px; width: 6px; height: 6px; border-radius: 50%; background: rgb(239, 68, 68); border: 1.5px solid rgb(255, 255, 255);"></span>
       </button>
       <div style="display: flex; align-items: center; gap: 9px; padding-left: 3px;">
-        <div style="width: 36px; height: 36px; border-radius: 6px; background: rgb(14, 31, 61); color: rgb(255, 255, 255); display: grid; place-items: center; font-weight: 700; font-size: 12px; font-family: &quot;JetBrains Mono&quot;, monospace;">JG</div>
+        <div style="width: 36px; height: 36px; border-radius: 6px; background: rgb(14, 31, 61); color: rgb(255, 255, 255); display: grid; place-items: center; font-weight: 700; font-size: 12px; font-family: &quot;JetBrains Mono&quot;, monospace;" id="rt-uinit">JG</div>
       </div>
     </header>
 
@@ -143,7 +143,7 @@ input::placeholder{color:#9aa4b8}
 
       <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start; min-width: 0px;">
 
-        <div style="display: flex; gap: 13px; overflow-x: auto; padding-bottom: 8px; align-items: flex-start; min-width: 0px; flex: 1 1 700px;">
+        <div id="rt-board" style="display: flex; gap: 13px; overflow-x: auto; padding-bottom: 8px; align-items: flex-start; min-width: 0px; flex: 1 1 700px;">
           
             <div style="display: flex; flex: 1 1 244px; min-width: 236px;">
               <div style="flex: 1 1 auto; min-width: 0px; background: rgb(250, 251, 252); border: 1px solid rgb(232, 234, 239); border-radius: 6px; overflow: hidden; box-shadow: rgba(19, 32, 56, 0.04) 0px 1px 2px;">
@@ -687,4 +687,68 @@ input::placeholder{color:#9aa4b8}
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>(async()=>{try{const db=supabase.createClient("https://bcfeawgxswvtlklrkzii.supabase.co","sb_publishable_eSca9huQfloG321aY7UV9A_m50pucxw");const{data:{session}}=await db.auth.getSession();if(!session){location.replace("/login");return;}window.__db=db;}catch(e){}document.documentElement.style.visibility="";})();</script>
+<script id="rt-hydrate">
+(async function(){
+  const U="https://bcfeawgxswvtlklrkzii.supabase.co",K="sb_publishable_eSca9huQfloG321aY7UV9A_m50pucxw";
+  let n=0; while(!window.supabase && n++<60){ await new Promise(r=>setTimeout(r,80)); }
+  const db = window.__db || (window.supabase && window.supabase.createClient(U,K)); if(!db) return;
+  const $=id=>document.getElementById(id);
+  const A={courier:'Courier','3pl':'3PL',almacen:'Almac\u00e9n'};
+  try{
+    const {data:{user}}=await db.auth.getUser();
+    const {data:tn}=await db.from('tenants').select('name,archetype').limit(1);
+    const t=tn&&tn[0];
+    if(t){ if($('rt-tname'))$('rt-tname').textContent=t.name; if($('rt-tsub'))$('rt-tsub').textContent=A[t.archetype]||t.archetype; if($('rt-tavatar'))$('rt-tavatar').textContent=(t.name||'?').trim().charAt(0).toUpperCase(); }
+    if(user&&$('rt-uinit')){ const p=(user.email||'').split('@')[0].split(/[._-]+/).filter(Boolean); let i=((p[0]||'')[0]||'')+((p[1]||'')[0]||''); if(!i)i=(user.email||'?').slice(0,2); $('rt-uinit').textContent=i.toUpperCase(); }
+  }catch(e){}
+})();
+</script>
+<script id="rt-board-wire">
+(async function(){
+  const U="https://bcfeawgxswvtlklrkzii.supabase.co", K="sb_publishable_eSca9huQfloG321aY7UV9A_m50pucxw";
+  let n=0; while(!window.supabase && n++<60){ await new Promise(r=>setTimeout(r,80)); }
+  const db=window.__db||(window.supabase&&window.supabase.createClient(U,K)); if(!db) return;
+  const board=document.getElementById('rt-board'); if(!board) return;
+  const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+  const ago=iso=>{const s=(Date.now()-new Date(iso).getTime())/1000;if(s<90)return 'hace 1 min';const m=Math.floor(s/60);if(m<60)return 'hace '+m+' min';const h=Math.floor(m/60);if(h<24)return 'hace '+h+' h';return 'hace '+Math.floor(h/24)+' d';};
+  const COLS=[
+    {k:'recibido',l:'Recibido',ac:'rgb(245, 158, 11)'},
+    {k:'picking',l:'En preparación',ac:'rgb(37, 99, 235)'},
+    {k:'picked',l:'Preparado',ac:'rgb(99, 102, 241)'},
+    {k:'enviado',l:'Enviado',ac:'rgb(16, 185, 129)'},
+    {k:'incidencia',l:'Incidencia',ac:'rgb(239, 68, 68)'}
+  ];
+  const {data:orders,error}=await db.from('orders').select('external_ref,status,created_at,ship_to,clients(name),order_items(qty)').order('created_at',{ascending:true});
+  if(error){ board.innerHTML='<div style="padding:20px;color:#c53030;font-size:12.5px">Error: '+esc(error.message)+'</div>'; return; }
+  const by={}; COLS.forEach(c=>by[c.k]=[]);
+  (orders||[]).forEach(o=>{ (by[o.status]||(by[o.status]=[])).push(o); });
+  const card=o=>{
+    const dest=o.ship_to||{}; const cli=(o.clients&&o.clients.name)||'—';
+    const bultos=(o.order_items||[]).reduce((a,i)=>a+(i.qty||0),0)||1;
+    return '<div style="background: rgb(255, 255, 255); border: 1px solid rgb(227, 230, 236); border-radius: 5px; padding: 11px 12px; box-shadow: rgba(19, 32, 56, 0.04) 0px 1px 1px;">'
+      +'<div style="display: flex; align-items: center; gap: 8px;">'
+      +'<span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 12.5px; font-weight: 700; letter-spacing: -0.01em;">'+esc(o.external_ref||'—')+'</span>'
+      +'<span style="margin-left: auto; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 11px; font-weight: 700; padding: 2px 6px; border-radius: 3px; white-space: nowrap; background: rgb(245, 246, 248); color: rgb(105, 117, 141); border: 1px solid rgb(232, 234, 239);">'+esc(ago(o.created_at))+'</span>'
+      +'</div>'
+      +'<div style="font-size: 13px; font-weight: 600; margin-top: 7px; line-height: 1.3;">'+esc(cli)+'</div>'
+      +'<div style="font-size: 12px; color: rgb(105, 117, 141); margin-top: 2px;">'+esc(dest.city||'—')+'<span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11px; color: rgb(154, 164, 184); margin-left: 6px;">'+esc(dest.postal||'')+'</span></div>'
+      +'<div style="display: flex; align-items: center; gap: 9px; margin-top: 9px; padding-top: 8px; border-top: 1px solid rgb(240, 242, 245);"><span style="display: flex; align-items: center; gap: 5px; color: rgb(105, 117, 141); flex: 0 0 auto;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 2 3 7v10l9 5 9-5V7z"></path><path d="M3 7l9 5 9-5"></path></svg><span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11.5px; font-weight: 600;">'+bultos+' bultos</span></span></div>'
+      +'</div>';
+  };
+  board.innerHTML=COLS.map(c=>{
+    const items=by[c.k]||[];
+    const cards=items.length?items.map(card).join(''):'<div style="padding: 14px 4px; text-align:center; color: rgb(180, 188, 202); font-size: 11.5px;">—</div>';
+    return '<div style="display: flex; flex: 1 1 244px; min-width: 236px;">'
+      +'<div style="flex: 1 1 auto; min-width: 0px; background: rgb(250, 251, 252); border: 1px solid rgb(232, 234, 239); border-radius: 6px; overflow: hidden; box-shadow: rgba(19, 32, 56, 0.04) 0px 1px 2px;">'
+      +'<div style="height: 2px; background: '+c.ac+';"></div>'
+      +'<div style="display: flex; align-items: center; gap: 8px; padding: 10px 12px 9px; background: rgb(255, 255, 255); border-bottom: 1px solid rgb(232, 234, 239);">'
+      +'<span style="width: 7px; height: 7px; border-radius: 50%; flex: 0 0 auto; background: '+c.ac+';"></span>'
+      +'<span style="font-size: 11px; font-weight: 800; letter-spacing: 0.07em; text-transform: uppercase; color: rgb(58, 70, 95); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">'+esc(c.l)+'</span>'
+      +'<span style="margin-left: auto; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 11.5px; font-weight: 700; color: rgb(58, 70, 95); font-variant-numeric: tabular-nums;">'+items.length+'</span>'
+      +'</div>'
+      +'<div style="padding: 10px; display: flex; flex-direction: column; gap: 9px; min-height: 120px;">'+cards+'</div>'
+      +'</div></div>';
+  }).join('');
+})();
+</script>
 </body></html>

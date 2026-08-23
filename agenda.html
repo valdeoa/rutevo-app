@@ -68,10 +68,10 @@ input::placeholder{color:#9aa4b8}
 
     <div style="margin: 0px 16px 6px; padding: 11px 13px 12px; background: rgb(21, 41, 74); border: 1px solid rgb(33, 52, 88); border-radius: 8px;">
       <div style="display: flex; align-items: center; gap: 9px;">
-        <span style="width: 23px; height: 23px; border-radius: 5px; background: rgb(37, 99, 235); display: grid; place-items: center; font-weight: 800; font-size: 12px; color: rgb(255, 255, 255); flex: 0 0 auto;">H</span>
-        <span style="font-weight: 700; font-size: 14px; color: rgb(255, 255, 255);">HCL Express</span>
+        <span style="width: 23px; height: 23px; border-radius: 5px; background: rgb(37, 99, 235); display: grid; place-items: center; font-weight: 800; font-size: 12px; color: rgb(255, 255, 255); flex: 0 0 auto;" id="rt-tavatar">H</span>
+        <span id="rt-tname" style="font-weight: 700; font-size: 14px; color: rgb(255, 255, 255);">HCL Express</span>
       </div>
-      <div style="font-size: 11.5px; color: rgb(126, 145, 183); margin-top: 5px; padding-left: 32px; letter-spacing: 0.01em;">Courier · GLS Alcalá</div>
+      <div id="rt-tsub" style="font-size: 11.5px; color: rgb(126, 145, 183); margin-top: 5px; padding-left: 32px; letter-spacing: 0.01em;">Courier · GLS Alcalá</div>
     </div>
 
     <nav style="padding: 6px 14px; display: flex; flex-direction: column;">
@@ -111,7 +111,7 @@ input::placeholder{color:#9aa4b8}
         <span style="position: absolute; top: 7px; right: 8px; width: 6px; height: 6px; border-radius: 50%; background: rgb(239, 68, 68); border: 1.5px solid rgb(255, 255, 255);"></span>
       </button>
       <div style="display: flex; align-items: center; gap: 9px; padding-left: 3px;">
-        <div style="width: 36px; height: 36px; border-radius: 6px; background: rgb(14, 31, 61); color: rgb(255, 255, 255); display: grid; place-items: center; font-weight: 700; font-size: 12px; font-family: &quot;JetBrains Mono&quot;, monospace;">JG</div>
+        <div style="width: 36px; height: 36px; border-radius: 6px; background: rgb(14, 31, 61); color: rgb(255, 255, 255); display: grid; place-items: center; font-weight: 700; font-size: 12px; font-family: &quot;JetBrains Mono&quot;, monospace;" id="rt-uinit">JG</div>
       </div>
     </header>
 
@@ -159,7 +159,7 @@ input::placeholder{color:#9aa4b8}
           </div>
           <div style="font-size: 12.5px; color: rgb(19, 32, 56); margin-top: 7px; font-weight: 600;">Clínica Dental Sanz</div>
           <div style="font-size: 12px; color: rgb(105, 117, 141); margin-top: 1px;">Corte <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 600; color: rgb(239, 68, 68);">16:00</span> · 3 bultos sin asignar</div>
-          <button class="scp2" style="margin-top: 11px; font-style: inherit; font-variant: inherit; font-weight: 700; font-stretch: inherit; font-size: 11.5px; line-height: inherit; font-family: inherit; font-optical-sizing: inherit; font-size-adjust: inherit; font-kerning: inherit; font-feature-settings: inherit; font-variation-settings: inherit; color: rgb(19, 32, 56); background: rgb(255, 255, 255); border: 1px solid rgb(221, 225, 233); border-radius: 4px; padding: 5px 9px; cursor: pointer;">Asignar mensajero →</button>
+          <button class="scp2" style="margin-top: 11px; font-style: inherit; font-variant: inherit; font-weight: 700; font-stretch: inherit; font-size: 11.5px; line-height: inherit; font-family: inherit; font-optical-sizing: inherit; font-size-adjust: inherit; font-kerning: inherit; font-feature-settings: inherit; font-variation-settings: inherit; color: rgb(19, 32, 56); background: rgb(255, 255, 255); border: 1px solid rgb(221, 225, 233); border-radius: 4px; padding: 5px 9px; cursor: pointer;">Ver pedidos en riesgo →</button>
         </div>
       </div>
 
@@ -167,7 +167,7 @@ input::placeholder{color:#9aa4b8}
         <div style="display: flex; align-items: flex-end; justify-content: space-between; padding: 15px 20px 13px; border-bottom: 1px solid rgb(232, 234, 239); gap: 14px; flex-wrap: wrap;">
           <div>
             <span style="font-family: Newsreader, Georgia, serif; font-size: 17px; font-weight: 500; letter-spacing: -0.005em;">Qué hay que entregar cada día</span>
-            <span style="display: block; font-size: 12px; font-weight: 600; color: rgb(105, 117, 141); margin-top: 2px; letter-spacing: 0.01em;"><span class="sc-interp">Agencia mensajería — HCL Express</span></span>
+            <span style="display: block; font-size: 12px; font-weight: 600; color: rgb(105, 117, 141); margin-top: 2px; letter-spacing: 0.01em;"><span class="sc-interp">Pedidos por fecha de entrega prevista</span></span>
           </div>
           <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap; justify-content: flex-end; min-width: 0px;">
             <div style="display: flex; align-items: center; gap: 9px; flex-wrap: wrap; min-width: 0px; border: 1px dashed rgb(207, 213, 224); border-radius: 5px; padding: 5px 10px;">
@@ -188,7 +188,7 @@ input::placeholder{color:#9aa4b8}
         </div>
 
         <div style="overflow-x: auto;">
-          <table style="border-collapse: separate; border-spacing: 0px; width: 100%; font-size: 12.5px;">
+          <table id="rt-agenda" style="border-collapse: separate; border-spacing: 0px; width: 100%; font-size: 12.5px;">
             <thead>
               <tr>
                 <th style="position: sticky; left: 0px; z-index: 4; text-align: left; padding: 9px 9px 9px 20px; min-width: 214px; background: rgb(250, 251, 252); font-size: 10px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: rgb(105, 117, 141); border-bottom: 1px solid rgb(221, 225, 233);">Estado</th>
@@ -916,4 +916,79 @@ input::placeholder{color:#9aa4b8}
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>(async()=>{try{const db=supabase.createClient("https://bcfeawgxswvtlklrkzii.supabase.co","sb_publishable_eSca9huQfloG321aY7UV9A_m50pucxw");const{data:{session}}=await db.auth.getSession();if(!session){location.replace("/login");return;}window.__db=db;}catch(e){}document.documentElement.style.visibility="";})();</script>
-</body></html>
+<script id="rt-hydrate">
+(async function(){
+  const U="https://bcfeawgxswvtlklrkzii.supabase.co",K="sb_publishable_eSca9huQfloG321aY7UV9A_m50pucxw";
+  let n=0; while(!window.supabase && n++<60){ await new Promise(r=>setTimeout(r,80)); }
+  const db = window.__db || (window.supabase && window.supabase.createClient(U,K)); if(!db) return;
+  const $=id=>document.getElementById(id);
+  const A={courier:'Courier','3pl':'3PL',almacen:'Almac\u00e9n'};
+  try{
+    const {data:{user}}=await db.auth.getUser();
+    const {data:tn}=await db.from('tenants').select('name,archetype').limit(1);
+    const t=tn&&tn[0];
+    if(t){ if($('rt-tname'))$('rt-tname').textContent=t.name; if($('rt-tsub'))$('rt-tsub').textContent=A[t.archetype]||t.archetype; if($('rt-tavatar'))$('rt-tavatar').textContent=(t.name||'?').trim().charAt(0).toUpperCase(); }
+    if(user&&$('rt-uinit')){ const p=(user.email||'').split('@')[0].split(/[._-]+/).filter(Boolean); let i=((p[0]||'')[0]||'')+((p[1]||'')[0]||''); if(!i)i=(user.email||'?').slice(0,2); $('rt-uinit').textContent=i.toUpperCase(); }
+  }catch(e){}
+})();
+</script>
+<script id="rt-agenda-wire">
+(async function(){
+  const U="https://bcfeawgxswvtlklrkzii.supabase.co", K="sb_publishable_eSca9huQfloG321aY7UV9A_m50pucxw";
+  let n=0; while(!window.supabase && n++<60){ await new Promise(r=>setTimeout(r,80)); }
+  const db=window.__db||(window.supabase&&window.supabase.createClient(U,K)); if(!db) return;
+  const table=document.getElementById('rt-agenda'); if(!table) return;
+  const NDAYS=16, DAYMS=86400000;
+  const WD=['D','L','M','X','J','V','S'], MES=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+  const today=new Date(); today.setHours(0,0,0,0);
+  const days=[]; for(let k=0;k<NDAYS;k++){ days.push(new Date(today.getTime()+k*DAYMS)); }
+  const GROUPS=[
+    {t:'Recepción', bar:'rgb(245, 158, 11)', rows:[{k:'recibido',l:'Recibido',dot:'rgb(245, 158, 11)'}]},
+    {t:'Preparación', bar:'rgb(37, 99, 235)', rows:[{k:'picking',l:'En preparación',dot:'rgb(37, 99, 235)'},{k:'picked',l:'Preparado',dot:'rgb(99, 102, 241)'}]},
+    {t:'Salida', bar:'rgb(16, 185, 129)', rows:[{k:'enviado',l:'Enviado',dot:'rgb(16, 185, 129)'}]},
+    {t:'Incidencias', bar:'rgb(239, 68, 68)', rows:[{k:'incidencia',l:'Incidencia',dot:'rgb(239, 68, 68)'}]}
+  ];
+  const {data:orders,error}=await db.from('orders').select('status,created_at,clients(sla_days)');
+  const M={}; GROUPS.forEach(g=>g.rows.forEach(r=>{M[r.k]=new Array(NDAYS).fill(0);}));
+  if(!error){ (orders||[]).forEach(o=>{
+    if(!M[o.status]) return;
+    const cr=new Date(o.created_at); cr.setHours(0,0,0,0);
+    const sla=(o.clients&&o.clients.sla_days!=null)?o.clients.sla_days:1;
+    let di=Math.round((cr.getTime()+sla*DAYMS-today.getTime())/DAYMS);
+    if(di<0)di=0; if(di>NDAYS-1) return;
+    M[o.status][di]++;
+  }); }
+  // THEAD
+  let thead='<thead><tr><th style="position: sticky; left: 0px; z-index: 4; text-align: left; padding: 9px 9px 9px 20px; min-width: 214px; background: rgb(250, 251, 252); font-size: 10px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: rgb(105, 117, 141); border-bottom: 1px solid rgb(221, 225, 233);">Estado</th>';
+  days.forEach(function(d,idx){
+    const isT=idx===0;
+    const wd=WD[d.getDay()];
+    const dn=(d.getDate()===1||isT)?(d.getDate()+' '+MES[d.getMonth()]):String(d.getDate());
+    const col=isT?'rgb(37, 99, 235)':'rgb(58, 70, 95)', wc=isT?'rgb(37, 99, 235)':'rgb(154, 164, 184)';
+    const bg=isT?'rgb(238, 243, 254)':'rgb(250, 251, 252)', bl=isT?'border-left: 1px solid rgb(221, 225, 233); ':'';
+    thead+='<th style="position: sticky; top: 0px; z-index: 3; padding: 7px 9px 6px; min-width: 56px; text-align: center; white-space: nowrap; border-bottom: 1px solid rgb(221, 225, 233); '+bl+'background: '+bg+';"><span style="display: block; font-size: 9px; font-weight: 800; letter-spacing: 0.1em; color: '+wc+';">'+wd+'</span><span style="display: block; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 12px; font-weight: 700; font-variant-numeric: tabular-nums; margin-top: 1px; color: '+col+';">'+dn+'</span>'+(isT?'<span style="display: block; font-size: 8px; font-weight: 800; letter-spacing: 0.12em; color: rgb(37, 99, 235); margin-top: 1px;">HOY</span>':'')+'</th>';
+  });
+  thead+='<th style="position: sticky; right: 0px; z-index: 4; background: rgb(250, 251, 252); border-left: 1px solid rgb(207, 213, 224); border-bottom: 1px solid rgb(221, 225, 233); padding: 9px 16px 9px 12px; font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(105, 117, 141); text-align: right; white-space: nowrap;">Σ rango</th></tr></thead>';
+  // BODY
+  function cell(count,isT){
+    const bg=isT?'rgb(238, 243, 254)':'rgb(255, 255, 255)', bl=isT?'border-left: 1px solid rgb(221, 225, 233); ':'';
+    const val=count>0?String(count):'·', col=count>0?'rgb(19, 32, 56)':'rgb(205, 211, 222)';
+    return '<td style="padding: 8px 11px; text-align: center; white-space: nowrap; border-bottom: 1px solid rgb(232, 234, 239); min-width: 56px; '+bl+'background: '+bg+';"><span style="font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-weight: 700; font-size: 12.5px; font-variant-numeric: tabular-nums; display: inline-block; min-width: 22px; color: '+col+';">'+val+'</span></td>';
+  }
+  const totalCols=NDAYS+2;
+  let body='<tbody>';
+  GROUPS.forEach(function(g){
+    let gtot=0; g.rows.forEach(r=>{gtot+=M[r.k].reduce((a,b)=>a+b,0);});
+    body+='<tr><td colspan="'+totalCols+'" style="position: sticky; left: 0px; z-index: 2; background: rgb(250, 251, 252); text-align: left; padding: 11px 9px 8px 20px; border-top: 1px solid rgb(221, 225, 233); border-bottom: 1px solid rgb(221, 225, 233); font-size: 10px; letter-spacing: 0.13em; text-transform: uppercase; font-weight: 800; color: rgb(58, 70, 95);"><span style="display: inline-block; width: 16px; height: 2px; margin-right: 11px; vertical-align: middle; background: '+g.bar+';"></span>'+g.t+'<span style="font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 9.5px; letter-spacing: 0.04em; text-transform: none; color: rgb(154, 164, 184); font-weight: 600; margin-left: 9px;">'+gtot+' en rango</span></td></tr>';
+    g.rows.forEach(function(r){
+      const arr=M[r.k]; const tot=arr.reduce((a,b)=>a+b,0);
+      let tr='<tr><td style="position: sticky; left: 0px; z-index: 2; background: rgb(255, 255, 255); text-align: left; padding: 8px 11px 8px 20px; font-weight: 600; color: rgb(19, 32, 56); min-width: 214px; border-bottom: 1px solid rgb(232, 234, 239); white-space: nowrap;"><span style="display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 11px; vertical-align: middle; background: '+r.dot+';"></span>'+r.l+'</td>';
+      arr.forEach((c,idx)=>{ tr+=cell(c,idx===0); });
+      tr+='<td style="position: sticky; right: 0px; z-index: 2; background: rgb(250, 251, 252); border-left: 1px solid rgb(207, 213, 224); border-bottom: 1px solid rgb(232, 234, 239); padding: 8px 16px 8px 12px; text-align: right; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-weight: 700; font-size: 12.5px; color: rgb(19, 32, 56);">'+tot+'</td></tr>';
+      body+=tr;
+    });
+  });
+  body+='</tbody>';
+  table.innerHTML=thead+body;
+})();
+</script></body></html>
