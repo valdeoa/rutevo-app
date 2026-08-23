@@ -99,7 +99,7 @@ input::placeholder{color:#9aa4b8}
     <header style="display: flex; align-items: center; gap: 16px; padding: 0px 28px; height: 66px; background: rgb(245, 246, 248); border-bottom: 1px solid rgb(232, 234, 239); position: sticky; top: 0px; z-index: 20;">
       <div style="display: flex; flex-direction: column; gap: 1px;">
         <h1 style="font-family: Newsreader, Georgia, serif; font-size: 21px; font-weight: 500; letter-spacing: -0.01em; line-height: 1.1; margin: 0px;">Incidencias</h1>
-        <span style="font-size: 11px; color: rgb(154, 164, 184);"><span style="color: rgb(197, 48, 48); font-weight: 700;"><span class="sc-interp">8</span> abiertas</span> · <span class="sc-interp">5</span> resueltas hoy</span>
+        <span style="font-size: 11px; color: rgb(154, 164, 184);"><span style="color: rgb(197, 48, 48); font-weight: 700;"><span class="sc-interp" id="rt-hdr-abiertas">8</span> abiertas</span> · <span class="sc-interp" id="rt-hdr-resueltas">5</span> resueltas hoy</span>
       </div>
       <div style="margin-left: auto; display: flex; align-items: center; gap: 9px; width: 330px; max-width: 32vw; background: rgb(255, 255, 255); border: 1px solid rgb(221, 225, 233); border-radius: 5px; padding: 8px 12px; color: rgb(105, 117, 141);">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3-3"></path></svg>
@@ -121,23 +121,23 @@ input::placeholder{color:#9aa4b8}
         <div style="background: rgb(255, 255, 255); padding: 14px 18px 13px; min-width: 0px; position: relative;">
           <span style="position: absolute; left: 0px; top: 0px; bottom: 0px; width: 2px; background: rgb(239, 68, 68);"></span>
           <div style="font-size: 10px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: rgb(105, 117, 141);">Abiertas</div>
-          <div style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 29px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.05; margin-top: 8px; font-variant-numeric: tabular-nums;"><span class="sc-interp">8</span></div>
-          <div style="font-size: 12px; color: rgb(105, 117, 141); margin-top: 4px;"><span class="sc-interp">3</span> de prioridad alta</div>
+          <div style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 29px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.05; margin-top: 8px; font-variant-numeric: tabular-nums;"><span class="sc-interp" id="rt-kpi-abiertas">8</span></div>
+          <div style="font-size: 12px; color: rgb(105, 117, 141); margin-top: 4px;"><span class="sc-interp" id="rt-kpi-alta-sub">3</span> de prioridad alta</div>
         </div>
         <div style="background: rgb(255, 255, 255); padding: 14px 18px 13px; min-width: 0px;">
-          <div style="font-size: 10px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: rgb(105, 117, 141);">Sin asignar</div>
-          <div style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 29px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.05; margin-top: 8px; color: rgb(185, 119, 8); font-variant-numeric: tabular-nums;"><span class="sc-interp">2</span></div>
+          <div style="font-size: 10px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: rgb(105, 117, 141);">En curso</div>
+          <div style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 29px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.05; margin-top: 8px; color: rgb(185, 119, 8); font-variant-numeric: tabular-nums;"><span class="sc-interp" id="rt-kpi-encurso">2</span></div>
           <div style="font-size: 12px; color: rgb(105, 117, 141); margin-top: 4px;">la más antigua lleva 6 h abierta</div>
         </div>
         <div style="background: rgb(255, 255, 255); padding: 14px 18px 13px; min-width: 0px; position: relative;">
           <span style="position: absolute; left: 0px; top: 0px; bottom: 0px; width: 2px; background: rgb(245, 158, 11);"></span>
-          <div style="font-size: 10px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: rgb(105, 117, 141);">En riesgo SLA</div>
-          <div style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 29px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.05; margin-top: 8px; color: rgb(239, 68, 68); font-variant-numeric: tabular-nums;"><span class="sc-interp">3</span></div>
+          <div style="font-size: 10px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: rgb(105, 117, 141);">Prioridad alta</div>
+          <div style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 29px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.05; margin-top: 8px; color: rgb(239, 68, 68); font-variant-numeric: tabular-nums;"><span class="sc-interp" id="rt-kpi-alta">3</span></div>
           <div style="font-size: 12px; color: rgb(105, 117, 141); margin-top: 4px;">bloquean el cierre del turno</div>
         </div>
         <div style="background: rgb(255, 255, 255); padding: 14px 18px 13px; min-width: 0px;">
-          <div style="font-size: 10px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: rgb(105, 117, 141);">Resueltas hoy</div>
-          <div style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 29px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.05; margin-top: 8px; color: rgb(14, 127, 95); font-variant-numeric: tabular-nums;"><span class="sc-interp">5</span></div>
+          <div style="font-size: 10px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: rgb(105, 117, 141);">Resueltas</div>
+          <div style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 29px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.05; margin-top: 8px; color: rgb(14, 127, 95); font-variant-numeric: tabular-nums;"><span class="sc-interp" id="rt-kpi-resueltas">5</span></div>
           <div style="font-size: 12px; color: rgb(105, 117, 141); margin-top: 4px;">media de cierre <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 600; color: rgb(19, 32, 56); white-space: nowrap;">2 h 15</span></div>
         </div>
       </div>
@@ -375,7 +375,7 @@ input::placeholder{color:#9aa4b8}
         </section>
 
         
-          <aside style="background: rgb(255, 255, 255); border: 1px solid rgb(232, 234, 239); border-radius: 6px; box-shadow: rgba(19, 32, 56, 0.05) 0px 1px 2px; align-self: flex-start; overflow: hidden; flex: 1 1 344px; max-width: 396px; min-width: 0px;">
+          <aside style="display: none; background: rgb(255, 255, 255); border: 1px solid rgb(232, 234, 239); border-radius: 6px; box-shadow: rgba(19, 32, 56, 0.05) 0px 1px 2px; align-self: flex-start; overflow: hidden; flex: 1 1 344px; max-width: 396px; min-width: 0px;">
             <div style="padding: 15px 18px 14px; border-bottom: 1px solid rgb(232, 234, 239);">
               <div style="display: flex; align-items: center; gap: 9px; flex-wrap: wrap;">
                 <span style="display: inline-flex; align-items: center; gap: 7px; font-size: 11.5px; font-weight: 700; white-space: nowrap; color: rgb(58, 70, 95);"><span style="display: inline-block; width: 9px; height: 9px; border-radius: 2px; flex: 0 0 auto; background: rgb(37, 99, 235);"></span><span class="sc-interp">Ausente</span></span>
@@ -517,6 +517,12 @@ input::placeholder{color:#9aa4b8}
   const {data:rows,error}=await db.from('incidents').select('tipo,prioridad,descripcion,estado,responsable,created_at,orders(external_ref,ship_to,clients(name))').order('created_at',{ascending:false});
   if(error){ body.innerHTML='<tr><td colspan="9" style="padding:22px;text-align:center;color:#c53030;font-size:12.5px">Error: '+esc(error.message)+'</td></tr>'; return; }
   if($('rt-inc-count')) $('rt-inc-count').textContent=rows.length+' incidencia'+(rows.length===1?'':'s')+' · todos los tipos';
+  { const c=k=>rows.filter(r=>r.estado===k).length; const set=(id,v)=>{const e=$(id); if(e)e.textContent=v;};
+    const ab=c('abierta'),ec=c('en_curso'),re_=c('resuelta');
+    const alta=rows.filter(r=>r.prioridad==='alta').length;
+    const altaAb=rows.filter(r=>r.prioridad==='alta'&&r.estado==='abierta').length;
+    set('rt-kpi-abiertas',ab); set('rt-kpi-alta-sub',altaAb); set('rt-kpi-encurso',ec); set('rt-kpi-alta',alta); set('rt-kpi-resueltas',re_);
+    set('rt-hdr-abiertas',ab); set('rt-hdr-resueltas',re_); }
   if(!rows.length){ body.innerHTML='<tr><td colspan="9" style="padding:30px;text-align:center;color:rgb(154,164,184);font-size:13px">Sin incidencias abiertas.</td></tr>'; return; }
   const BB='border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle;';
   body.innerHTML=rows.map(function(r){

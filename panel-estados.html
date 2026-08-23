@@ -103,7 +103,7 @@ input::placeholder{color:#9aa4b8}
       </div>
       <div style="margin-left: auto; display: flex; align-items: center; gap: 9px; width: 330px; max-width: 32vw; background: rgb(255, 255, 255); border: 1px solid rgb(221, 225, 233); border-radius: 5px; padding: 8px 12px; color: rgb(105, 117, 141);">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3-3"></path></svg>
-        <input placeholder="Buscar ref., cliente, mensajero…" style="border: 0px; background: transparent; outline: 0px; font: inherit; color: rgb(19, 32, 56); width: 100%;">
+        <input placeholder="Buscar ref., cliente, destino…" style="border: 0px; background: transparent; outline: 0px; font: inherit; color: rgb(19, 32, 56); width: 100%;">
         <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 10px; color: rgb(154, 164, 184); border: 1px solid rgb(221, 225, 233); border-radius: 3px; padding: 1px 4px;">⌘K</span>
       </div>
       <button aria-label="Notificaciones" class="scp1" style="width: 37px; height: 37px; border-radius: 5px; border: 1px solid rgb(221, 225, 233); background: rgb(255, 255, 255); display: grid; place-items: center; color: rgb(105, 117, 141); cursor: pointer; position: relative;">
@@ -136,7 +136,7 @@ input::placeholder{color:#9aa4b8}
         <button style="display: flex; align-items: center; gap: 7px; font-family: inherit; font-size: 12px; font-weight: 700; padding: 6px 11px; border-radius: 5px; cursor: pointer; white-space: nowrap; background: rgb(255, 255, 255); color: rgb(197, 48, 48); border: 1px solid rgb(240, 210, 210);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l9 16H3z"></path><path d="M12 10v4"></path></svg>SLA en riesgo<span style="font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 10.5px; font-weight: 700; color: rgb(197, 48, 48);"><span class="sc-interp">7</span></span></button>
         <button style="display: flex; align-items: center; gap: 7px; font-family: inherit; font-size: 12px; font-weight: 700; padding: 6px 11px; border-radius: 5px; cursor: pointer; white-space: nowrap; background: rgb(255, 255, 255); color: rgb(105, 117, 141); border: 1px solid rgb(221, 225, 233);"><span style="display: inline-flex; align-items: center; width: 24px; height: 14px; border-radius: 8px; padding: 2px; flex: 0 0 auto; background: rgb(221, 225, 233);"><span style="width: 10px; height: 10px; border-radius: 50%; background: rgb(255, 255, 255);"></span></span>Solo activos</button>
         <div style="margin-left: auto; display: flex; align-items: baseline; gap: 8px; flex: 0 0 auto;">
-          <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 22px; font-weight: 700; letter-spacing: -0.02em; font-variant-numeric: tabular-nums;"><span class="sc-interp">14</span></span>
+          <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 22px; font-weight: 700; letter-spacing: -0.02em; font-variant-numeric: tabular-nums;"><span class="sc-interp" id="rt-active">14</span></span>
           <span style="font-size: 11.5px; font-weight: 700; color: rgb(105, 117, 141); letter-spacing: 0.03em; text-transform: uppercase;">pedidos activos</span>
         </div>
       </div>
@@ -578,7 +578,7 @@ input::placeholder{color:#9aa4b8}
         </div>
 
         
-          <aside style="background: rgb(255, 255, 255); border: 1px solid rgb(232, 234, 239); border-radius: 6px; box-shadow: rgba(19, 32, 56, 0.05) 0px 1px 2px; align-self: flex-start; overflow: hidden; flex: 1 1 340px; max-width: 392px; min-width: 0px;">
+          <aside style="display: none; background: rgb(255, 255, 255); border: 1px solid rgb(232, 234, 239); border-radius: 6px; box-shadow: rgba(19, 32, 56, 0.05) 0px 1px 2px; align-self: flex-start; overflow: hidden; flex: 1 1 340px; max-width: 392px; min-width: 0px;">
             <div style="padding: 15px 18px 14px; border-bottom: 1px solid rgb(232, 234, 239);">
               <div style="display: flex; align-items: center; gap: 9px;">
                 <span style="display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 3px; background: rgb(238, 243, 254); color: rgb(29, 78, 216); border: 1px solid rgb(207, 224, 253);"><span style="width: 5px; height: 5px; border-radius: 50%; flex: 0 0 auto; background: rgb(37, 99, 235);"></span><span class="sc-interp">Asignado</span></span>
@@ -735,6 +735,7 @@ input::placeholder{color:#9aa4b8}
       +'<div style="display: flex; align-items: center; gap: 9px; margin-top: 9px; padding-top: 8px; border-top: 1px solid rgb(240, 242, 245);"><span style="display: flex; align-items: center; gap: 5px; color: rgb(105, 117, 141); flex: 0 0 auto;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 2 3 7v10l9 5 9-5V7z"></path><path d="M3 7l9 5 9-5"></path></svg><span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11.5px; font-weight: 600;">'+bultos+' bultos</span></span></div>'
       +'</div>';
   };
+  { const e=document.getElementById('rt-active'); if(e){ const active=(orders||[]).filter(o=>o.status!=='enviado').length; e.textContent=active; } }
   board.innerHTML=COLS.map(c=>{
     const items=by[c.k]||[];
     const cards=items.length?items.map(card).join(''):'<div style="padding: 14px 4px; text-align:center; color: rgb(180, 188, 202); font-size: 11.5px;">—</div>';

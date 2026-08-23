@@ -100,7 +100,7 @@ select{font:inherit;color:inherit}
     <header style="display: flex; align-items: center; gap: 16px; padding: 0px 28px; height: 66px; background: rgb(245, 246, 248); border-bottom: 1px solid rgb(232, 234, 239); position: sticky; top: 0px; z-index: 20;">
       <div style="display: flex; flex-direction: column; gap: 1px; min-width: 0px;">
         <h1 style="font-family: Newsreader, Georgia, serif; font-size: 21px; font-weight: 500; letter-spacing: -0.01em; line-height: 1.1; margin: 0px;"><span class="sc-interp">Clientes y plantillas</span></h1>
-        <span style="font-size: 11px; color: rgb(154, 164, 184);"><span class="sc-interp">12 clientes · 11 activos · 2 plantillas con aviso</span></span>
+        <span style="font-size: 11px; color: rgb(154, 164, 184);"><span class="sc-interp" id="rt-cli-header">12 clientes · 11 activos</span></span>
       </div>
       <div style="margin-left: auto; display: flex; align-items: center; gap: 9px; width: 330px; max-width: 32vw; background: rgb(255, 255, 255); border: 1px solid rgb(221, 225, 233); border-radius: 5px; padding: 8px 12px; color: rgb(105, 117, 141);">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3-3"></path></svg>
@@ -342,35 +342,61 @@ select{font:inherit;color:inherit}
 (async function(){
   const U="https://bcfeawgxswvtlklrkzii.supabase.co", K="sb_publishable_eSca9huQfloG321aY7UV9A_m50pucxw";
   let n=0; while(!window.supabase && n++<60){ await new Promise(r=>setTimeout(r,80)); }
-  const db = window.__db || (window.supabase && window.supabase.createClient(U,K)); if(!db) return;
+  const db=window.__db||(window.supabase&&window.supabase.createClient(U,K)); if(!db) return;
   const $=id=>document.getElementById(id);
   const body=$('rt-clients-body'); if(!body) return;
   const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
   const CH={api:{l:'API',d:'rgb(37, 99, 235)'},connector:{l:'Conector',d:'rgb(21, 41, 74)'},csv:{l:'CSV',d:'rgb(245, 158, 11)'},email:{l:'Email',d:'rgb(105, 117, 141)'},manual:{l:'Manual',d:'rgb(16, 185, 129)'}};
   const PLANT={courier:'Mensajería','3pl':'3PL · E-commerce',almacen:'Almacén'};
-  let arche='';
-  try{ const {data:tn}=await db.from('tenants').select('archetype').limit(1); arche=tn&&tn[0]&&tn[0].archetype; }catch(e){}
-  const {data:cls,error}=await db.from('clients').select('name,intake_channel,active,mapping,orders(count)').order('name');
-  if(error){ body.innerHTML='<tr><td colspan="7" style="padding:22px;text-align:center;color:#c53030;font-size:12.5px">Error: '+esc(error.message)+'</td></tr>'; return; }
-  if($('rt-clients-count')) $('rt-clients-count').textContent=cls.length+' de '+cls.length+' cliente'+(cls.length===1?'':'s');
+  const BB='border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle;';
   const initials=nm=>{const p=(nm||'?').trim().split(/\s+/);return (((p[0]||'')[0]||'')+((p[1]||'')[0]||'')).toUpperCase();};
-  if(!cls.length){ body.innerHTML='<tr><td colspan="7" style="padding:30px;text-align:center;color:rgb(154,164,184);font-size:13px">Sin clientes todavía.</td></tr>'; return; }
-  body.innerHTML=cls.map(function(c){
-    const ch=CH[c.intake_channel]||{l:c.intake_channel||'—',d:'rgb(105, 117, 141)'};
-    const orders=(c.orders&&c.orders[0]&&c.orders[0].count)||0;
-    const conf=!!c.active;
-    const mapBg=conf?'rgb(233, 248, 242)':'rgb(253, 244, 228)', mapC=conf?'rgb(14, 127, 95)':'rgb(154, 98, 6)', mapB=conf?'rgb(201, 233, 220)':'rgb(243, 221, 180)', mapD=conf?'rgb(16, 185, 129)':'rgb(245, 158, 11)', mapL=conf?'Configurado':'Borrador';
-    const est=c.active?'Activo':'Inactivo', estC=c.active?'rgb(14, 127, 95)':'rgb(105, 117, 141)';
-    return '<tr style="cursor: pointer;">'
-     +'<td style="padding: 12px 10px 12px 18px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; font-weight: 600; min-width: 210px;"><span style="display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 5px; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 10px; font-weight: 700; flex: 0 0 auto; background: rgb(14, 31, 61); color: rgb(255, 255, 255); margin-right: 9px; vertical-align: middle;">'+esc(initials(c.name))+'</span>'+esc(c.name)+'</td>'
-     +'<td style="padding: 12px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle;"><span style="font-size: 12.5px; font-weight: 600; color: rgb(58, 70, 95); white-space: nowrap;">'+esc(PLANT[arche]||'—')+'</span></td>'
-     +'<td style="padding: 12px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle;"><span style="display: inline-flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 700; color: rgb(58, 70, 95); white-space: nowrap;"><span style="display: inline-block; width: 7px; height: 7px; border-radius: 2px; flex: 0 0 auto; background: '+ch.d+';"></span>'+esc(ch.l)+'</span></td>'
-     +'<td style="padding: 12px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; text-align: right; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-weight: 600; font-variant-numeric: tabular-nums;">'+orders+'</td>'
-     +'<td style="padding: 12px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle;"><span style="display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 3px; white-space: nowrap; background: '+mapBg+'; color: '+mapC+'; border: 1px solid '+mapB+';"><span style="width: 5px; height: 5px; border-radius: 50%; flex: 0 0 auto; background: '+mapD+';"></span>'+mapL+'</span></td>'
-     +'<td style="padding: 12px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle;"><span style="font-size: 11.5px; font-weight: 700; letter-spacing: 0.02em; color: '+estC+';">'+est+'</span></td>'
-     +'<td style="padding: 12px 18px 12px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; text-align: right; white-space: nowrap;"><button style="font-family: inherit; font-size: 12px; font-weight: 700; border-radius: 4px; padding: 6px 11px; cursor: pointer; background: rgb(255, 255, 255); color: rgb(19, 32, 56); border: 1px solid rgb(221, 225, 233);">Configurar</button></td>'
-     +'</tr>';
-  }).join('');
+  const btnStyle='font-family: inherit; font-size: 12px; font-weight: 700; border-radius: 4px; padding: 6px 11px; cursor: pointer; background: rgb(255, 255, 255); color: rgb(19, 32, 56); border: 1px solid rgb(221, 225, 233);';
+  let arche='';
+  async function load(){
+    try{ const {data:tn}=await db.from('tenants').select('archetype').limit(1); arche=tn&&tn[0]&&tn[0].archetype; }catch(e){}
+    const {data:cls,error}=await db.from('clients').select('id,name,intake_channel,active,sla_days,orders(count)').order('name');
+    if(error){ body.innerHTML='<tr><td colspan="7" style="padding:22px;text-align:center;color:#c53030;font-size:12.5px">Error: '+esc(error.message)+'</td></tr>'; return; }
+    if($('rt-clients-count')) $('rt-clients-count').textContent=cls.length+' de '+cls.length+' cliente'+(cls.length===1?'':'s');
+    { const h=$('rt-cli-header'); if(h){ const act=cls.filter(x=>x.active).length; h.textContent=cls.length+' clientes · '+act+' activos'; } }
+    if(!cls.length){ body.innerHTML='<tr><td colspan="7" style="padding:30px;text-align:center;color:rgb(154,164,184);font-size:13px">Sin clientes todavía.</td></tr>'; return; }
+    body.innerHTML=cls.map(function(c){
+      const ch=CH[c.intake_channel]||{l:c.intake_channel||'—',d:'rgb(105, 117, 141)'};
+      const orders=(c.orders&&c.orders[0]&&c.orders[0].count)||0;
+      const conf=!!c.active; const sla=(c.sla_days==null?1:c.sla_days);
+      const mapBg=conf?'rgb(233, 248, 242)':'rgb(253, 244, 228)', mapC=conf?'rgb(14, 127, 95)':'rgb(154, 98, 6)', mapB=conf?'rgb(201, 233, 220)':'rgb(243, 221, 180)', mapD=conf?'rgb(16, 185, 129)':'rgb(245, 158, 11)', mapL=conf?'Configurado':'Borrador';
+      const est=c.active?'Activo':'Inactivo', estC=c.active?'rgb(14, 127, 95)':'rgb(105, 117, 141)';
+      return '<tr style="cursor: default;">'
+       +'<td style="padding: 12px 10px 12px 18px; '+BB+' font-weight: 600; min-width: 210px;"><span style="display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 5px; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 10px; font-weight: 700; flex: 0 0 auto; background: rgb(14, 31, 61); color: rgb(255, 255, 255); margin-right: 9px; vertical-align: middle;">'+esc(initials(c.name))+'</span>'+esc(c.name)+'</td>'
+       +'<td style="padding: 12px 10px; '+BB+'"><span style="font-size: 12.5px; font-weight: 600; color: rgb(58, 70, 95); white-space: nowrap;">'+esc(PLANT[arche]||'—')+'</span></td>'
+       +'<td style="padding: 12px 10px; '+BB+'"><span style="display: inline-flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 700; color: rgb(58, 70, 95); white-space: nowrap;"><span style="display: inline-block; width: 7px; height: 7px; border-radius: 2px; flex: 0 0 auto; background: '+ch.d+';"></span>'+esc(ch.l)+'</span></td>'
+       +'<td style="padding: 12px 10px; '+BB+' text-align: right; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-weight: 600; font-variant-numeric: tabular-nums;">'+orders+'</td>'
+       +'<td style="padding: 12px 10px; '+BB+'"><span style="display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 3px; white-space: nowrap; background: '+mapBg+'; color: '+mapC+'; border: 1px solid '+mapB+';"><span style="width: 5px; height: 5px; border-radius: 50%; flex: 0 0 auto; background: '+mapD+';"></span>'+mapL+'</span></td>'
+       +'<td style="padding: 12px 10px; '+BB+'"><span style="font-size: 11.5px; font-weight: 700; letter-spacing: 0.02em; color: '+estC+';">'+est+'</span></td>'
+       +'<td style="padding: 12px 18px 12px 10px; '+BB+' text-align: right; white-space: nowrap;" data-cell="'+c.id+'"><span style="font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 12px; color: rgb(58, 70, 95); margin-right: 12px;">SLA <b>'+sla+'</b> d</span><button class="rt-cfg" data-id="'+c.id+'" data-sla="'+sla+'" style="'+btnStyle+'">Editar SLA</button></td>';
+    }).join('');
+  }
+  body.addEventListener('click', async function(e){
+    const cfg=e.target.closest('.rt-cfg');
+    const save=e.target.closest('.rt-sla-save');
+    const cancel=e.target.closest('.rt-sla-cancel');
+    if(cfg){
+      const id=cfg.getAttribute('data-id'), sla=cfg.getAttribute('data-sla');
+      const cell=cfg.closest('td');
+      cell.innerHTML='<span style="font-size:11px;color:rgb(105,117,141);margin-right:6px">SLA (días)</span><input class="rt-sla-in" type="number" min="0" max="30" value="'+sla+'" style="width:54px;padding:5px 7px;border:1px solid rgb(37,99,235);border-radius:5px;font:inherit;font-size:13px;text-align:center;outline:none"><button class="rt-sla-save" data-id="'+id+'" style="margin-left:7px;'+btnStyle+'background:rgb(37,99,235);color:#fff;border-color:rgb(37,99,235)">Guardar</button><button class="rt-sla-cancel" style="margin-left:5px;'+btnStyle+'">Cancelar</button>';
+      const inp=cell.querySelector('.rt-sla-in'); if(inp){ inp.focus(); inp.select(); }
+      return;
+    }
+    if(cancel){ load(); return; }
+    if(save){
+      const id=save.getAttribute('data-id'); const cell=save.closest('td'); const inp=cell.querySelector('.rt-sla-in');
+      let v=parseInt(inp&&inp.value,10); if(isNaN(v)||v<0)v=0; if(v>30)v=30;
+      save.disabled=true; save.textContent='Guardando…';
+      const {error}=await db.from('clients').update({sla_days:v}).eq('id',id);
+      if(error){ save.disabled=false; save.textContent='Reintentar'; return; }
+      await load();
+    }
+  });
+  await load();
 })();
 </script>
 </body></html>
