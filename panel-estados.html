@@ -1,0 +1,688 @@
+<!doctype html>
+<html><head><style>
+    .sc-placeholder{background:color-mix(in srgb,currentColor 8%,transparent);
+      border:1px solid color-mix(in srgb,currentColor 50%,transparent);
+      border-radius:2px;box-sizing:border-box;overflow:hidden}
+    @keyframes sc-shine{0%{background-position:100% 50%}100%{background-position:0% 50%}}
+    html.sc-dc-streaming .sc-placeholder,
+    html.sc-dc-streaming .sc-interp.sc-missing{position:relative;
+      background:color-mix(in srgb,currentColor 5%,transparent);
+      border-color:transparent}
+    html.sc-dc-streaming .sc-placeholder::before,
+    html.sc-dc-streaming .sc-interp.sc-missing::before{content:'';
+      position:absolute;inset:0;pointer-events:none;
+      background:linear-gradient(90deg,rgba(217,119,87,0) 25%,rgba(247,225,211,.95) 37%,rgba(217,119,87,0) 63%);
+      background-size:400% 100%;animation:sc-shine 1.4s ease infinite}
+    html.sc-dc-streaming .sc-placeholder:nth-child(n+9 of .sc-placeholder)::before,
+    html.sc-dc-streaming .sc-interp.sc-missing:nth-child(n+9 of .sc-interp.sc-missing)::before{animation:none;
+      background:color-mix(in srgb,currentColor 8%,transparent)}
+    .sc-placeholder-error{padding:4px 8px;font:11px/1.4 ui-monospace,monospace;
+      color:color-mix(in srgb,currentColor 70%,transparent);word-break:break-word}
+    .sc-interp.sc-missing{display:inline-block;width:2em;height:1em;overflow:hidden;
+      vertical-align:text-bottom;background:rgba(255,255,255,.3);border:1px solid rgba(0,0,0,.5);
+      border-radius:2px;box-sizing:border-box;color:transparent;
+      user-select:none}
+    .sc-interp.sc-unresolved{font-family:ui-monospace,monospace;font-size:.85em;
+      color:color-mix(in srgb,currentColor 50%,transparent);
+      background:color-mix(in srgb,currentColor 10%,transparent);border-radius:3px;
+      padding:0 3px}
+    .sc-host.sc-has-error{position:relative}
+    .sc-logic-error{position:absolute;top:8px;left:8px;z-index:2147483647;max-width:60ch;
+      padding:6px 10px;background:#b00020;color:#fff;font:12px/1.4 ui-monospace,monospace;
+      border-radius:4px;white-space:pre-wrap;pointer-events:none}
+    /* Mirrors PRINT_BASELINE_CSS in apps/web deck-stage-export.ts — keep both
+       in sync until dc-runtime regains a build step. */
+    @media print {
+      @page { margin: 0.5cm; }
+      figure, table { break-inside: avoid; }
+      #dc-root, #dc-root > .sc-host { height: auto; }
+      *, *::before, *::after {
+        print-color-adjust: exact; -webkit-print-color-adjust: exact;
+        backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
+        animation-delay: -99s !important; animation-duration: .001s !important;
+        animation-iteration-count: 1 !important; animation-fill-mode: both !important;
+        animation-play-state: running !important; transition-duration: 0s !important;
+      }
+    }
+  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>x-dc{display:none!important}</style><script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" integrity="sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z" crossorigin="anonymous"></script><script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" integrity="sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1" crossorigin="anonymous"></script>
+<style id="__dc-atomics">.fx{display:flex}.col{display:flex;flex-direction:column}.grid{display:grid}.ac{align-items:center}.jc{justify-content:center}.jb{justify-content:space-between}.f1{flex:1}.noshrink{flex-shrink:0}.wrap{flex-wrap:wrap}.fw5{font-weight:500}.fw6{font-weight:600}.fw7{font-weight:700}.fw8{font-weight:800}.fs11{font-size:11px}.fs12{font-size:12px}.fs13{font-size:13px}.fs14{font-size:14px}.fs15{font-size:15px}.fs16{font-size:16px}.fs20{font-size:20px}.fs22{font-size:22px}.upper{text-transform:uppercase}.tc{text-align:center}.nowrap{white-space:nowrap}.gap8{gap:8px}.gap10{gap:10px}.gap12{gap:12px}.gap16{gap:16px}.gap24{gap:24px}.m0{margin:0}.mt8{margin-top:8px}.mt12{margin-top:12px}.mt16{margin-top:16px}.mb8{margin-bottom:8px}.mb12{margin-bottom:12px}.mb16{margin-bottom:16px}.posrel{position:relative}.posabs{position:absolute}.round{border-radius:50%}.ohide{overflow:hidden}.bbox{box-sizing:border-box}.pointer{cursor:pointer}.w100{width:100%}.b0{border:none}</style><style></style><style>html,body{height:100%;margin:0}#dc-root,#dc-root>.sc-host{height:100%}</style><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""><link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&amp;family=Hanken+Grotesk:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500;600;700&amp;display=swap" rel="stylesheet"><style>
+html,body{margin:0;padding:0}
+body{background:#f5f6f8;-webkit-font-smoothing:antialiased;text-wrap:pretty}
+*{box-sizing:border-box}
+a{color:#2563EB;text-decoration:none}
+a:hover{color:#1d4ed8}
+input::placeholder{color:#9aa4b8}
+::selection{background:#dbe7fd}
+</style><title>Panel de estados · Rutevo</title></head>
+<body>
+<div id="dc-root"><div class="sc-host"><div style="display: grid; grid-template-columns: 252px minmax(0px, 1fr); min-height: 100vh; font-family: &quot;Hanken Grotesk&quot;, system-ui, sans-serif; font-size: 14px; line-height: 1.5; color: rgb(19, 32, 56); background: rgb(245, 246, 248);">
+
+  <aside style="background: rgb(14, 31, 61); color: rgb(211, 221, 240); display: flex; flex-direction: column; position: sticky; top: 0px; height: 100vh;">
+    <div style="display: flex; align-items: center; gap: 11px; padding: 23px 22px 18px;">
+      <svg width="28" height="28" viewBox="0 0 48 48" fill="none" aria-label="Rutevo"><path d="M11 35 C 20 35, 22 13, 33 13" stroke="#5b9bff" stroke-width="4.4" stroke-linecap="round"></path><circle cx="11" cy="35" r="5.2" fill="#5b9bff"></circle><circle cx="33" cy="13" r="6.2" fill="#10B981"></circle><circle cx="33" cy="13" r="2.4" fill="#0e1f3d"></circle></svg>
+      <span style="font-family: Newsreader, Georgia, serif; font-size: 25px; font-weight: 500; letter-spacing: -0.005em; color: rgb(255, 255, 255);">rutev<span style="color: rgb(91, 155, 255);">o</span></span>
+    </div>
+
+    <div style="margin: 0px 16px 6px; padding: 11px 13px 12px; background: rgb(21, 41, 74); border: 1px solid rgb(33, 52, 88); border-radius: 8px;">
+      <div style="display: flex; align-items: center; gap: 9px;">
+        <span style="width: 23px; height: 23px; border-radius: 5px; background: rgb(37, 99, 235); display: grid; place-items: center; font-weight: 800; font-size: 12px; color: rgb(255, 255, 255); flex: 0 0 auto;">H</span>
+        <span style="font-weight: 700; font-size: 14px; color: rgb(255, 255, 255);">HCL Express</span>
+      </div>
+      <div style="font-size: 11.5px; color: rgb(126, 145, 183); margin-top: 5px; padding-left: 32px; letter-spacing: 0.01em;">Courier · GLS Alcalá</div>
+    </div>
+
+    <nav style="padding: 6px 14px; display: flex; flex-direction: column;">
+      <div style="font-size: 9.5px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(126, 145, 183); padding: 16px 10px 7px;">Operación</div>
+      <a href="agenda.html" class="scp0" style="display: flex; align-items: center; gap: 12px; padding: 9px 11px; border-radius: 6px; color: rgb(211, 221, 240); font-weight: 600; font-size: 13.5px;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 17px; height: 17px; flex: 0 0 auto; opacity: 0.82;"><rect x="3" y="4" width="18" height="4" rx="1"></rect><rect x="3" y="10" width="18" height="4" rx="1"></rect><rect x="3" y="16" width="18" height="4" rx="1"></rect></svg>Agenda de entregas</a>
+      <a href="pedidos-entrantes.html" class="scp0" style="display: flex; align-items: center; gap: 12px; padding: 9px 11px; border-radius: 6px; color: rgb(211, 221, 240); font-weight: 600; font-size: 13.5px;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 17px; height: 17px; flex: 0 0 auto; opacity: 0.82;"><path d="M4 4h16v5H4z"></path><path d="M4 13h10v7H4z"></path><path d="M18 13l3 3-3 3"></path></svg>Pedidos entrantes
+        <span style="margin-left: auto; font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 10.5px; font-weight: 700; background: rgb(245, 158, 11); color: rgb(69, 44, 0); padding: 1px 6px; border-radius: 3px;">3</span></a>
+      <a href="panel-estados.html" style="display: flex; align-items: center; gap: 12px; padding: 9px 11px; border-radius: 6px; color: rgb(255, 255, 255); font-weight: 600; font-size: 13.5px; position: relative; background: rgba(91, 155, 255, 0.11);">
+        <span style="position: absolute; left: -14px; top: 7px; bottom: 7px; width: 3px; background: rgb(37, 99, 235);"></span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 17px; height: 17px; flex: 0 0 auto; color: rgb(127, 176, 255);"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>Panel de estados</a>
+      <a href="incidencias.html" class="scp0" style="display: flex; align-items: center; gap: 12px; padding: 9px 11px; border-radius: 6px; color: rgb(211, 221, 240); font-weight: 600; font-size: 13.5px;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 17px; height: 17px; flex: 0 0 auto; opacity: 0.82;"><path d="M12 3l9 16H3z"></path><path d="M12 10v4"></path><circle cx="12" cy="17" r=".7" fill="currentColor"></circle></svg>Incidencias
+        <span style="margin-left: auto; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 10.5px; font-weight: 700; color: rgb(239, 68, 68);"><span class="sc-interp">2</span></span></a>
+      <div style="font-size: 9.5px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(126, 145, 183); padding: 18px 10px 7px;">Configuración</div>
+      <a href="clientes-plantillas.html" class="scp0" style="display: flex; align-items: center; gap: 12px; padding: 9px 11px; border-radius: 6px; color: rgb(211, 221, 240); font-weight: 600; font-size: 13.5px;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 17px; height: 17px; flex: 0 0 auto; opacity: 0.82;"><rect x="3" y="4" width="7" height="7" rx="1"></rect><rect x="14" y="4" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect><path d="M14 17.5h7"></path></svg>Clientes y plantillas</a>
+    </nav>
+
+    <div style="margin-top: auto; padding: 17px 22px; border-top: 1px solid rgb(33, 52, 88); font-size: 11.5px; color: rgb(126, 145, 183); line-height: 1.6;">Sesión: <span style="color: rgb(211, 221, 240); font-weight: 700;">Jesús G.</span> · admin<br>Agencia GLS · Alcalá de Henares</div>
+  </aside>
+
+  <div style="display: flex; flex-direction: column; min-width: 0px;">
+    <header style="display: flex; align-items: center; gap: 16px; padding: 0px 28px; height: 66px; background: rgb(245, 246, 248); border-bottom: 1px solid rgb(232, 234, 239); position: sticky; top: 0px; z-index: 20;">
+      <div style="display: flex; flex-direction: column; gap: 1px;">
+        <h1 style="font-family: Newsreader, Georgia, serif; font-size: 21px; font-weight: 500; letter-spacing: -0.01em; line-height: 1.1; margin: 0px;">Panel de estados</h1>
+        <span style="display: flex; align-items: center; gap: 7px; font-size: 11px; color: rgb(154, 164, 184);"><span style="width: 6px; height: 6px; border-radius: 50%; background: rgb(16, 185, 129); display: inline-block;"></span><span style="color: rgb(16, 185, 129); font-weight: 700;">en vivo</span> · actualizado hace 30 s</span>
+      </div>
+      <div style="margin-left: auto; display: flex; align-items: center; gap: 9px; width: 330px; max-width: 32vw; background: rgb(255, 255, 255); border: 1px solid rgb(221, 225, 233); border-radius: 5px; padding: 8px 12px; color: rgb(105, 117, 141);">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3-3"></path></svg>
+        <input placeholder="Buscar ref., cliente, mensajero…" style="border: 0px; background: transparent; outline: 0px; font: inherit; color: rgb(19, 32, 56); width: 100%;">
+        <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 10px; color: rgb(154, 164, 184); border: 1px solid rgb(221, 225, 233); border-radius: 3px; padding: 1px 4px;">⌘K</span>
+      </div>
+      <button aria-label="Notificaciones" class="scp1" style="width: 37px; height: 37px; border-radius: 5px; border: 1px solid rgb(221, 225, 233); background: rgb(255, 255, 255); display: grid; place-items: center; color: rgb(105, 117, 141); cursor: pointer; position: relative;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.7 21a2 2 0 0 1-3.4 0"></path></svg>
+        <span style="position: absolute; top: 7px; right: 8px; width: 6px; height: 6px; border-radius: 50%; background: rgb(239, 68, 68); border: 1.5px solid rgb(255, 255, 255);"></span>
+      </button>
+      <div style="display: flex; align-items: center; gap: 9px; padding-left: 3px;">
+        <div style="width: 36px; height: 36px; border-radius: 6px; background: rgb(14, 31, 61); color: rgb(255, 255, 255); display: grid; place-items: center; font-weight: 700; font-size: 12px; font-family: &quot;JetBrains Mono&quot;, monospace;">JG</div>
+      </div>
+    </header>
+
+    <div style="padding: 20px 28px 44px; display: flex; flex-direction: column; gap: 16px; min-width: 0px;">
+
+      <div style="background: rgb(255, 255, 255); border: 1px solid rgb(232, 234, 239); border-radius: 6px; box-shadow: rgba(19, 32, 56, 0.05) 0px 1px 2px; padding: 13px 16px; display: flex; align-items: center; gap: 18px; flex-wrap: wrap;">
+        <div style="display: flex; align-items: center; gap: 9px; flex-wrap: wrap; min-width: 0px;">
+          <span style="font-size: 9.5px; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase; color: rgb(105, 117, 141);">Cliente</span>
+          
+            <button style="display: flex; align-items: center; gap: 7px; font-family: inherit; font-size: 12px; font-weight: 700; padding: 6px 11px; border-radius: 5px; cursor: pointer; white-space: nowrap; background: rgb(14, 31, 61); color: rgb(255, 255, 255); border: 1px solid rgb(14, 31, 61);"><span class="sc-interp">Todos</span></button>
+          
+            <button style="display: flex; align-items: center; gap: 7px; font-family: inherit; font-size: 12px; font-weight: 700; padding: 6px 11px; border-radius: 5px; cursor: pointer; white-space: nowrap; background: rgb(255, 255, 255); color: rgb(105, 117, 141); border: 1px solid rgb(221, 225, 233);"><span class="sc-interp">Clínica Sanz</span></button>
+          
+            <button style="display: flex; align-items: center; gap: 7px; font-family: inherit; font-size: 12px; font-weight: 700; padding: 6px 11px; border-radius: 5px; cursor: pointer; white-space: nowrap; background: rgb(255, 255, 255); color: rgb(105, 117, 141); border: 1px solid rgb(221, 225, 233);"><span class="sc-interp">Laboratorio</span></button>
+          
+            <button style="display: flex; align-items: center; gap: 7px; font-family: inherit; font-size: 12px; font-weight: 700; padding: 6px 11px; border-radius: 5px; cursor: pointer; white-space: nowrap; background: rgb(255, 255, 255); color: rgb(105, 117, 141); border: 1px solid rgb(221, 225, 233);"><span class="sc-interp">Ferretería</span></button>
+          
+            <button style="display: flex; align-items: center; gap: 7px; font-family: inherit; font-size: 12px; font-weight: 700; padding: 6px 11px; border-radius: 5px; cursor: pointer; white-space: nowrap; background: rgb(255, 255, 255); color: rgb(105, 117, 141); border: 1px solid rgb(221, 225, 233);"><span class="sc-interp">Cerámica</span></button>
+          
+        </div>
+        <span style="width: 1px; height: 26px; background: rgb(232, 234, 239); flex: 0 0 auto;"></span>
+        <button style="display: flex; align-items: center; gap: 7px; font-family: inherit; font-size: 12px; font-weight: 700; padding: 6px 11px; border-radius: 5px; cursor: pointer; white-space: nowrap; background: rgb(255, 255, 255); color: rgb(197, 48, 48); border: 1px solid rgb(240, 210, 210);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l9 16H3z"></path><path d="M12 10v4"></path></svg>SLA en riesgo<span style="font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 10.5px; font-weight: 700; color: rgb(197, 48, 48);"><span class="sc-interp">7</span></span></button>
+        <button style="display: flex; align-items: center; gap: 7px; font-family: inherit; font-size: 12px; font-weight: 700; padding: 6px 11px; border-radius: 5px; cursor: pointer; white-space: nowrap; background: rgb(255, 255, 255); color: rgb(105, 117, 141); border: 1px solid rgb(221, 225, 233);"><span style="display: inline-flex; align-items: center; width: 24px; height: 14px; border-radius: 8px; padding: 2px; flex: 0 0 auto; background: rgb(221, 225, 233);"><span style="width: 10px; height: 10px; border-radius: 50%; background: rgb(255, 255, 255);"></span></span>Solo activos</button>
+        <div style="margin-left: auto; display: flex; align-items: baseline; gap: 8px; flex: 0 0 auto;">
+          <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 22px; font-weight: 700; letter-spacing: -0.02em; font-variant-numeric: tabular-nums;"><span class="sc-interp">14</span></span>
+          <span style="font-size: 11.5px; font-weight: 700; color: rgb(105, 117, 141); letter-spacing: 0.03em; text-transform: uppercase;">pedidos activos</span>
+        </div>
+      </div>
+
+      <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start; min-width: 0px;">
+
+        <div style="display: flex; gap: 13px; overflow-x: auto; padding-bottom: 8px; align-items: flex-start; min-width: 0px; flex: 1 1 700px;">
+          
+            <div style="display: flex; flex: 1 1 244px; min-width: 236px;">
+              <div style="flex: 1 1 auto; min-width: 0px; background: rgb(250, 251, 252); border: 1px solid rgb(232, 234, 239); border-radius: 6px; overflow: hidden; box-shadow: rgba(19, 32, 56, 0.04) 0px 1px 2px;">
+                <div style="height: 2px; background: rgb(245, 158, 11);"></div>
+                <div style="display: flex; align-items: center; gap: 8px; padding: 10px 12px 9px; background: rgb(255, 255, 255); border-bottom: 1px solid rgb(232, 234, 239);">
+                  <span style="width: 7px; height: 7px; border-radius: 50%; flex: 0 0 auto; background: rgb(245, 158, 11);"></span>
+                  <span style="font-size: 11px; font-weight: 800; letter-spacing: 0.07em; text-transform: uppercase; color: rgb(58, 70, 95); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><span class="sc-interp">Recibido</span></span>
+                  <span style="margin-left: auto; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 11.5px; font-weight: 700; color: rgb(58, 70, 95); font-variant-numeric: tabular-nums;"><span class="sc-interp">3</span></span>
+                </div>
+                <div style="padding: 10px; display: flex; flex-direction: column; gap: 9px; min-height: 120px;">
+                  
+                    <div draggable="true" class="scp2" style="background: rgb(255, 255, 255); border: 1px solid rgb(227, 230, 236); border-radius: 5px; padding: 11px 12px; cursor: grab; box-shadow: rgba(19, 32, 56, 0.04) 0px 1px 1px;">
+                      <div style="display: flex; align-items: center; gap: 8px;">
+                        <svg width="7" height="13" viewBox="0 0 7 13" fill="#d3d8e1" style="flex: 0 0 auto;"><circle cx="1.5" cy="1.5" r="1.2"></circle><circle cx="5.5" cy="1.5" r="1.2"></circle><circle cx="1.5" cy="6.5" r="1.2"></circle><circle cx="5.5" cy="6.5" r="1.2"></circle><circle cx="1.5" cy="11.5" r="1.2"></circle><circle cx="5.5" cy="11.5" r="1.2"></circle></svg>
+                        <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 12.5px; font-weight: 700; letter-spacing: -0.01em;"><span class="sc-interp">WM-4489</span></span>
+                        <span style="margin-left: auto; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 11px; font-weight: 700; padding: 2px 6px; border-radius: 3px; white-space: nowrap; background: rgb(253, 244, 228); color: rgb(154, 98, 6); border: 1px solid rgb(243, 221, 180);"><span class="sc-interp">2 h 25</span></span>
+                      </div>
+                      <div style="font-size: 13px; font-weight: 600; margin-top: 7px; line-height: 1.3;"><span class="sc-interp">Distribuciones Meco</span></div>
+                      <div style="font-size: 12px; color: rgb(105, 117, 141); margin-top: 2px;"><span class="sc-interp">Guadalajara</span><span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11px; color: rgb(154, 164, 184); margin-left: 6px;"><span class="sc-interp">19004</span></span></div>
+                      
+                      <div style="display: flex; align-items: center; gap: 9px; margin-top: 9px; padding-top: 8px; border-top: 1px solid rgb(240, 242, 245);">
+                        <span style="display: flex; align-items: center; gap: 5px; color: rgb(105, 117, 141); flex: 0 0 auto;">
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 2 3 7v10l9 5 9-5V7z"></path><path d="M3 7l9 5 9-5"></path></svg>
+                          <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11.5px; font-weight: 600;"><span class="sc-interp">7 bultos</span></span>
+                        </span>
+                        <span style="margin-left: auto; display: flex; align-items: center; gap: 5px; color: rgb(154, 164, 184); min-width: 0px;">
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" style="flex: 0 0 auto;"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 8v4.4l2.8 1.8"></path></svg>
+                          <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11px; font-weight: 600; min-width: 0px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><span class="sc-interp">15–17 h</span></span>
+                        </span>
+                      </div>
+                    </div>
+                  
+                    <div draggable="true" class="scp2" style="background: rgb(255, 255, 255); border: 1px solid rgb(227, 230, 236); border-radius: 5px; padding: 11px 12px; cursor: grab; box-shadow: rgba(19, 32, 56, 0.04) 0px 1px 1px;">
+                      <div style="display: flex; align-items: center; gap: 8px;">
+                        <svg width="7" height="13" viewBox="0 0 7 13" fill="#d3d8e1" style="flex: 0 0 auto;"><circle cx="1.5" cy="1.5" r="1.2"></circle><circle cx="5.5" cy="1.5" r="1.2"></circle><circle cx="1.5" cy="6.5" r="1.2"></circle><circle cx="5.5" cy="6.5" r="1.2"></circle><circle cx="1.5" cy="11.5" r="1.2"></circle><circle cx="5.5" cy="11.5" r="1.2"></circle></svg>
+                        <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 12.5px; font-weight: 700; letter-spacing: -0.01em;"><span class="sc-interp">WM-4488</span></span>
+                        <span style="margin-left: auto; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 11px; font-weight: 700; padding: 2px 6px; border-radius: 3px; white-space: nowrap; background: rgb(233, 248, 242); color: rgb(14, 127, 95); border: 1px solid rgb(201, 233, 220);"><span class="sc-interp">4 h 10</span></span>
+                      </div>
+                      <div style="font-size: 13px; font-weight: 600; margin-top: 7px; line-height: 1.3;"><span class="sc-interp">Óptica Vela</span></div>
+                      <div style="font-size: 12px; color: rgb(105, 117, 141); margin-top: 2px;"><span class="sc-interp">Torrejón de Ardoz</span><span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11px; color: rgb(154, 164, 184); margin-left: 6px;"><span class="sc-interp">28850</span></span></div>
+                      
+                      <div style="display: flex; align-items: center; gap: 9px; margin-top: 9px; padding-top: 8px; border-top: 1px solid rgb(240, 242, 245);">
+                        <span style="display: flex; align-items: center; gap: 5px; color: rgb(105, 117, 141); flex: 0 0 auto;">
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 2 3 7v10l9 5 9-5V7z"></path><path d="M3 7l9 5 9-5"></path></svg>
+                          <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11.5px; font-weight: 600;"><span class="sc-interp">1 bulto</span></span>
+                        </span>
+                        <span style="margin-left: auto; display: flex; align-items: center; gap: 5px; color: rgb(154, 164, 184); min-width: 0px;">
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" style="flex: 0 0 auto;"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 8v4.4l2.8 1.8"></path></svg>
+                          <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11px; font-weight: 600; min-width: 0px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><span class="sc-interp">16–18 h</span></span>
+                        </span>
+                      </div>
+                    </div>
+                  
+                    <div draggable="true" class="scp2" style="background: rgb(255, 255, 255); border: 1px solid rgb(227, 230, 236); border-radius: 5px; padding: 11px 12px; cursor: grab; box-shadow: rgba(19, 32, 56, 0.04) 0px 1px 1px;">
+                      <div style="display: flex; align-items: center; gap: 8px;">
+                        <svg width="7" height="13" viewBox="0 0 7 13" fill="#d3d8e1" style="flex: 0 0 auto;"><circle cx="1.5" cy="1.5" r="1.2"></circle><circle cx="5.5" cy="1.5" r="1.2"></circle><circle cx="1.5" cy="6.5" r="1.2"></circle><circle cx="5.5" cy="6.5" r="1.2"></circle><circle cx="1.5" cy="11.5" r="1.2"></circle><circle cx="5.5" cy="11.5" r="1.2"></circle></svg>
+                        <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 12.5px; font-weight: 700; letter-spacing: -0.01em;"><span class="sc-interp">WM-4490</span></span>
+                        <span style="margin-left: auto; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 11px; font-weight: 700; padding: 2px 6px; border-radius: 3px; white-space: nowrap; background: rgb(233, 248, 242); color: rgb(14, 127, 95); border: 1px solid rgb(201, 233, 220);"><span class="sc-interp">6 h 50</span></span>
+                      </div>
+                      <div style="font-size: 13px; font-weight: 600; margin-top: 7px; line-height: 1.3;"><span class="sc-interp">Papelería Duero</span></div>
+                      <div style="font-size: 12px; color: rgb(105, 117, 141); margin-top: 2px;"><span class="sc-interp">San Fernando</span><span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11px; color: rgb(154, 164, 184); margin-left: 6px;"><span class="sc-interp">28830</span></span></div>
+                      
+                      <div style="display: flex; align-items: center; gap: 9px; margin-top: 9px; padding-top: 8px; border-top: 1px solid rgb(240, 242, 245);">
+                        <span style="display: flex; align-items: center; gap: 5px; color: rgb(105, 117, 141); flex: 0 0 auto;">
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 2 3 7v10l9 5 9-5V7z"></path><path d="M3 7l9 5 9-5"></path></svg>
+                          <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11.5px; font-weight: 600;"><span class="sc-interp">5 bultos</span></span>
+                        </span>
+                        <span style="margin-left: auto; display: flex; align-items: center; gap: 5px; color: rgb(154, 164, 184); min-width: 0px;">
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" style="flex: 0 0 auto;"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 8v4.4l2.8 1.8"></path></svg>
+                          <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11px; font-weight: 600; min-width: 0px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><span class="sc-interp">+1d 10–14 h</span></span>
+                        </span>
+                      </div>
+                    </div>
+                  
+                  
+                </div>
+              </div>
+            </div>
+          
+            <div style="display: flex; flex: 1 1 244px; min-width: 236px;">
+              <div style="flex: 1 1 auto; min-width: 0px; background: rgb(250, 251, 252); border: 1px solid rgb(232, 234, 239); border-radius: 6px; overflow: hidden; box-shadow: rgba(19, 32, 56, 0.04) 0px 1px 2px;">
+                <div style="height: 2px; background: rgb(245, 158, 11);"></div>
+                <div style="display: flex; align-items: center; gap: 8px; padding: 10px 12px 9px; background: rgb(255, 255, 255); border-bottom: 1px solid rgb(232, 234, 239);">
+                  <span style="width: 7px; height: 7px; border-radius: 50%; flex: 0 0 auto; background: rgb(245, 158, 11);"></span>
+                  <span style="font-size: 11px; font-weight: 800; letter-spacing: 0.07em; text-transform: uppercase; color: rgb(58, 70, 95); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><span class="sc-interp">Clasificado</span></span>
+                  <span style="margin-left: auto; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 11.5px; font-weight: 700; color: rgb(58, 70, 95); font-variant-numeric: tabular-nums;"><span class="sc-interp">2</span></span>
+                </div>
+                <div style="padding: 10px; display: flex; flex-direction: column; gap: 9px; min-height: 120px;">
+                  
+                    <div draggable="true" class="scp2" style="background: rgb(255, 255, 255); border: 1px solid rgb(227, 230, 236); border-radius: 5px; padding: 11px 12px; cursor: grab; box-shadow: rgba(19, 32, 56, 0.04) 0px 1px 1px;">
+                      <div style="display: flex; align-items: center; gap: 8px;">
+                        <svg width="7" height="13" viewBox="0 0 7 13" fill="#d3d8e1" style="flex: 0 0 auto;"><circle cx="1.5" cy="1.5" r="1.2"></circle><circle cx="5.5" cy="1.5" r="1.2"></circle><circle cx="1.5" cy="6.5" r="1.2"></circle><circle cx="5.5" cy="6.5" r="1.2"></circle><circle cx="1.5" cy="11.5" r="1.2"></circle><circle cx="5.5" cy="11.5" r="1.2"></circle></svg>
+                        <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 12.5px; font-weight: 700; letter-spacing: -0.01em;"><span class="sc-interp">WM-4476</span></span>
+                        <span style="margin-left: auto; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 11px; font-weight: 700; padding: 2px 6px; border-radius: 3px; white-space: nowrap; background: rgb(253, 244, 228); color: rgb(154, 98, 6); border: 1px solid rgb(243, 221, 180);"><span class="sc-interp">1 h 35</span></span>
+                      </div>
+                      <div style="font-size: 13px; font-weight: 600; margin-top: 7px; line-height: 1.3;"><span class="sc-interp">Laboratorio Vitalis</span></div>
+                      <div style="font-size: 12px; color: rgb(105, 117, 141); margin-top: 2px;"><span class="sc-interp">Alcalá de Henares</span><span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11px; color: rgb(154, 164, 184); margin-left: 6px;"><span class="sc-interp">28805</span></span></div>
+                      
+                      <div style="display: flex; align-items: center; gap: 9px; margin-top: 9px; padding-top: 8px; border-top: 1px solid rgb(240, 242, 245);">
+                        <span style="display: flex; align-items: center; gap: 5px; color: rgb(105, 117, 141); flex: 0 0 auto;">
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 2 3 7v10l9 5 9-5V7z"></path><path d="M3 7l9 5 9-5"></path></svg>
+                          <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11.5px; font-weight: 600;"><span class="sc-interp">4 bultos</span></span>
+                        </span>
+                        <span style="margin-left: auto; display: flex; align-items: center; gap: 5px; color: rgb(154, 164, 184); min-width: 0px;">
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" style="flex: 0 0 auto;"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 8v4.4l2.8 1.8"></path></svg>
+                          <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11px; font-weight: 600; min-width: 0px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><span class="sc-interp">13–15 h</span></span>
+                        </span>
+                      </div>
+                    </div>
+                  
+                    <div draggable="true" class="scp2" style="background: rgb(255, 255, 255); border: 1px solid rgb(227, 230, 236); border-radius: 5px; padding: 11px 12px; cursor: grab; box-shadow: rgba(19, 32, 56, 0.04) 0px 1px 1px;">
+                      <div style="display: flex; align-items: center; gap: 8px;">
+                        <svg width="7" height="13" viewBox="0 0 7 13" fill="#d3d8e1" style="flex: 0 0 auto;"><circle cx="1.5" cy="1.5" r="1.2"></circle><circle cx="5.5" cy="1.5" r="1.2"></circle><circle cx="1.5" cy="6.5" r="1.2"></circle><circle cx="5.5" cy="6.5" r="1.2"></circle><circle cx="1.5" cy="11.5" r="1.2"></circle><circle cx="5.5" cy="11.5" r="1.2"></circle></svg>
+                        <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 12.5px; font-weight: 700; letter-spacing: -0.01em;"><span class="sc-interp">WM-4477</span></span>
+                        <span style="margin-left: auto; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 11px; font-weight: 700; padding: 2px 6px; border-radius: 3px; white-space: nowrap; background: rgb(233, 248, 242); color: rgb(14, 127, 95); border: 1px solid rgb(201, 233, 220);"><span class="sc-interp">5 h 05</span></span>
+                      </div>
+                      <div style="font-size: 13px; font-weight: 600; margin-top: 7px; line-height: 1.3;"><span class="sc-interp">Bodega Marín</span></div>
+                      <div style="font-size: 12px; color: rgb(105, 117, 141); margin-top: 2px;"><span class="sc-interp">Coslada</span><span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11px; color: rgb(154, 164, 184); margin-left: 6px;"><span class="sc-interp">28820</span></span></div>
+                      
+                      <div style="display: flex; align-items: center; gap: 9px; margin-top: 9px; padding-top: 8px; border-top: 1px solid rgb(240, 242, 245);">
+                        <span style="display: flex; align-items: center; gap: 5px; color: rgb(105, 117, 141); flex: 0 0 auto;">
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 2 3 7v10l9 5 9-5V7z"></path><path d="M3 7l9 5 9-5"></path></svg>
+                          <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11.5px; font-weight: 600;"><span class="sc-interp">9 bultos</span></span>
+                        </span>
+                        <span style="margin-left: auto; display: flex; align-items: center; gap: 5px; color: rgb(154, 164, 184); min-width: 0px;">
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" style="flex: 0 0 auto;"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 8v4.4l2.8 1.8"></path></svg>
+                          <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11px; font-weight: 600; min-width: 0px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><span class="sc-interp">17–19 h</span></span>
+                        </span>
+                      </div>
+                    </div>
+                  
+                  
+                </div>
+              </div>
+            </div>
+          
+            <div style="display: flex; flex: 1 1 244px; min-width: 236px;">
+              <div style="flex: 1 1 auto; min-width: 0px; background: rgb(250, 251, 252); border: 1px solid rgb(232, 234, 239); border-radius: 6px; overflow: hidden; box-shadow: rgba(19, 32, 56, 0.04) 0px 1px 2px;">
+                <div style="height: 2px; background: rgb(37, 99, 235);"></div>
+                <div style="display: flex; align-items: center; gap: 8px; padding: 10px 12px 9px; background: rgb(255, 255, 255); border-bottom: 1px solid rgb(232, 234, 239);">
+                  <span style="width: 7px; height: 7px; border-radius: 50%; flex: 0 0 auto; background: rgb(37, 99, 235);"></span>
+                  <span style="font-size: 11px; font-weight: 800; letter-spacing: 0.07em; text-transform: uppercase; color: rgb(58, 70, 95); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><span class="sc-interp">Asignado</span></span>
+                  <span style="margin-left: auto; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 11.5px; font-weight: 700; color: rgb(58, 70, 95); font-variant-numeric: tabular-nums;"><span class="sc-interp">3</span></span>
+                </div>
+                <div style="padding: 10px; display: flex; flex-direction: column; gap: 9px; min-height: 120px;">
+                  
+                    <div draggable="true" class="scp2" style="background: rgb(255, 255, 255); border: 1px solid rgb(37, 99, 235); border-radius: 5px; padding: 11px 12px; cursor: grab; box-shadow: rgb(37, 99, 235) 0px 0px 0px 1px;">
+                      <div style="display: flex; align-items: center; gap: 8px;">
+                        <svg width="7" height="13" viewBox="0 0 7 13" fill="#d3d8e1" style="flex: 0 0 auto;"><circle cx="1.5" cy="1.5" r="1.2"></circle><circle cx="5.5" cy="1.5" r="1.2"></circle><circle cx="1.5" cy="6.5" r="1.2"></circle><circle cx="5.5" cy="6.5" r="1.2"></circle><circle cx="1.5" cy="11.5" r="1.2"></circle><circle cx="5.5" cy="11.5" r="1.2"></circle></svg>
+                        <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 12.5px; font-weight: 700; letter-spacing: -0.01em;"><span class="sc-interp">WM-4473</span></span>
+                        <span style="margin-left: auto; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 11px; font-weight: 700; padding: 2px 6px; border-radius: 3px; white-space: nowrap; background: rgb(253, 244, 228); color: rgb(154, 98, 6); border: 1px solid rgb(243, 221, 180);"><span class="sc-interp">52 min</span></span>
+                      </div>
+                      <div style="font-size: 13px; font-weight: 600; margin-top: 7px; line-height: 1.3;"><span class="sc-interp">Clínica Dental Sanz</span></div>
+                      <div style="font-size: 12px; color: rgb(105, 117, 141); margin-top: 2px;"><span class="sc-interp">Alcalá de Henares</span><span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11px; color: rgb(154, 164, 184); margin-left: 6px;"><span class="sc-interp">28801</span></span></div>
+                      
+                      <div style="display: flex; align-items: center; gap: 9px; margin-top: 9px; padding-top: 8px; border-top: 1px solid rgb(240, 242, 245);">
+                        <span style="display: flex; align-items: center; gap: 5px; color: rgb(105, 117, 141); flex: 0 0 auto;">
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 2 3 7v10l9 5 9-5V7z"></path><path d="M3 7l9 5 9-5"></path></svg>
+                          <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11.5px; font-weight: 600;"><span class="sc-interp">3 bultos</span></span>
+                        </span>
+                        <span style="margin-left: auto; display: flex; align-items: center; gap: 5px; color: rgb(154, 164, 184); min-width: 0px;">
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" style="flex: 0 0 auto;"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 8v4.4l2.8 1.8"></path></svg>
+                          <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11px; font-weight: 600; min-width: 0px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><span class="sc-interp">antes de 16 h</span></span>
+                        </span>
+                      </div>
+                    </div>
+                  
+                    <div draggable="true" class="scp2" style="background: rgb(255, 255, 255); border: 1px solid rgb(227, 230, 236); border-radius: 5px; padding: 11px 12px; cursor: grab; box-shadow: rgba(19, 32, 56, 0.04) 0px 1px 1px;">
+                      <div style="display: flex; align-items: center; gap: 8px;">
+                        <svg width="7" height="13" viewBox="0 0 7 13" fill="#d3d8e1" style="flex: 0 0 auto;"><circle cx="1.5" cy="1.5" r="1.2"></circle><circle cx="5.5" cy="1.5" r="1.2"></circle><circle cx="1.5" cy="6.5" r="1.2"></circle><circle cx="5.5" cy="6.5" r="1.2"></circle><circle cx="1.5" cy="11.5" r="1.2"></circle><circle cx="5.5" cy="11.5" r="1.2"></circle></svg>
+                        <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 12.5px; font-weight: 700; letter-spacing: -0.01em;"><span class="sc-interp">WM-4474</span></span>
+                        <span style="margin-left: auto; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 11px; font-weight: 700; padding: 2px 6px; border-radius: 3px; white-space: nowrap; background: rgb(233, 248, 242); color: rgb(14, 127, 95); border: 1px solid rgb(201, 233, 220);"><span class="sc-interp">3 h 20</span></span>
+                      </div>
+                      <div style="font-size: 13px; font-weight: 600; margin-top: 7px; line-height: 1.3;"><span class="sc-interp">Farmacia Central</span></div>
+                      <div style="font-size: 12px; color: rgb(105, 117, 141); margin-top: 2px;"><span class="sc-interp">Alcalá de Henares</span><span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11px; color: rgb(154, 164, 184); margin-left: 6px;"><span class="sc-interp">28802</span></span></div>
+                      
+                      <div style="display: flex; align-items: center; gap: 9px; margin-top: 9px; padding-top: 8px; border-top: 1px solid rgb(240, 242, 245);">
+                        <span style="display: flex; align-items: center; gap: 5px; color: rgb(105, 117, 141); flex: 0 0 auto;">
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 2 3 7v10l9 5 9-5V7z"></path><path d="M3 7l9 5 9-5"></path></svg>
+                          <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11.5px; font-weight: 600;"><span class="sc-interp">1 bulto</span></span>
+                        </span>
+                        <span style="margin-left: auto; display: flex; align-items: center; gap: 5px; color: rgb(154, 164, 184); min-width: 0px;">
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" style="flex: 0 0 auto;"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 8v4.4l2.8 1.8"></path></svg>
+                          <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11px; font-weight: 600; min-width: 0px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><span class="sc-interp">16–18 h</span></span>
+                        </span>
+                      </div>
+                    </div>
+                  
+                    <div draggable="true" class="scp2" style="background: rgb(255, 255, 255); border: 1px solid rgb(227, 230, 236); border-radius: 5px; padding: 11px 12px; cursor: grab; box-shadow: rgba(19, 32, 56, 0.04) 0px 1px 1px;">
+                      <div style="display: flex; align-items: center; gap: 8px;">
+                        <svg width="7" height="13" viewBox="0 0 7 13" fill="#d3d8e1" style="flex: 0 0 auto;"><circle cx="1.5" cy="1.5" r="1.2"></circle><circle cx="5.5" cy="1.5" r="1.2"></circle><circle cx="1.5" cy="6.5" r="1.2"></circle><circle cx="5.5" cy="6.5" r="1.2"></circle><circle cx="1.5" cy="11.5" r="1.2"></circle><circle cx="5.5" cy="11.5" r="1.2"></circle></svg>
+                        <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 12.5px; font-weight: 700; letter-spacing: -0.01em;"><span class="sc-interp">WM-4475</span></span>
+                        <span style="margin-left: auto; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 11px; font-weight: 700; padding: 2px 6px; border-radius: 3px; white-space: nowrap; background: rgb(233, 248, 242); color: rgb(14, 127, 95); border: 1px solid rgb(201, 233, 220);"><span class="sc-interp">2 h 05</span></span>
+                      </div>
+                      <div style="font-size: 13px; font-weight: 600; margin-top: 7px; line-height: 1.3;"><span class="sc-interp">Talleres Nuño</span></div>
+                      <div style="font-size: 12px; color: rgb(105, 117, 141); margin-top: 2px;"><span class="sc-interp">Azuqueca</span><span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11px; color: rgb(154, 164, 184); margin-left: 6px;"><span class="sc-interp">19200</span></span></div>
+                      
+                      <div style="display: flex; align-items: center; gap: 9px; margin-top: 9px; padding-top: 8px; border-top: 1px solid rgb(240, 242, 245);">
+                        <span style="display: flex; align-items: center; gap: 5px; color: rgb(105, 117, 141); flex: 0 0 auto;">
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 2 3 7v10l9 5 9-5V7z"></path><path d="M3 7l9 5 9-5"></path></svg>
+                          <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11.5px; font-weight: 600;"><span class="sc-interp">2 bultos</span></span>
+                        </span>
+                        <span style="margin-left: auto; display: flex; align-items: center; gap: 5px; color: rgb(154, 164, 184); min-width: 0px;">
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" style="flex: 0 0 auto;"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 8v4.4l2.8 1.8"></path></svg>
+                          <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11px; font-weight: 600; min-width: 0px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><span class="sc-interp">15–17 h</span></span>
+                        </span>
+                      </div>
+                    </div>
+                  
+                  
+                </div>
+              </div>
+            </div>
+          
+            <div style="display: flex; flex: 1 1 244px; min-width: 236px;">
+              <div style="flex: 1 1 auto; min-width: 0px; background: rgb(250, 251, 252); border: 1px solid rgb(232, 234, 239); border-radius: 6px; overflow: hidden; box-shadow: rgba(19, 32, 56, 0.04) 0px 1px 2px;">
+                <div style="height: 2px; background: rgb(37, 99, 235);"></div>
+                <div style="display: flex; align-items: center; gap: 8px; padding: 10px 12px 9px; background: rgb(255, 255, 255); border-bottom: 1px solid rgb(232, 234, 239);">
+                  <span style="width: 7px; height: 7px; border-radius: 50%; flex: 0 0 auto; background: rgb(37, 99, 235);"></span>
+                  <span style="font-size: 11px; font-weight: 800; letter-spacing: 0.07em; text-transform: uppercase; color: rgb(58, 70, 95); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><span class="sc-interp">En ruta</span></span>
+                  <span style="margin-left: auto; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 11.5px; font-weight: 700; color: rgb(58, 70, 95); font-variant-numeric: tabular-nums;"><span class="sc-interp">4</span></span>
+                </div>
+                <div style="padding: 10px; display: flex; flex-direction: column; gap: 9px; min-height: 120px;">
+                  
+                    <div draggable="true" class="scp2" style="background: rgb(255, 255, 255); border: 1px solid rgb(227, 230, 236); border-radius: 5px; padding: 11px 12px; cursor: grab; box-shadow: rgba(19, 32, 56, 0.04) 0px 1px 1px;">
+                      <div style="display: flex; align-items: center; gap: 8px;">
+                        <svg width="7" height="13" viewBox="0 0 7 13" fill="#d3d8e1" style="flex: 0 0 auto;"><circle cx="1.5" cy="1.5" r="1.2"></circle><circle cx="5.5" cy="1.5" r="1.2"></circle><circle cx="1.5" cy="6.5" r="1.2"></circle><circle cx="5.5" cy="6.5" r="1.2"></circle><circle cx="1.5" cy="11.5" r="1.2"></circle><circle cx="5.5" cy="11.5" r="1.2"></circle></svg>
+                        <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 12.5px; font-weight: 700; letter-spacing: -0.01em;"><span class="sc-interp">WM-4469</span></span>
+                        <span style="margin-left: auto; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 11px; font-weight: 700; padding: 2px 6px; border-radius: 3px; white-space: nowrap; background: rgb(253, 238, 238); color: rgb(197, 48, 48); border: 1px solid rgb(246, 207, 207);"><span class="sc-interp">vencido 25 min</span></span>
+                      </div>
+                      <div style="font-size: 13px; font-weight: 600; margin-top: 7px; line-height: 1.3;"><span class="sc-interp">Cerámica Torrejón</span></div>
+                      <div style="font-size: 12px; color: rgb(105, 117, 141); margin-top: 2px;"><span class="sc-interp">Madrid</span><span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11px; color: rgb(154, 164, 184); margin-left: 6px;"><span class="sc-interp">28022</span></span></div>
+                      
+                      <div style="display: flex; align-items: center; gap: 9px; margin-top: 9px; padding-top: 8px; border-top: 1px solid rgb(240, 242, 245);">
+                        <span style="display: flex; align-items: center; gap: 5px; color: rgb(105, 117, 141); flex: 0 0 auto;">
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 2 3 7v10l9 5 9-5V7z"></path><path d="M3 7l9 5 9-5"></path></svg>
+                          <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11.5px; font-weight: 600;"><span class="sc-interp">14 bultos</span></span>
+                        </span>
+                        <span style="margin-left: auto; display: flex; align-items: center; gap: 5px; color: rgb(154, 164, 184); min-width: 0px;">
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" style="flex: 0 0 auto;"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 8v4.4l2.8 1.8"></path></svg>
+                          <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11px; font-weight: 600; min-width: 0px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><span class="sc-interp">11–13 h</span></span>
+                        </span>
+                      </div>
+                    </div>
+                  
+                    <div draggable="true" class="scp2" style="background: rgb(255, 255, 255); border: 1px solid rgb(227, 230, 236); border-radius: 5px; padding: 11px 12px; cursor: grab; box-shadow: rgba(19, 32, 56, 0.04) 0px 1px 1px;">
+                      <div style="display: flex; align-items: center; gap: 8px;">
+                        <svg width="7" height="13" viewBox="0 0 7 13" fill="#d3d8e1" style="flex: 0 0 auto;"><circle cx="1.5" cy="1.5" r="1.2"></circle><circle cx="5.5" cy="1.5" r="1.2"></circle><circle cx="1.5" cy="6.5" r="1.2"></circle><circle cx="5.5" cy="6.5" r="1.2"></circle><circle cx="1.5" cy="11.5" r="1.2"></circle><circle cx="5.5" cy="11.5" r="1.2"></circle></svg>
+                        <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 12.5px; font-weight: 700; letter-spacing: -0.01em;"><span class="sc-interp">WM-4468</span></span>
+                        <span style="margin-left: auto; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 11px; font-weight: 700; padding: 2px 6px; border-radius: 3px; white-space: nowrap; background: rgb(253, 244, 228); color: rgb(154, 98, 6); border: 1px solid rgb(243, 221, 180);"><span class="sc-interp">1 h 10</span></span>
+                      </div>
+                      <div style="font-size: 13px; font-weight: 600; margin-top: 7px; line-height: 1.3;"><span class="sc-interp">Ferretería Ortega</span></div>
+                      <div style="font-size: 12px; color: rgb(105, 117, 141); margin-top: 2px;"><span class="sc-interp">Meco</span><span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11px; color: rgb(154, 164, 184); margin-left: 6px;"><span class="sc-interp">28880</span></span></div>
+                      
+                      <div style="display: flex; align-items: center; gap: 9px; margin-top: 9px; padding-top: 8px; border-top: 1px solid rgb(240, 242, 245);">
+                        <span style="display: flex; align-items: center; gap: 5px; color: rgb(105, 117, 141); flex: 0 0 auto;">
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 2 3 7v10l9 5 9-5V7z"></path><path d="M3 7l9 5 9-5"></path></svg>
+                          <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11.5px; font-weight: 600;"><span class="sc-interp">6 bultos</span></span>
+                        </span>
+                        <span style="margin-left: auto; display: flex; align-items: center; gap: 5px; color: rgb(154, 164, 184); min-width: 0px;">
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" style="flex: 0 0 auto;"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 8v4.4l2.8 1.8"></path></svg>
+                          <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11px; font-weight: 600; min-width: 0px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><span class="sc-interp">13–15 h</span></span>
+                        </span>
+                      </div>
+                    </div>
+                  
+                    <div draggable="true" class="scp2" style="background: rgb(255, 255, 255); border: 1px solid rgb(227, 230, 236); border-radius: 5px; padding: 11px 12px; cursor: grab; box-shadow: rgba(19, 32, 56, 0.04) 0px 1px 1px;">
+                      <div style="display: flex; align-items: center; gap: 8px;">
+                        <svg width="7" height="13" viewBox="0 0 7 13" fill="#d3d8e1" style="flex: 0 0 auto;"><circle cx="1.5" cy="1.5" r="1.2"></circle><circle cx="5.5" cy="1.5" r="1.2"></circle><circle cx="1.5" cy="6.5" r="1.2"></circle><circle cx="5.5" cy="6.5" r="1.2"></circle><circle cx="1.5" cy="11.5" r="1.2"></circle><circle cx="5.5" cy="11.5" r="1.2"></circle></svg>
+                        <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 12.5px; font-weight: 700; letter-spacing: -0.01em;"><span class="sc-interp">WM-4470</span></span>
+                        <span style="margin-left: auto; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 11px; font-weight: 700; padding: 2px 6px; border-radius: 3px; white-space: nowrap; background: rgb(233, 248, 242); color: rgb(14, 127, 95); border: 1px solid rgb(201, 233, 220);"><span class="sc-interp">3 h 45</span></span>
+                      </div>
+                      <div style="font-size: 13px; font-weight: 600; margin-top: 7px; line-height: 1.3;"><span class="sc-interp">Óptica Vela</span></div>
+                      <div style="font-size: 12px; color: rgb(105, 117, 141); margin-top: 2px;"><span class="sc-interp">Torrejón de Ardoz</span><span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11px; color: rgb(154, 164, 184); margin-left: 6px;"><span class="sc-interp">28850</span></span></div>
+                      
+                      <div style="display: flex; align-items: center; gap: 9px; margin-top: 9px; padding-top: 8px; border-top: 1px solid rgb(240, 242, 245);">
+                        <span style="display: flex; align-items: center; gap: 5px; color: rgb(105, 117, 141); flex: 0 0 auto;">
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 2 3 7v10l9 5 9-5V7z"></path><path d="M3 7l9 5 9-5"></path></svg>
+                          <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11.5px; font-weight: 600;"><span class="sc-interp">2 bultos</span></span>
+                        </span>
+                        <span style="margin-left: auto; display: flex; align-items: center; gap: 5px; color: rgb(154, 164, 184); min-width: 0px;">
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" style="flex: 0 0 auto;"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 8v4.4l2.8 1.8"></path></svg>
+                          <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11px; font-weight: 600; min-width: 0px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><span class="sc-interp">16–18 h</span></span>
+                        </span>
+                      </div>
+                    </div>
+                  
+                    <div draggable="true" class="scp2" style="background: rgb(255, 255, 255); border: 1px solid rgb(227, 230, 236); border-radius: 5px; padding: 11px 12px; cursor: grab; box-shadow: rgba(19, 32, 56, 0.04) 0px 1px 1px;">
+                      <div style="display: flex; align-items: center; gap: 8px;">
+                        <svg width="7" height="13" viewBox="0 0 7 13" fill="#d3d8e1" style="flex: 0 0 auto;"><circle cx="1.5" cy="1.5" r="1.2"></circle><circle cx="5.5" cy="1.5" r="1.2"></circle><circle cx="1.5" cy="6.5" r="1.2"></circle><circle cx="5.5" cy="6.5" r="1.2"></circle><circle cx="1.5" cy="11.5" r="1.2"></circle><circle cx="5.5" cy="11.5" r="1.2"></circle></svg>
+                        <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 12.5px; font-weight: 700; letter-spacing: -0.01em;"><span class="sc-interp">WM-4471</span></span>
+                        <span style="margin-left: auto; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 11px; font-weight: 700; padding: 2px 6px; border-radius: 3px; white-space: nowrap; background: rgb(233, 248, 242); color: rgb(14, 127, 95); border: 1px solid rgb(201, 233, 220);"><span class="sc-interp">2 h 30</span></span>
+                      </div>
+                      <div style="font-size: 13px; font-weight: 600; margin-top: 7px; line-height: 1.3;"><span class="sc-interp">Distribuciones Meco</span></div>
+                      <div style="font-size: 12px; color: rgb(105, 117, 141); margin-top: 2px;"><span class="sc-interp">Meco</span><span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11px; color: rgb(154, 164, 184); margin-left: 6px;"><span class="sc-interp">28880</span></span></div>
+                      
+                      <div style="display: flex; align-items: center; gap: 9px; margin-top: 9px; padding-top: 8px; border-top: 1px solid rgb(240, 242, 245);">
+                        <span style="display: flex; align-items: center; gap: 5px; color: rgb(105, 117, 141); flex: 0 0 auto;">
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 2 3 7v10l9 5 9-5V7z"></path><path d="M3 7l9 5 9-5"></path></svg>
+                          <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11.5px; font-weight: 600;"><span class="sc-interp">3 bultos</span></span>
+                        </span>
+                        <span style="margin-left: auto; display: flex; align-items: center; gap: 5px; color: rgb(154, 164, 184); min-width: 0px;">
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" style="flex: 0 0 auto;"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 8v4.4l2.8 1.8"></path></svg>
+                          <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11px; font-weight: 600; min-width: 0px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><span class="sc-interp">15–17 h</span></span>
+                        </span>
+                      </div>
+                    </div>
+                  
+                  
+                </div>
+              </div>
+            </div>
+          
+            <div style="display: flex; flex: 1 1 244px; min-width: 236px;">
+              <div style="flex: 1 1 auto; min-width: 0px; background: rgb(250, 251, 252); border: 1px solid rgb(232, 234, 239); border-radius: 6px; overflow: hidden; box-shadow: rgba(19, 32, 56, 0.04) 0px 1px 2px;">
+                <div style="height: 2px; background: rgb(16, 185, 129);"></div>
+                <div style="display: flex; align-items: center; gap: 8px; padding: 10px 12px 9px; background: rgb(255, 255, 255); border-bottom: 1px solid rgb(232, 234, 239);">
+                  <span style="width: 7px; height: 7px; border-radius: 50%; flex: 0 0 auto; background: rgb(16, 185, 129);"></span>
+                  <span style="font-size: 11px; font-weight: 800; letter-spacing: 0.07em; text-transform: uppercase; color: rgb(58, 70, 95); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><span class="sc-interp">Entregado</span></span>
+                  <span style="margin-left: auto; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 11.5px; font-weight: 700; color: rgb(58, 70, 95); font-variant-numeric: tabular-nums;"><span class="sc-interp">2</span></span>
+                </div>
+                <div style="padding: 10px; display: flex; flex-direction: column; gap: 9px; min-height: 120px;">
+                  
+                    <div draggable="true" class="scp2" style="background: rgb(255, 255, 255); border: 1px solid rgb(227, 230, 236); border-radius: 5px; padding: 11px 12px; cursor: grab; box-shadow: rgba(19, 32, 56, 0.04) 0px 1px 1px;">
+                      <div style="display: flex; align-items: center; gap: 8px;">
+                        <svg width="7" height="13" viewBox="0 0 7 13" fill="#d3d8e1" style="flex: 0 0 auto;"><circle cx="1.5" cy="1.5" r="1.2"></circle><circle cx="5.5" cy="1.5" r="1.2"></circle><circle cx="1.5" cy="6.5" r="1.2"></circle><circle cx="5.5" cy="6.5" r="1.2"></circle><circle cx="1.5" cy="11.5" r="1.2"></circle><circle cx="5.5" cy="11.5" r="1.2"></circle></svg>
+                        <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 12.5px; font-weight: 700; letter-spacing: -0.01em;"><span class="sc-interp">WM-4460</span></span>
+                        <span style="margin-left: auto; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 11px; font-weight: 700; padding: 2px 6px; border-radius: 3px; white-space: nowrap; background: rgb(242, 244, 247); color: rgb(105, 117, 141); border: 1px solid rgb(227, 230, 236);"><span class="sc-interp">entregado 12:48</span></span>
+                      </div>
+                      <div style="font-size: 13px; font-weight: 600; margin-top: 7px; line-height: 1.3;"><span class="sc-interp">Laboratorio Vitalis</span></div>
+                      <div style="font-size: 12px; color: rgb(105, 117, 141); margin-top: 2px;"><span class="sc-interp">Alcalá de Henares</span><span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11px; color: rgb(154, 164, 184); margin-left: 6px;"><span class="sc-interp">28806</span></span></div>
+                      
+                      <div style="display: flex; align-items: center; gap: 9px; margin-top: 9px; padding-top: 8px; border-top: 1px solid rgb(240, 242, 245);">
+                        <span style="display: flex; align-items: center; gap: 5px; color: rgb(105, 117, 141); flex: 0 0 auto;">
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 2 3 7v10l9 5 9-5V7z"></path><path d="M3 7l9 5 9-5"></path></svg>
+                          <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11.5px; font-weight: 600;"><span class="sc-interp">2 bultos</span></span>
+                        </span>
+                        <span style="margin-left: auto; display: flex; align-items: center; gap: 5px; color: rgb(154, 164, 184); min-width: 0px;">
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" style="flex: 0 0 auto;"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 8v4.4l2.8 1.8"></path></svg>
+                          <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11px; font-weight: 600; min-width: 0px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><span class="sc-interp">09–13 h</span></span>
+                        </span>
+                      </div>
+                    </div>
+                  
+                    <div draggable="true" class="scp2" style="background: rgb(255, 255, 255); border: 1px solid rgb(227, 230, 236); border-radius: 5px; padding: 11px 12px; cursor: grab; box-shadow: rgba(19, 32, 56, 0.04) 0px 1px 1px;">
+                      <div style="display: flex; align-items: center; gap: 8px;">
+                        <svg width="7" height="13" viewBox="0 0 7 13" fill="#d3d8e1" style="flex: 0 0 auto;"><circle cx="1.5" cy="1.5" r="1.2"></circle><circle cx="5.5" cy="1.5" r="1.2"></circle><circle cx="1.5" cy="6.5" r="1.2"></circle><circle cx="5.5" cy="6.5" r="1.2"></circle><circle cx="1.5" cy="11.5" r="1.2"></circle><circle cx="5.5" cy="11.5" r="1.2"></circle></svg>
+                        <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 12.5px; font-weight: 700; letter-spacing: -0.01em;"><span class="sc-interp">WM-4461</span></span>
+                        <span style="margin-left: auto; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 11px; font-weight: 700; padding: 2px 6px; border-radius: 3px; white-space: nowrap; background: rgb(242, 244, 247); color: rgb(105, 117, 141); border: 1px solid rgb(227, 230, 236);"><span class="sc-interp">entregado 11:20</span></span>
+                      </div>
+                      <div style="font-size: 13px; font-weight: 600; margin-top: 7px; line-height: 1.3;"><span class="sc-interp">Papelería Duero</span></div>
+                      <div style="font-size: 12px; color: rgb(105, 117, 141); margin-top: 2px;"><span class="sc-interp">San Fernando</span><span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11px; color: rgb(154, 164, 184); margin-left: 6px;"><span class="sc-interp">28830</span></span></div>
+                      
+                      <div style="display: flex; align-items: center; gap: 9px; margin-top: 9px; padding-top: 8px; border-top: 1px solid rgb(240, 242, 245);">
+                        <span style="display: flex; align-items: center; gap: 5px; color: rgb(105, 117, 141); flex: 0 0 auto;">
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 2 3 7v10l9 5 9-5V7z"></path><path d="M3 7l9 5 9-5"></path></svg>
+                          <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11.5px; font-weight: 600;"><span class="sc-interp">3 bultos</span></span>
+                        </span>
+                        <span style="margin-left: auto; display: flex; align-items: center; gap: 5px; color: rgb(154, 164, 184); min-width: 0px;">
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" style="flex: 0 0 auto;"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 8v4.4l2.8 1.8"></path></svg>
+                          <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11px; font-weight: 600; min-width: 0px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><span class="sc-interp">09–13 h</span></span>
+                        </span>
+                      </div>
+                    </div>
+                  
+                  
+                </div>
+              </div>
+            </div>
+          
+            <div style="display: flex; flex: 1 1 244px; min-width: 236px; border-left: 1px dashed rgb(224, 201, 201); padding-left: 13px; margin-left: 5px;">
+              <div style="flex: 1 1 auto; min-width: 0px; background: rgb(253, 250, 250); border: 1px solid rgb(242, 222, 222); border-radius: 6px; overflow: hidden; box-shadow: rgba(19, 32, 56, 0.04) 0px 1px 2px;">
+                <div style="height: 2px; background: rgb(239, 68, 68);"></div>
+                <div style="display: flex; align-items: center; gap: 8px; padding: 10px 12px 9px; background: rgb(255, 255, 255); border-bottom: 1px solid rgb(232, 234, 239);">
+                  <span style="width: 7px; height: 7px; border-radius: 50%; flex: 0 0 auto; background: rgb(239, 68, 68);"></span>
+                  <span style="font-size: 11px; font-weight: 800; letter-spacing: 0.07em; text-transform: uppercase; color: rgb(58, 70, 95); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><span class="sc-interp">Incidencia</span></span>
+                  <span style="margin-left: auto; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 11.5px; font-weight: 700; color: rgb(197, 48, 48); font-variant-numeric: tabular-nums;"><span class="sc-interp">2</span></span>
+                </div>
+                <div style="padding: 10px; display: flex; flex-direction: column; gap: 9px; min-height: 120px;">
+                  
+                    <div draggable="true" class="scp2" style="background: rgb(255, 255, 255); border: 1px solid rgb(227, 230, 236); border-radius: 5px; padding: 11px 12px; cursor: grab; box-shadow: rgba(19, 32, 56, 0.04) 0px 1px 1px;">
+                      <div style="display: flex; align-items: center; gap: 8px;">
+                        <svg width="7" height="13" viewBox="0 0 7 13" fill="#d3d8e1" style="flex: 0 0 auto;"><circle cx="1.5" cy="1.5" r="1.2"></circle><circle cx="5.5" cy="1.5" r="1.2"></circle><circle cx="1.5" cy="6.5" r="1.2"></circle><circle cx="5.5" cy="6.5" r="1.2"></circle><circle cx="1.5" cy="11.5" r="1.2"></circle><circle cx="5.5" cy="11.5" r="1.2"></circle></svg>
+                        <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 12.5px; font-weight: 700; letter-spacing: -0.01em;"><span class="sc-interp">WM-4455</span></span>
+                        <span style="margin-left: auto; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 11px; font-weight: 700; padding: 2px 6px; border-radius: 3px; white-space: nowrap; background: rgb(253, 238, 238); color: rgb(197, 48, 48); border: 1px solid rgb(246, 207, 207);"><span class="sc-interp">vencido 1 h 40</span></span>
+                      </div>
+                      <div style="font-size: 13px; font-weight: 600; margin-top: 7px; line-height: 1.3;"><span class="sc-interp">Bodega Marín</span></div>
+                      <div style="font-size: 12px; color: rgb(105, 117, 141); margin-top: 2px;"><span class="sc-interp">Coslada</span><span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11px; color: rgb(154, 164, 184); margin-left: 6px;"><span class="sc-interp">28820</span></span></div>
+                      
+                        <div style="margin-top: 8px; border-left: 2px solid rgb(239, 68, 68); background: rgb(253, 243, 243); padding: 5px 8px; font-size: 11.5px; color: rgb(197, 48, 48); font-weight: 600;"><span class="sc-interp">Destinatario ausente</span></div>
+                      
+                      <div style="display: flex; align-items: center; gap: 9px; margin-top: 9px; padding-top: 8px; border-top: 1px solid rgb(240, 242, 245);">
+                        <span style="display: flex; align-items: center; gap: 5px; color: rgb(105, 117, 141); flex: 0 0 auto;">
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 2 3 7v10l9 5 9-5V7z"></path><path d="M3 7l9 5 9-5"></path></svg>
+                          <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11.5px; font-weight: 600;"><span class="sc-interp">4 bultos</span></span>
+                        </span>
+                        <span style="margin-left: auto; display: flex; align-items: center; gap: 5px; color: rgb(154, 164, 184); min-width: 0px;">
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" style="flex: 0 0 auto;"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 8v4.4l2.8 1.8"></path></svg>
+                          <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11px; font-weight: 600; min-width: 0px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><span class="sc-interp">10–12 h</span></span>
+                        </span>
+                      </div>
+                    </div>
+                  
+                    <div draggable="true" class="scp2" style="background: rgb(255, 255, 255); border: 1px solid rgb(227, 230, 236); border-radius: 5px; padding: 11px 12px; cursor: grab; box-shadow: rgba(19, 32, 56, 0.04) 0px 1px 1px;">
+                      <div style="display: flex; align-items: center; gap: 8px;">
+                        <svg width="7" height="13" viewBox="0 0 7 13" fill="#d3d8e1" style="flex: 0 0 auto;"><circle cx="1.5" cy="1.5" r="1.2"></circle><circle cx="5.5" cy="1.5" r="1.2"></circle><circle cx="1.5" cy="6.5" r="1.2"></circle><circle cx="5.5" cy="6.5" r="1.2"></circle><circle cx="1.5" cy="11.5" r="1.2"></circle><circle cx="5.5" cy="11.5" r="1.2"></circle></svg>
+                        <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 12.5px; font-weight: 700; letter-spacing: -0.01em;"><span class="sc-interp">WM-4457</span></span>
+                        <span style="margin-left: auto; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 11px; font-weight: 700; padding: 2px 6px; border-radius: 3px; white-space: nowrap; background: rgb(253, 238, 238); color: rgb(197, 48, 48); border: 1px solid rgb(246, 207, 207);"><span class="sc-interp">vencido 35 min</span></span>
+                      </div>
+                      <div style="font-size: 13px; font-weight: 600; margin-top: 7px; line-height: 1.3;"><span class="sc-interp">Cerámica Torrejón</span></div>
+                      <div style="font-size: 12px; color: rgb(105, 117, 141); margin-top: 2px;"><span class="sc-interp">Torrejón de Ardoz</span><span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11px; color: rgb(154, 164, 184); margin-left: 6px;"><span class="sc-interp">28850</span></span></div>
+                      
+                        <div style="margin-top: 8px; border-left: 2px solid rgb(239, 68, 68); background: rgb(253, 243, 243); padding: 5px 8px; font-size: 11.5px; color: rgb(197, 48, 48); font-weight: 600;"><span class="sc-interp">Bulto dañado en tránsito</span></div>
+                      
+                      <div style="display: flex; align-items: center; gap: 9px; margin-top: 9px; padding-top: 8px; border-top: 1px solid rgb(240, 242, 245);">
+                        <span style="display: flex; align-items: center; gap: 5px; color: rgb(105, 117, 141); flex: 0 0 auto;">
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 2 3 7v10l9 5 9-5V7z"></path><path d="M3 7l9 5 9-5"></path></svg>
+                          <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11.5px; font-weight: 600;"><span class="sc-interp">8 bultos</span></span>
+                        </span>
+                        <span style="margin-left: auto; display: flex; align-items: center; gap: 5px; color: rgb(154, 164, 184); min-width: 0px;">
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" style="flex: 0 0 auto;"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 8v4.4l2.8 1.8"></path></svg>
+                          <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11px; font-weight: 600; min-width: 0px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><span class="sc-interp">11–13 h</span></span>
+                        </span>
+                      </div>
+                    </div>
+                  
+                  
+                </div>
+              </div>
+            </div>
+          
+        </div>
+
+        
+          <aside style="background: rgb(255, 255, 255); border: 1px solid rgb(232, 234, 239); border-radius: 6px; box-shadow: rgba(19, 32, 56, 0.05) 0px 1px 2px; align-self: flex-start; overflow: hidden; flex: 1 1 340px; max-width: 392px; min-width: 0px;">
+            <div style="padding: 15px 18px 14px; border-bottom: 1px solid rgb(232, 234, 239);">
+              <div style="display: flex; align-items: center; gap: 9px;">
+                <span style="display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 3px; background: rgb(238, 243, 254); color: rgb(29, 78, 216); border: 1px solid rgb(207, 224, 253);"><span style="width: 5px; height: 5px; border-radius: 50%; flex: 0 0 auto; background: rgb(37, 99, 235);"></span><span class="sc-interp">Asignado</span></span>
+                <span style="margin-left: auto; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 11px; font-weight: 700; padding: 2px 6px; border-radius: 3px; white-space: nowrap; background: rgb(253, 244, 228); color: rgb(154, 98, 6); border: 1px solid rgb(243, 221, 180);"><span class="sc-interp">52 min</span></span>
+              </div>
+              <div style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 16px; font-weight: 700; letter-spacing: -0.01em; margin-top: 10px;"><span class="sc-interp">WM-4473</span></div>
+              <div style="font-size: 12.5px; color: rgb(105, 117, 141); margin-top: 2px;"><span class="sc-interp">Clínica Dental Sanz</span> · <span class="sc-interp">Urgente 24 h · corte 16:00</span></div>
+            </div>
+
+            
+
+            <div style="padding: 14px 18px 4px;"><span style="font-size: 9.5px; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase; color: rgb(105, 117, 141);">Entrega</span></div>
+            <div style="padding: 6px 18px 14px; display: grid; grid-template-columns: 84px minmax(0px, 1fr); gap: 7px 12px; font-size: 12.5px; align-items: baseline;">
+              <span style="color: rgb(154, 164, 184); font-weight: 600; font-size: 11px; letter-spacing: 0.03em; text-transform: uppercase;">Destino</span><span style="font-weight: 600;"><span class="sc-interp">Clínica Dental Sanz</span></span>
+              <span style="color: rgb(154, 164, 184); font-weight: 600; font-size: 11px; letter-spacing: 0.03em; text-transform: uppercase;">Dirección</span><span><span class="sc-interp">C/ Libreros 21, 1º</span></span>
+              <span style="color: rgb(154, 164, 184); font-weight: 600; font-size: 11px; letter-spacing: 0.03em; text-transform: uppercase;">Ventana</span><span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 12px;"><span class="sc-interp">hoy antes de 16:00</span></span>
+              <span style="color: rgb(154, 164, 184); font-weight: 600; font-size: 11px; letter-spacing: 0.03em; text-transform: uppercase;">Bultos</span><span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 12px;"><span class="sc-interp">3 bultos</span></span>
+            </div>
+
+            <div style="padding: 0px 18px 6px;"><span style="font-size: 9.5px; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase; color: rgb(105, 117, 141);">Línea de tiempo</span></div>
+            <div style="padding: 2px 18px 14px; display: flex; flex-direction: column;">
+              
+                <div style="display: grid; grid-template-columns: 46px 16px minmax(0px, 1fr); align-items: start; gap: 9px;">
+                  <span style="font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 11.5px; font-weight: 600; text-align: right; padding-top: 1px; color: rgb(58, 70, 95);"><span class="sc-interp">09:12</span></span>
+                  <span style="display: flex; flex-direction: column; align-items: center; align-self: stretch;">
+                    <span style="width: 9px; height: 9px; border-radius: 50%; flex: 0 0 auto; margin-top: 5px; background: rgb(37, 99, 235);"></span>
+                    <span style="flex: 1 1 0%; width: 1px; background: rgb(221, 225, 233); min-height: 14px;"></span>
+                  </span>
+                  <span style="font-size: 12.5px; font-weight: 600; padding-bottom: 11px; color: rgb(19, 32, 56);"><span class="sc-interp">Recibido</span><span style="display: block; font-size: 11.5px; font-weight: 500; color: rgb(105, 117, 141); margin-top: 1px;"><span class="sc-interp">alta manual · mostrador</span></span></span>
+                </div>
+              
+                <div style="display: grid; grid-template-columns: 46px 16px minmax(0px, 1fr); align-items: start; gap: 9px;">
+                  <span style="font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 11.5px; font-weight: 600; text-align: right; padding-top: 1px; color: rgb(58, 70, 95);"><span class="sc-interp">10:40</span></span>
+                  <span style="display: flex; flex-direction: column; align-items: center; align-self: stretch;">
+                    <span style="width: 9px; height: 9px; border-radius: 50%; flex: 0 0 auto; margin-top: 5px; background: rgb(37, 99, 235);"></span>
+                    <span style="flex: 1 1 0%; width: 1px; background: rgb(221, 225, 233); min-height: 14px;"></span>
+                  </span>
+                  <span style="font-size: 12.5px; font-weight: 600; padding-bottom: 11px; color: rgb(19, 32, 56);"><span class="sc-interp">Clasificado</span><span style="display: block; font-size: 11.5px; font-weight: 500; color: rgb(105, 117, 141); margin-top: 1px;"><span class="sc-interp">muelle 2</span></span></span>
+                </div>
+              
+                <div style="display: grid; grid-template-columns: 46px 16px minmax(0px, 1fr); align-items: start; gap: 9px;">
+                  <span style="font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 11.5px; font-weight: 600; text-align: right; padding-top: 1px; color: rgb(58, 70, 95);"><span class="sc-interp">11:05</span></span>
+                  <span style="display: flex; flex-direction: column; align-items: center; align-self: stretch;">
+                    <span style="width: 9px; height: 9px; border-radius: 50%; flex: 0 0 auto; margin-top: 5px; background: rgb(37, 99, 235);"></span>
+                    <span style="flex: 1 1 0%; width: 1px; background: rgb(221, 225, 233); min-height: 14px;"></span>
+                  </span>
+                  <span style="font-size: 12.5px; font-weight: 600; padding-bottom: 11px; color: rgb(19, 32, 56);"><span class="sc-interp">Asignado</span><span style="display: block; font-size: 11.5px; font-weight: 500; color: rgb(105, 117, 141); margin-top: 1px;"><span class="sc-interp">Iván R. · Ruta A</span></span></span>
+                </div>
+              
+                <div style="display: grid; grid-template-columns: 46px 16px minmax(0px, 1fr); align-items: start; gap: 9px;">
+                  <span style="font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 11.5px; font-weight: 600; text-align: right; padding-top: 1px; color: rgb(195, 202, 216);"><span class="sc-interp">—</span></span>
+                  <span style="display: flex; flex-direction: column; align-items: center; align-self: stretch;">
+                    <span style="width: 9px; height: 9px; border-radius: 50%; flex: 0 0 auto; margin-top: 5px; background: rgb(255, 255, 255); border: 1.5px solid rgb(221, 225, 233);"></span>
+                    <span style="flex: 1 1 0%; width: 1px; background: rgb(236, 239, 243); min-height: 14px;"></span>
+                  </span>
+                  <span style="font-size: 12.5px; font-weight: 600; padding-bottom: 11px; color: rgb(154, 164, 184);"><span class="sc-interp">En ruta</span><span style="display: none;"><span class="sc-interp"></span></span></span>
+                </div>
+              
+                <div style="display: grid; grid-template-columns: 46px 16px minmax(0px, 1fr); align-items: start; gap: 9px;">
+                  <span style="font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 11.5px; font-weight: 600; text-align: right; padding-top: 1px; color: rgb(195, 202, 216);"><span class="sc-interp">—</span></span>
+                  <span style="display: flex; flex-direction: column; align-items: center; align-self: stretch;">
+                    <span style="width: 9px; height: 9px; border-radius: 50%; flex: 0 0 auto; margin-top: 5px; background: rgb(255, 255, 255); border: 1.5px solid rgb(221, 225, 233);"></span>
+                    <span style="flex: 1 1 0%; width: 1px; background: rgb(236, 239, 243); display: none;"></span>
+                  </span>
+                  <span style="font-size: 12.5px; font-weight: 600; padding-bottom: 11px; color: rgb(154, 164, 184);"><span class="sc-interp">Entregado</span><span style="display: none;"><span class="sc-interp"></span></span></span>
+                </div>
+              
+            </div>
+
+            <div style="padding: 0px 18px 6px;"><span style="font-size: 9.5px; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase; color: rgb(105, 117, 141);">Artículos</span></div>
+            <div style="padding: 0px 18px 14px;">
+              <table style="width: 100%; border-collapse: separate; border-spacing: 0px; font-size: 12.5px;">
+                
+                  <tr>
+                    <td style="padding: 6px 8px 6px 0px; border-bottom: 1px solid rgb(240, 242, 245); font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11.5px; color: rgb(105, 117, 141); white-space: nowrap;"><span class="sc-interp">CDS-1</span></td>
+                    <td style="padding: 6px 8px; border-bottom: 1px solid rgb(240, 242, 245);"><span class="sc-interp">Material implantes</span></td>
+                    <td style="padding: 6px 0px 6px 8px; border-bottom: 1px solid rgb(240, 242, 245); text-align: right; font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 12px; font-weight: 600; white-space: nowrap;"><span class="sc-interp">2 bultos</span></td>
+                  </tr>
+                
+                  <tr>
+                    <td style="padding: 6px 8px 6px 0px; border-bottom: 1px solid rgb(240, 242, 245); font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11.5px; color: rgb(105, 117, 141); white-space: nowrap;"><span class="sc-interp">CDS-2</span></td>
+                    <td style="padding: 6px 8px; border-bottom: 1px solid rgb(240, 242, 245);"><span class="sc-interp">Instrumental esterilizado</span></td>
+                    <td style="padding: 6px 0px 6px 8px; border-bottom: 1px solid rgb(240, 242, 245); text-align: right; font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 12px; font-weight: 600; white-space: nowrap;"><span class="sc-interp">1 bulto</span></td>
+                  </tr>
+                
+              </table>
+            </div>
+
+            <div style="padding: 13px 18px 15px; border-top: 1px solid rgb(232, 234, 239); background: rgb(250, 251, 252); display: flex; flex-direction: column; gap: 8px;">
+              <button style="font-family: inherit; font-size: 13px; font-weight: 700; border-radius: 5px; padding: 11px 12px; cursor: pointer; width: 100%; background: rgb(37, 99, 235); color: rgb(255, 255, 255); border: 1px solid rgb(37, 99, 235);"><span class="sc-interp">Iniciar ruta</span></button>
+              <div style="display: flex; gap: 8px;">
+                <button style="flex: 1 1 0%; font-family: inherit; font-size: 12.5px; font-weight: 700; color: rgb(19, 32, 56); background: rgb(255, 255, 255); border: 1px solid rgb(221, 225, 233); border-radius: 5px; padding: 9px 10px; cursor: pointer; white-space: nowrap;"><span class="sc-interp">Cambiar ventana</span></button>
+                <button style="flex: 1 1 0%; font-family: inherit; font-size: 12.5px; font-weight: 700; border-radius: 5px; padding: 9px 10px; cursor: pointer; background: rgb(255, 255, 255); color: rgb(197, 48, 48); border: 1px solid rgb(246, 207, 207);"><span class="sc-interp">Marcar incidencia</span></button>
+                <button style="flex: 0 0 auto; font-family: inherit; font-size: 12.5px; font-weight: 700; color: rgb(105, 117, 141); background: rgb(255, 255, 255); border: 1px solid rgb(221, 225, 233); border-radius: 5px; padding: 9px 10px; cursor: pointer; white-space: nowrap;">Abrir pedido</button>
+              </div>
+              <span style="font-size: 11.5px; color: rgb(154, 164, 184); text-align: center; margin-top: 2px;"><span class="sc-interp">cada cambio queda en la línea de tiempo con hora</span></span>
+            </div>
+          </aside>
+        
+
+      </div>
+    </div>
+  </div></div></div></div>
+
+
+
+</body></html>
