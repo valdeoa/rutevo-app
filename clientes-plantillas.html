@@ -125,13 +125,13 @@ select{font:inherit;color:inherit}
             <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap; min-width: 0px;">
               <span style="font-size: 9.5px; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase; color: rgb(105, 117, 141);">Plantilla</span>
               
-                <button style="display: flex; align-items: center; gap: 7px; font-family: inherit; font-size: 12px; font-weight: 700; padding: 6px 11px; border-radius: 5px; cursor: pointer; white-space: nowrap; background: rgb(14, 31, 61); color: rgb(255, 255, 255); border: 1px solid rgb(14, 31, 61);"><span class="sc-interp">Todas</span><span style="font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 10.5px; font-weight: 700; color: rgb(127, 176, 255);"><span class="sc-interp">12</span></span></button>
+                <button data-plant="" class="rt-pchip" style="display: flex; align-items: center; gap: 7px; font-family: inherit; font-size: 12px; font-weight: 700; padding: 6px 11px; border-radius: 5px; cursor: pointer; white-space: nowrap; background: rgb(14, 31, 61); color: rgb(255, 255, 255); border: 1px solid rgb(14, 31, 61);"><span class="sc-interp">Todas</span><span style="font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 10.5px; font-weight: 700; color: rgb(127, 176, 255);"><span class="sc-interp" id="rt-pc-todas">12</span></span></button>
               
-                <button style="display: flex; align-items: center; gap: 7px; font-family: inherit; font-size: 12px; font-weight: 700; padding: 6px 11px; border-radius: 5px; cursor: pointer; white-space: nowrap; background: rgb(255, 255, 255); color: rgb(105, 117, 141); border: 1px solid rgb(221, 225, 233);"><span class="sc-interp">Mensajería</span><span style="font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 10.5px; font-weight: 700; color: rgb(154, 164, 184);"><span class="sc-interp">7</span></span></button>
+                <button data-plant="courier" class="rt-pchip" style="display: flex; align-items: center; gap: 7px; font-family: inherit; font-size: 12px; font-weight: 700; padding: 6px 11px; border-radius: 5px; cursor: pointer; white-space: nowrap; background: rgb(255, 255, 255); color: rgb(105, 117, 141); border: 1px solid rgb(221, 225, 233);"><span class="sc-interp">Mensajería</span><span style="font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 10.5px; font-weight: 700; color: rgb(154, 164, 184);"><span class="sc-interp" id="rt-pc-mens">7</span></span></button>
               
-                <button style="display: flex; align-items: center; gap: 7px; font-family: inherit; font-size: 12px; font-weight: 700; padding: 6px 11px; border-radius: 5px; cursor: pointer; white-space: nowrap; background: rgb(255, 255, 255); color: rgb(105, 117, 141); border: 1px solid rgb(221, 225, 233);"><span class="sc-interp">3PL</span><span style="font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 10.5px; font-weight: 700; color: rgb(154, 164, 184);"><span class="sc-interp">3</span></span></button>
+                <button data-plant="3pl" class="rt-pchip" style="display: flex; align-items: center; gap: 7px; font-family: inherit; font-size: 12px; font-weight: 700; padding: 6px 11px; border-radius: 5px; cursor: pointer; white-space: nowrap; background: rgb(255, 255, 255); color: rgb(105, 117, 141); border: 1px solid rgb(221, 225, 233);"><span class="sc-interp">3PL</span><span style="font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 10.5px; font-weight: 700; color: rgb(154, 164, 184);"><span class="sc-interp" id="rt-pc-3pl">3</span></span></button>
               
-                <button style="display: flex; align-items: center; gap: 7px; font-family: inherit; font-size: 12px; font-weight: 700; padding: 6px 11px; border-radius: 5px; cursor: pointer; white-space: nowrap; background: rgb(255, 255, 255); color: rgb(105, 117, 141); border: 1px solid rgb(221, 225, 233);"><span class="sc-interp">Almacén</span><span style="font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 10.5px; font-weight: 700; color: rgb(154, 164, 184);"><span class="sc-interp">2</span></span></button>
+                <button data-plant="almacen" class="rt-pchip" style="display: flex; align-items: center; gap: 7px; font-family: inherit; font-size: 12px; font-weight: 700; padding: 6px 11px; border-radius: 5px; cursor: pointer; white-space: nowrap; background: rgb(255, 255, 255); color: rgb(105, 117, 141); border: 1px solid rgb(221, 225, 233);"><span class="sc-interp">Almacén</span><span style="font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 10.5px; font-weight: 700; color: rgb(154, 164, 184);"><span class="sc-interp" id="rt-pc-alma">2</span></span></button>
               
             </div>
             <span style="width: 1px; height: 26px; background: rgb(232, 234, 239); flex: 0 0 auto;"></span>
@@ -358,6 +358,8 @@ select{font:inherit;color:inherit}
     if(error){ body.innerHTML='<tr><td colspan="7" style="padding:22px;text-align:center;color:#c53030;font-size:12.5px">Error: '+esc(error.message)+'</td></tr>'; return; }
     if($('rt-clients-count')) $('rt-clients-count').textContent=cls.length+' de '+cls.length+' cliente'+(cls.length===1?'':'s');
     { const h=$('rt-cli-header'); if(h){ const act=cls.filter(x=>x.active).length; h.textContent=cls.length+' clientes · '+act+' activos'; } }
+    { const setc=(id,v)=>{const e=$(id);if(e)e.textContent=v;}; const nn=cls.length;
+      setc('rt-pc-todas',nn); setc('rt-pc-mens',arche==='courier'?nn:0); setc('rt-pc-3pl',arche==='3pl'?nn:0); setc('rt-pc-alma',arche==='almacen'?nn:0); }
     if(!cls.length){ body.innerHTML='<tr><td colspan="7" style="padding:30px;text-align:center;color:rgb(154,164,184);font-size:13px">Sin clientes todavía.</td></tr>'; return; }
     body.innerHTML=cls.map(function(c){
       const ch=CH[c.intake_channel]||{l:c.intake_channel||'—',d:'rgb(105, 117, 141)'};
@@ -365,7 +367,7 @@ select{font:inherit;color:inherit}
       const conf=!!c.active; const sla=(c.sla_days==null?1:c.sla_days);
       const mapBg=conf?'rgb(233, 248, 242)':'rgb(253, 244, 228)', mapC=conf?'rgb(14, 127, 95)':'rgb(154, 98, 6)', mapB=conf?'rgb(201, 233, 220)':'rgb(243, 221, 180)', mapD=conf?'rgb(16, 185, 129)':'rgb(245, 158, 11)', mapL=conf?'Configurado':'Borrador';
       const est=c.active?'Activo':'Inactivo', estC=c.active?'rgb(14, 127, 95)':'rgb(105, 117, 141)';
-      return '<tr data-ch="'+esc(c.intake_channel||'')+'" style="cursor: default;">'
+      return '<tr data-ch="'+esc(c.intake_channel||'')+'" data-plant="'+esc(arche||'')+'" style="cursor: default;">'
        +'<td style="padding: 12px 10px 12px 18px; '+BB+' font-weight: 600; min-width: 210px;"><span style="display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 5px; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 10px; font-weight: 700; flex: 0 0 auto; background: rgb(14, 31, 61); color: rgb(255, 255, 255); margin-right: 9px; vertical-align: middle;">'+esc(initials(c.name))+'</span>'+esc(c.name)+'</td>'
        +'<td style="padding: 12px 10px; '+BB+'"><span style="font-size: 12.5px; font-weight: 600; color: rgb(58, 70, 95); white-space: nowrap;">'+esc(PLANT[arche]||'—')+'</span></td>'
        +'<td style="padding: 12px 10px; '+BB+'"><span style="display: inline-flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 700; color: rgb(58, 70, 95); white-space: nowrap;"><span style="display: inline-block; width: 7px; height: 7px; border-radius: 2px; flex: 0 0 auto; background: '+ch.d+';"></span>'+esc(ch.l)+'</span></td>'
@@ -397,11 +399,11 @@ select{font:inherit;color:inherit}
     }
   });
   await load();
-  document.querySelectorAll('.rt-cchip').forEach(function(ch){ ch.addEventListener('click', function(){
-    const fch=ch.getAttribute('data-ch')||'';
-    document.querySelectorAll('#rt-clients-body tr[data-ch]').forEach(function(tr){ tr.style.display=(!fch || tr.getAttribute('data-ch')===fch)?'':'none'; });
-    document.querySelectorAll('.rt-cchip').forEach(function(x){ const on=x===ch; x.style.background=on?'rgb(14, 31, 61)':'rgb(255, 255, 255)'; x.style.color=on?'rgb(255, 255, 255)':'rgb(105, 117, 141)'; x.style.borderColor=on?'rgb(14, 31, 61)':'rgb(221, 225, 233)'; });
-  }); });
+  let fch='', fpl='';
+  function applyF(){ document.querySelectorAll('#rt-clients-body tr[data-ch]').forEach(function(tr){ const okc=!fch||tr.getAttribute('data-ch')===fch; const okp=!fpl||tr.getAttribute('data-plant')===fpl; tr.style.display=(okc&&okp)?'':'none'; }); }
+  function styleChips(sel,active){ document.querySelectorAll(sel).forEach(function(x){ const on=x===active; x.style.background=on?'rgb(14, 31, 61)':'rgb(255, 255, 255)'; x.style.color=on?'rgb(255, 255, 255)':'rgb(105, 117, 141)'; x.style.borderColor=on?'rgb(14, 31, 61)':'rgb(221, 225, 233)'; }); }
+  document.querySelectorAll('.rt-cchip').forEach(function(ch){ ch.addEventListener('click',function(){ fch=ch.getAttribute('data-ch')||''; styleChips('.rt-cchip',ch); applyF(); }); });
+  document.querySelectorAll('.rt-pchip').forEach(function(ch){ ch.addEventListener('click',function(){ fpl=ch.getAttribute('data-plant')||''; styleChips('.rt-pchip',ch); applyF(); }); });
 })();
 </script>
 </body></html>

@@ -132,13 +132,13 @@ input::placeholder{color:#9aa4b8}
           <div style="font-size: 10px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: rgb(105, 117, 141);">Pedidos activos</div>
           <div style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 40px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.05; margin-top: 8px; font-variant-numeric: tabular-nums;" id="rt-ag-k1">106</div>
           <div style="font-size: 12px; color: rgb(105, 117, 141); margin-top: 5px;">pedidos sin enviar</div>
-          <svg viewBox="0 0 260 30" preserveAspectRatio="none" style="margin-top: 11px; height: 28px; width: 100%; display: block;"><path d="M0 22 L28 20 L56 23 L84 16 L112 18 L140 12 L168 14 L196 7 L224 9 L260 5 V30 H0 Z" fill="#eef3fe"></path><path d="M0 22 L28 20 L56 23 L84 16 L112 18 L140 12 L168 14 L196 7 L224 9 L260 5" fill="none" stroke="#2563EB" stroke-width="2"></path><circle cx="257" cy="5" r="2.6" fill="#2563EB"></circle></svg>
+          <svg id="rt-spark1" viewBox="0 0 260 30" preserveAspectRatio="none" style="margin-top: 11px; height: 28px; width: 100%; display: block;"><path d="M0 22 L28 20 L56 23 L84 16 L112 18 L140 12 L168 14 L196 7 L224 9 L260 5 V30 H0 Z" fill="#eef3fe"></path><path d="M0 22 L28 20 L56 23 L84 16 L112 18 L140 12 L168 14 L196 7 L224 9 L260 5" fill="none" stroke="#2563EB" stroke-width="2"></path><circle cx="257" cy="5" r="2.6" fill="#2563EB"></circle></svg>
         </div>
         <div style="background: rgb(255, 255, 255); padding: 16px 18px 13px; min-width: 0px;">
           <div style="font-size: 10px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: rgb(105, 117, 141);">Bultos activos</div>
           <div style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 29px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.05; margin-top: 9px; font-variant-numeric: tabular-nums;" id="rt-ag-k2">304</div>
           <div style="font-size: 12px; color: rgb(105, 117, 141); margin-top: 5px;"><span id="rt-ag-k2sub">—</span> bultos/pedido de media</div>
-          <svg viewBox="0 0 200 30" preserveAspectRatio="none" style="margin-top: 12px; height: 28px; width: 100%; display: block;"><path d="M0 20 L25 18 L50 21 L75 15 L100 17 L125 18 L150 11 L175 13 L198 9" fill="none" stroke="#10B981" stroke-width="2"></path></svg>
+          <svg id="rt-spark2" viewBox="0 0 200 30" preserveAspectRatio="none" style="margin-top: 12px; height: 28px; width: 100%; display: block;"><path d="M0 20 L25 18 L50 21 L75 15 L100 17 L125 18 L150 11 L175 13 L198 9" fill="none" stroke="#10B981" stroke-width="2"></path></svg>
         </div>
         <div style="background: rgb(255, 255, 255); padding: 16px 18px 13px; min-width: 0px;">
           <div style="font-size: 10px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: rgb(105, 117, 141);">En preparación</div>
@@ -972,6 +972,14 @@ input::placeholder{color:#9aa4b8}
     const setk=(id,v)=>{const e=document.getElementById(id); if(e)e.textContent=v;};
     setk('rt-ag-k1',active); setk('rt-ag-k2',bultos); setk('rt-ag-k3',prep); setk('rt-ag-k4',overdue);
     const media=active?(bultos/active):0; const ms=document.getElementById('rt-ag-k2sub'); if(ms) ms.textContent=(Math.round(media*10)/10).toString().replace('.',',');
+    const S1=document.getElementById('rt-spark1'), S2=document.getElementById('rt-spark2');
+    if(S1||S2){ const days10=[]; for(let k=9;k>=0;k--){ days10.push(today.getTime()-k*DAYMS); }
+      const cnt=days10.map(()=>0), bul=days10.map(()=>0);
+      (orders||[]).forEach(o=>{ const cr=new Date(o.created_at); cr.setHours(0,0,0,0); const idx=Math.round((cr.getTime()-days10[0])/DAYMS); if(idx>=0&&idx<10){ cnt[idx]++; bul[idx]+=(o.order_items||[]).reduce((a,i)=>a+(i.qty||0),0); } });
+      const pathOf=(vals,W)=>{ const nn=vals.length; const mx=Math.max(1,...vals),mn=Math.min(...vals),rg=(mx-mn)||1; return vals.map((v,i)=>{const x=(i*(W/(nn-1)));const y=28-((v-mn)/rg)*22;return (i?'L':'M')+x.toFixed(0)+' '+y.toFixed(1);}).join(' '); };
+      if(S1){ const p=pathOf(cnt,260); S1.innerHTML='<path d="'+p+' L260 30 L0 30 Z" fill="#eef3fe"></path><path d="'+p+'" fill="none" stroke="#2563EB" stroke-width="2"></path>'; }
+      if(S2){ const p=pathOf(bul,200); S2.innerHTML='<path d="'+p+'" fill="none" stroke="#10B981" stroke-width="2"></path>'; }
+    }
   }
   let thead='<thead><tr><th style="position: sticky; left: 0px; z-index: 4; text-align: left; padding: 9px 9px 9px 20px; min-width: 214px; background: rgb(250, 251, 252); font-size: 10px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: rgb(105, 117, 141); border-bottom: 1px solid rgb(221, 225, 233);">Estado</th>';
   days.forEach(function(d,idx){
