@@ -154,7 +154,7 @@ input::placeholder{color:#9aa4b8}
       <div style="padding: 15px 18px 14px; border-bottom: 1px solid rgb(232, 234, 239); background: rgb(250, 251, 252); display: flex; align-items: flex-start; gap: 12px;">
         <div style="flex: 1 1 auto; min-width: 0px;">
           <div style="font-family: Newsreader, Georgia, serif; font-size: 17px; font-weight: 500; color: rgb(19, 32, 56);">Importar pedidos</div>
-          <div style="font-size: 12px; color: rgb(105, 117, 141); margin-top: 3px;">CSV o Excel · cabecera <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11px;">cliente,destinatario,ciudad,cp,sku,articulo,cantidad,ubicacion,ean</span> · una fila = un pedido</div>
+          <div style="font-size: 12px; color: rgb(105, 117, 141); margin-top: 3px;">CSV o Excel · cabecera <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11px;">pedido,cliente,destinatario,ciudad,cp,sku,articulo,cantidad,ubicacion,ean</span><br>filas con el mismo <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11px;">pedido</span> = un pedido con varias líneas · sin esa columna, una fila = un pedido</div>
         </div>
         <button id="rt-imp-close" aria-label="Cerrar" style="flex: 0 0 auto; width: 26px; height: 26px; border-radius: 4px; border: 1px solid rgb(221, 225, 233); background: rgb(255, 255, 255); color: rgb(105, 117, 141); cursor: pointer; font-family: inherit; font-size: 15px; line-height: 1; display: grid; place-items: center;">×</button>
       </div>
@@ -564,10 +564,11 @@ input::placeholder{color:#9aa4b8}
   }
 
   /* ================= IMPORTAR CSV / EXCEL ================= */
-  const HEADERS=['cliente','destinatario','ciudad','cp','sku','articulo','cantidad','ubicacion','ean'];
+  const HEADERS=['pedido','cliente','destinatario','ciudad','cp','sku','articulo','cantidad','ubicacion','ean'];
   const TPL=HEADERS.join(',')+'\n'
-    +'Cliente Ejemplo,Ana García,Madrid,28001,SKU-001,Camiseta azul,2,A-03-2,8412345678905\n'
-    +'Cliente Ejemplo,Luis Pérez,Barcelona,08001,SKU-002,Pantalón chino,1,B-11-4,8498765432101\n';
+    +'P-001,Cliente Ejemplo,Ana García,Madrid,28001,SKU-001,Camiseta azul,2,A-03-2,8412345678905\n'
+    +'P-001,Cliente Ejemplo,Ana García,Madrid,28001,SKU-002,Pantalón chino,1,B-11-4,8498765432101\n'
+    +'P-002,Cliente Ejemplo,Luis Pérez,Barcelona,08001,SKU-003,Sudadera gris,3,C-02-1,8400000000017\n';
   function splitCsvLine(line,sep){
     const out=[]; let cur='', q=false;
     for(let i=0;i<line.length;i++){
@@ -592,42 +593,111 @@ input::placeholder{color:#9aa4b8}
     });
   }
   function normName(s){ return String(s==null?'':s).trim().toLowerCase(); }
+  const txt=v=>String(v==null?'':v).trim();
+
+  /* agrupa por la columna 'pedido'; sin ella (o vacía) cada fila es un pedido */
+  function groupRows(rows){
+    const groups=[], idx={};
+    rows.forEach(function(r,i){
+      const key=txt(r.pedido);
+      let g=key?idx[key]:null;
+      if(!g){
+        g={key:key, first:r, firstN:i+2, lines:[]};
+        if(key) idx[key]=g;
+        groups.push(g);
+      }
+      g.lines.push({n:i+2, raw:r});
+    });
+    return groups;
+  }
   function validate(rows){
     const byName={}; CLIENTS.forEach(function(c){ byName[normName(c.name)]=c; });
-    return rows.map(function(r,idx){
-      const errs=[];
-      const cli=byName[normName(r.cliente)];
-      if(!r.cliente) errs.push('falta cliente');
-      else if(!cli) errs.push('cliente "'+r.cliente+'" no existe');
-      const qty=Number(String(r.cantidad==null?'':r.cantidad).replace(',','.'));
-      if(!r.cantidad || !isFinite(qty) || qty<=0) errs.push('cantidad no numérica');
-      if(!String(r.ciudad||'').trim()) errs.push('falta ciudad');
-      if(!String(r.cp||'').trim()) errs.push('falta cp');
-      return {n:idx+2, raw:r, client:cli||null, qty:qty, errs:errs, ok:errs.length===0};
+    const groups=groupRows(rows);
+    groups.forEach(function(g){
+      const f=g.first, errs=[];
+      const cli=byName[normName(f.cliente)];
+      if(!txt(f.cliente)) errs.push('falta cliente');
+      else if(!cli) errs.push('cliente "'+txt(f.cliente)+'" no existe');
+      if(!txt(f.ciudad)) errs.push('falta ciudad');
+      if(!txt(f.cp)) errs.push('falta cp');
+      if(g.key){
+        const names=Array.from(new Set(g.lines.map(l=>normName(l.raw.cliente)).filter(Boolean)));
+        if(names.length>1) errs.push('cliente distinto dentro del pedido');
+      }
+      g.client=cli||null;
+      g.lines.forEach(function(l){
+        const q=Number(txt(l.raw.cantidad).replace(',','.'));
+        l.qty=q; l.errs=[];
+        if(!txt(l.raw.cantidad) || !isFinite(q) || q<=0) l.errs.push('cantidad no numérica');
+        l.ok=l.errs.length===0;
+      });
+      g.good=g.lines.filter(l=>l.ok);
+      if(!errs.length && !g.good.length) errs.push('sin líneas válidas');
+      g.errs=errs;
+      g.ok=(errs.length===0);
     });
+    return groups;
+  }
+  function counts(groups){
+    const okG=groups.filter(g=>g.ok);
+    const badG=groups.filter(g=>!g.ok);
+    let okL=0, badL=0;
+    okG.forEach(function(g){ okL+=g.good.length; badL+=(g.lines.length-g.good.length); });
+    badG.forEach(function(g){ badL+=g.lines.length; });
+    return {okG:okG.length, badG:badG.length, okL:okL, badL:badL, problems:badG.length+okG.reduce((a,g)=>a+(g.lines.length-g.good.length),0)};
   }
   let PARSED=[];
   function renderPreview(){
     const box=$('rt-imp-preview'); if(!box) return;
-    const okN=PARSED.filter(r=>r.ok).length, badN=PARSED.length-okN;
+    const c=counts(PARSED);
     const sum=$('rt-imp-summary');
-    if(sum) sum.innerHTML='<span style="'+MONO+' font-weight: 700; color: rgb(14, 127, 95);">'+okN+'</span> válidas · <span style="'+MONO+' font-weight: 700; color: '+(badN?'rgb(197, 48, 48)':'rgb(105, 117, 141)')+';">'+badN+'</span> con errores';
-    const go=$('rt-imp-go'); if(go){ go.disabled=!okN; go.style.opacity=okN?'1':'0.5'; go.textContent='Importar '+okN+' pedido'+(okN===1?'':'s'); }
+    if(sum) sum.innerHTML='<span style="'+MONO+' font-weight: 700; color: rgb(14, 127, 95);">'+c.okG+'</span> pedidos · '
+      +'<span style="'+MONO+' font-weight: 700; color: rgb(58, 70, 95);">'+c.okL+'</span> líneas · '
+      +'<span style="'+MONO+' font-weight: 700; color: '+(c.problems?'rgb(197, 48, 48)':'rgb(105, 117, 141)')+';">'+c.problems+'</span> con errores';
+    const go=$('rt-imp-go'); if(go){ go.disabled=!c.okG; go.style.opacity=c.okG?'1':'0.5'; go.textContent='Importar '+c.okG+' pedido'+(c.okG===1?'':'s'); }
     if(!PARSED.length){ box.innerHTML='<div style="padding: 26px; text-align: center; color: rgb(154, 164, 184); font-size: 12.5px;">Elige un fichero para previsualizar.</div>'; return; }
     const H='padding: 6px 8px; border-bottom: 1px solid rgb(227, 230, 236); font-size: 9px; font-weight: 800; letter-spacing: 0.07em; text-transform: uppercase; color: rgb(154, 164, 184); text-align: left; white-space: nowrap;';
     const C='padding: 7px 8px; border-bottom: 1px solid rgb(240, 242, 245); white-space: nowrap;';
-    box.innerHTML='<table style="width: 100%; border-collapse: separate; border-spacing: 0px; font-size: 12px;">'
-      +'<tr><th style="'+H+'">Fila</th><th style="'+H+'">Cliente</th><th style="'+H+'">Destino</th><th style="'+H+'">Artículo</th><th style="'+H+'">Cant</th><th style="'+H+'">Estado</th></tr>'
-      +PARSED.map(function(r){
-        const tag=r.ok?'<span style="font-size: 10.5px; font-weight: 700; color: rgb(14, 127, 95);">válida</span>'
-                      :'<span style="font-size: 10.5px; font-weight: 700; color: rgb(197, 48, 48);">'+esc(r.errs.join(' · '))+'</span>';
-        return '<tr'+(r.ok?'':' style="background: rgb(253, 246, 246);"')+'><td style="'+C+' '+MONO+' color: rgb(154, 164, 184);">'+r.n+'</td>'
-          +'<td style="'+C+'">'+esc(r.raw.cliente||'—')+'</td>'
-          +'<td style="'+C+' color: rgb(105, 117, 141);">'+esc(r.raw.ciudad||'—')+' · '+esc(r.raw.cp||'—')+'</td>'
-          +'<td style="'+C+'">'+esc(r.raw.articulo||r.raw.sku||'—')+'</td>'
-          +'<td style="'+C+' '+MONO+' text-align: right;">'+esc(r.raw.cantidad||'')+'</td>'
-          +'<td style="'+C+'">'+tag+'</td></tr>';
-      }).join('')+'</table>';
+    const okTag='<span style="font-size: 10.5px; font-weight: 700; color: rgb(14, 127, 95);">válido</span>';
+    const errTag=t=>'<span style="font-size: 10.5px; font-weight: 700; color: rgb(197, 48, 48);">'+esc(t)+'</span>';
+    let html='<table style="width: 100%; border-collapse: separate; border-spacing: 0px; font-size: 12px;">'
+      +'<tr><th style="'+H+'">Fila</th><th style="'+H+'">Pedido</th><th style="'+H+'">Cliente</th><th style="'+H+'">Destino</th><th style="'+H+'">Artículo</th><th style="'+H+'">Cant</th><th style="'+H+'">Estado</th></tr>';
+    PARSED.forEach(function(g){
+      const f=g.first;
+      const solo=(!g.key && g.lines.length===1);
+      if(solo){
+        const l=g.lines[0];
+        const errs=g.errs.concat(l.errs);
+        html+='<tr'+(errs.length?' style="background: rgb(253, 246, 246);"':'')+'>'
+          +'<td style="'+C+' '+MONO+' color: rgb(154, 164, 184);">'+l.n+'</td>'
+          +'<td style="'+C+' color: rgb(205, 211, 222);">—</td>'
+          +'<td style="'+C+'">'+esc(txt(f.cliente)||'—')+'</td>'
+          +'<td style="'+C+' color: rgb(105, 117, 141);">'+esc(txt(f.ciudad)||'—')+' · '+esc(txt(f.cp)||'—')+'</td>'
+          +'<td style="'+C+'">'+esc(txt(l.raw.articulo)||txt(l.raw.sku)||'—')+'</td>'
+          +'<td style="'+C+' '+MONO+' text-align: right;">'+esc(txt(l.raw.cantidad))+'</td>'
+          +'<td style="'+C+'">'+(errs.length?errTag(errs.join(' · ')):okTag)+'</td></tr>';
+        return;
+      }
+      html+='<tr style="background: '+(g.ok?'rgb(248, 250, 253)':'rgb(253, 240, 240)')+';">'
+        +'<td style="'+C+' '+MONO+' color: rgb(154, 164, 184);">'+g.firstN+'</td>'
+        +'<td style="'+C+' '+MONO+' font-weight: 700; color: rgb(19, 32, 56);">'+esc(g.key||'—')+'</td>'
+        +'<td style="'+C+' font-weight: 600;">'+esc(txt(f.cliente)||'—')+'</td>'
+        +'<td style="'+C+' color: rgb(105, 117, 141);">'+esc(txt(f.ciudad)||'—')+' · '+esc(txt(f.cp)||'—')+'</td>'
+        +'<td style="'+C+' color: rgb(105, 117, 141);">'+g.lines.length+' línea'+(g.lines.length===1?'':'s')+'</td>'
+        +'<td style="'+C+'"></td>'
+        +'<td style="'+C+'">'+(g.ok?okTag:errTag(g.errs.join(' · ')))+'</td></tr>';
+      g.lines.forEach(function(l){
+        const errs=l.errs;
+        html+='<tr'+(errs.length?' style="background: rgb(253, 246, 246);"':'')+'>'
+          +'<td style="'+C+' '+MONO+' color: rgb(154, 164, 184);">'+l.n+'</td>'
+          +'<td style="'+C+'"></td><td style="'+C+'"></td>'
+          +'<td style="'+C+' color: rgb(154, 164, 184); '+MONO+' font-size: 10.5px;">'+esc(txt(l.raw.sku)||'—')+'</td>'
+          +'<td style="'+C+'">'+esc(txt(l.raw.articulo)||'—')+'</td>'
+          +'<td style="'+C+' '+MONO+' text-align: right;">'+esc(txt(l.raw.cantidad))+'</td>'
+          +'<td style="'+C+'">'+(errs.length?errTag(errs.join(' · ')):(g.ok?okTag:'<span style="font-size: 10.5px; color: rgb(154, 164, 184);">—</span>'))+'</td></tr>';
+      });
+    });
+    box.innerHTML=html+'</table>';
   }
   async function readFile(file){
     const name=(file.name||'').toLowerCase();
@@ -653,40 +723,47 @@ input::placeholder{color:#9aa4b8}
   }
   async function doImport(){
     const go=$('rt-imp-go'), res=$('rt-imp-result');
-    const valid=PARSED.filter(r=>r.ok), bad=PARSED.filter(r=>!r.ok);
+    const valid=PARSED.filter(g=>g.ok), bad=PARSED.filter(g=>!g.ok);
     if(!valid.length) return;
     if(!TENANT){
       if(res){ res.style.display='block'; res.innerHTML='<div style="font-size: 13px; font-weight: 700; color: rgb(197, 48, 48);">No se pudo identificar el tenant; la importación necesita tenant_id.</div>'; }
       return;
     }
     if(go){ go.disabled=true; go.style.opacity='0.5'; go.textContent='Importando…'; }
-    let created=0; const failed=[];
+    let created=0, lines=0;
+    const failed=[];
+    /* líneas descartadas dentro de pedidos por lo demás válidos */
+    valid.forEach(function(g){
+      g.lines.filter(l=>!l.ok).forEach(function(l){ failed.push('fila '+l.n+' (línea de '+(g.key||'pedido suelto')+'): '+l.errs.join(' · ')); });
+    });
     for(let i=0;i<valid.length;i++){
-      const r=valid[i];
+      const g=valid[i], f=g.first;
       const row={
         tenant_id:TENANT,
         external_ref:'HCL-'+(Date.now()+i).toString(36).toUpperCase(),
         status:'recibido',
-        client_id:r.client.id,
-        ship_to:{name:(r.raw.destinatario||r.raw.cliente||''),city:r.raw.ciudad,postal:String(r.raw.cp)}
+        client_id:g.client.id,
+        ship_to:{name:(txt(f.destinatario)||txt(f.cliente)),city:txt(f.ciudad),postal:txt(f.cp)}
       };
       const ins=await db.from('orders').insert(row).select('id').limit(1);
-      if(ins.error||!ins.data||!ins.data[0]){ failed.push('fila '+r.n+': '+((ins.error&&ins.error.message)||'no se pudo crear')); continue; }
+      if(ins.error||!ins.data||!ins.data[0]){ failed.push((g.key?('pedido '+g.key):('fila '+g.firstN))+': '+((ins.error&&ins.error.message)||'no se pudo crear')); continue; }
       const oid=ins.data[0].id;
-      const li=await db.from('order_items').insert({
-        tenant_id:TENANT, order_id:oid,
-        sku:(r.raw.sku||null), description:(r.raw.articulo||null),
-        qty:r.qty, ubicacion:(r.raw.ubicacion||null), ean:(r.raw.ean||null)
+      const items=g.good.map(function(l){
+        return {tenant_id:TENANT, order_id:oid,
+          sku:(txt(l.raw.sku)||null), description:(txt(l.raw.articulo)||null),
+          qty:l.qty, ubicacion:(txt(l.raw.ubicacion)||null), ean:(txt(l.raw.ean)||null)};
       });
-      if(li.error){ failed.push('fila '+r.n+' (línea): '+li.error.message); continue; }
-      created++;
+      const li=await db.from('order_items').insert(items);
+      if(li.error){ failed.push((g.key?('pedido '+g.key):('fila '+g.firstN))+' (líneas): '+li.error.message); continue; }
+      created++; lines+=items.length;
     }
     const skipped=bad.length+failed.length;
     if(res){
       res.style.display='block';
       res.innerHTML='<div style="font-size: 13px; font-weight: 700; color: rgb(19, 32, 56);">'+created+' creados · '+skipped+' saltados</div>'
+        +'<div style="font-size: 12px; color: rgb(105, 117, 141); margin-top: 2px;">'+lines+' línea'+(lines===1?'':'s')+' importada'+(lines===1?'':'s')+'</div>'
         +((bad.length||failed.length)?('<ul style="margin: 8px 0px 0px; padding-left: 18px; font-size: 11.5px; color: rgb(197, 48, 48); line-height: 1.5;">'
-          +bad.map(r=>'<li>fila '+r.n+': '+esc(r.errs.join(' · '))+'</li>').join('')
+          +bad.map(g=>'<li>'+(g.key?('pedido '+esc(g.key)):('fila '+g.firstN))+': '+esc(g.errs.join(' · '))+'</li>').join('')
           +failed.map(m=>'<li>'+esc(m)+'</li>').join('')+'</ul>'):'');
     }
     if(go){ go.textContent='Importar'; go.style.opacity='1'; }
