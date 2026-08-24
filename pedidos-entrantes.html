@@ -655,25 +655,30 @@ input::placeholder{color:#9aa4b8}
     const go=$('rt-imp-go'), res=$('rt-imp-result');
     const valid=PARSED.filter(r=>r.ok), bad=PARSED.filter(r=>!r.ok);
     if(!valid.length) return;
+    if(!TENANT){
+      if(res){ res.style.display='block'; res.innerHTML='<div style="font-size: 13px; font-weight: 700; color: rgb(197, 48, 48);">No se pudo identificar el tenant; la importación necesita tenant_id.</div>'; }
+      return;
+    }
     if(go){ go.disabled=true; go.style.opacity='0.5'; go.textContent='Importando…'; }
     let created=0; const failed=[];
     for(let i=0;i<valid.length;i++){
       const r=valid[i];
       const row={
+        tenant_id:TENANT,
         external_ref:'HCL-'+(Date.now()+i).toString(36).toUpperCase(),
         status:'recibido',
         client_id:r.client.id,
         ship_to:{name:(r.raw.destinatario||r.raw.cliente||''),city:r.raw.ciudad,postal:String(r.raw.cp)}
       };
-      if(TENANT) row.tenant_id=TENANT;
       const ins=await db.from('orders').insert(row).select('id').limit(1);
       if(ins.error||!ins.data||!ins.data[0]){ failed.push('fila '+r.n+': '+((ins.error&&ins.error.message)||'no se pudo crear')); continue; }
       const oid=ins.data[0].id;
       const li=await db.from('order_items').insert({
-        order_id:oid, sku:(r.raw.sku||null), description:(r.raw.articulo||null),
+        tenant_id:TENANT, order_id:oid,
+        sku:(r.raw.sku||null), description:(r.raw.articulo||null),
         qty:r.qty, ubicacion:(r.raw.ubicacion||null), ean:(r.raw.ean||null)
       });
-      if(li.error){ failed.push('fila '+r.n+' (línea): '+li.error.message); }
+      if(li.error){ failed.push('fila '+r.n+' (línea): '+li.error.message); continue; }
       created++;
     }
     const skipped=bad.length+failed.length;
