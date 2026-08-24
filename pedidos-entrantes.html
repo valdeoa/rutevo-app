@@ -56,7 +56,7 @@ a{color:#2563EB;text-decoration:none}
 a:hover{color:#1d4ed8}
 input::placeholder{color:#9aa4b8}
 ::selection{background:#dbe7fd}
-</style><title>Pedidos entrantes · Rutevo</title></head>
+</style><title>Agenda de entregas · Rutevo</title></head>
 <body>
 <div id="dc-root"><div class="sc-host"><div style="display: grid; grid-template-columns: 252px minmax(0px, 1fr); min-height: 100vh; font-family: &quot;Hanken Grotesk&quot;, system-ui, sans-serif; font-size: 14px; line-height: 1.5; color: rgb(19, 32, 56); background: rgb(245, 246, 248);">
 
@@ -68,7 +68,7 @@ input::placeholder{color:#9aa4b8}
 
     <div style="margin: 0px 16px 6px; padding: 11px 13px 12px; background: rgb(21, 41, 74); border: 1px solid rgb(33, 52, 88); border-radius: 8px;">
       <div style="display: flex; align-items: center; gap: 9px;">
-        <span id="rt-tavatar" style="width: 23px; height: 23px; border-radius: 5px; background: rgb(37, 99, 235); display: grid; place-items: center; font-weight: 800; font-size: 12px; color: rgb(255, 255, 255); flex: 0 0 auto;">H</span>
+        <span style="width: 23px; height: 23px; border-radius: 5px; background: rgb(37, 99, 235); display: grid; place-items: center; font-weight: 800; font-size: 12px; color: rgb(255, 255, 255); flex: 0 0 auto;" id="rt-tavatar">H</span>
         <span id="rt-tname" style="font-weight: 700; font-size: 14px; color: rgb(255, 255, 255);">HCL Express</span>
       </div>
       <div id="rt-tsub" style="font-size: 11.5px; color: rgb(126, 145, 183); margin-top: 5px; padding-left: 32px; letter-spacing: 0.01em;">Courier · GLS Alcalá</div>
@@ -76,19 +76,17 @@ input::placeholder{color:#9aa4b8}
 
     <nav style="padding: 6px 14px; display: flex; flex-direction: column;">
       <div style="font-size: 9.5px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(126, 145, 183); padding: 16px 10px 7px;">Operación</div>
-      <a href="agenda.html" class="scp0" style="display: flex; align-items: center; gap: 12px; padding: 9px 11px; border-radius: 6px; color: rgb(211, 221, 240); font-weight: 600; font-size: 13.5px;">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 17px; height: 17px; flex: 0 0 auto; opacity: 0.82;"><rect x="3" y="4" width="18" height="4" rx="1"></rect><rect x="3" y="10" width="18" height="4" rx="1"></rect><rect x="3" y="16" width="18" height="4" rx="1"></rect></svg>Agenda de entregas</a>
-      <a href="pedidos-entrantes.html" style="display: flex; align-items: center; gap: 12px; padding: 9px 11px; border-radius: 6px; color: rgb(255, 255, 255); font-weight: 600; font-size: 13.5px; position: relative; background: rgba(91, 155, 255, 0.11);">
+      <a href="/agenda" style="display: flex; align-items: center; gap: 12px; padding: 9px 11px; border-radius: 6px; color: rgb(255, 255, 255); font-weight: 600; font-size: 13.5px; position: relative; background: rgba(91, 155, 255, 0.11);">
         <span style="position: absolute; left: -14px; top: 7px; bottom: 7px; width: 3px; background: rgb(37, 99, 235);"></span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 17px; height: 17px; flex: 0 0 auto; color: rgb(127, 176, 255);"><path d="M4 4h16v5H4z"></path><path d="M4 13h10v7H4z"></path><path d="M18 13l3 3-3 3"></path></svg>Pedidos entrantes
-        <span style="margin-left: auto; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 10.5px; font-weight: 700; background: rgb(245, 158, 11); color: rgb(69, 44, 0); padding: 1px 6px; border-radius: 3px;"><span class="sc-interp" id="rt-navcount">5</span></span></a>
-      <a href="panel-estados.html" class="scp0" style="display: flex; align-items: center; gap: 12px; padding: 9px 11px; border-radius: 6px; color: rgb(211, 221, 240); font-weight: 600; font-size: 13.5px;">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 17px; height: 17px; flex: 0 0 auto; opacity: 0.82;"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>Panel de estados</a>
-      <a href="incidencias.html" class="scp0" style="display: flex; align-items: center; gap: 12px; padding: 9px 11px; border-radius: 6px; color: rgb(211, 221, 240); font-weight: 600; font-size: 13.5px;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 17px; height: 17px; flex: 0 0 auto; color: rgb(127, 176, 255);"><rect x="3" y="4" width="18" height="4" rx="1"></rect><rect x="3" y="10" width="18" height="4" rx="1"></rect><rect x="3" y="16" width="18" height="4" rx="1"></rect></svg>Agenda de entregas</a>
+      <a href="/pedidos-entrantes" class="scp0" style="display: flex; align-items: center; gap: 12px; padding: 9px 11px; border-radius: 6px; color: rgb(211, 221, 240); font-weight: 600; font-size: 13.5px;background: rgb(21, 41, 74); color: rgb(255, 255, 255);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 17px; height: 17px; flex: 0 0 auto; opacity: 0.82;"><path d="M4 4h16v5H4z"></path><path d="M4 13h10v7H4z"></path><path d="M18 13l3 3-3 3"></path></svg>Pedidos entrantes
+        <span style="margin-left: auto; font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 10.5px; font-weight: 700; background: rgb(245, 158, 11); color: rgb(69, 44, 0); padding: 1px 6px; border-radius: 3px;">3</span></a>
+      <a href="/incidencias" class="scp0" style="display: flex; align-items: center; gap: 12px; padding: 9px 11px; border-radius: 6px; color: rgb(211, 221, 240); font-weight: 600; font-size: 13.5px;">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 17px; height: 17px; flex: 0 0 auto; opacity: 0.82;"><path d="M12 3l9 16H3z"></path><path d="M12 10v4"></path><circle cx="12" cy="17" r=".7" fill="currentColor"></circle></svg>Incidencias
         <span style="margin-left: auto; font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 10.5px; font-weight: 700; color: rgb(239, 68, 68);">4</span></a>
       <div style="font-size: 9.5px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(126, 145, 183); padding: 18px 10px 7px;">Configuración</div>
-      <a href="clientes-plantillas.html" class="scp0" style="display: flex; align-items: center; gap: 12px; padding: 9px 11px; border-radius: 6px; color: rgb(211, 221, 240); font-weight: 600; font-size: 13.5px;">
+      <a href="/clientes-plantillas" class="scp0" style="display: flex; align-items: center; gap: 12px; padding: 9px 11px; border-radius: 6px; color: rgb(211, 221, 240); font-weight: 600; font-size: 13.5px;">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 17px; height: 17px; flex: 0 0 auto; opacity: 0.82;"><rect x="3" y="4" width="7" height="7" rx="1"></rect><rect x="14" y="4" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect><path d="M14 17.5h7"></path></svg>Clientes y plantillas</a>
     </nav>
 
@@ -98,456 +96,631 @@ input::placeholder{color:#9aa4b8}
   <div style="display: flex; flex-direction: column; min-width: 0px;">
     <header style="display: flex; align-items: center; gap: 16px; padding: 0px 28px; height: 66px; background: rgb(245, 246, 248); border-bottom: 1px solid rgb(232, 234, 239); position: sticky; top: 0px; z-index: 20;">
       <div style="display: flex; flex-direction: column; gap: 1px;">
-        <h1 style="font-family: Newsreader, Georgia, serif; font-size: 21px; font-weight: 500; letter-spacing: -0.01em; line-height: 1.1; margin: 0px;">Pedidos entrantes</h1>
-        <span style="font-size: 11px; color: rgb(154, 164, 184);">5 canales normalizados a un formato · última entrada <span style="color: rgb(16, 185, 129); font-weight: 700;">hace 3 min</span></span>
+        <h1 id="rt-est-title" style="font-family: Newsreader, Georgia, serif; font-size: 21px; font-weight: 500; letter-spacing: -0.01em; line-height: 1.1; margin: 0px;">Agenda</h1>
+        <span id="rt-est-sub" style="font-size: 11px; color: rgb(154, 164, 184);">cargando…</span>
       </div>
       <div style="margin-left: auto; display: flex; align-items: center; gap: 9px; width: 330px; max-width: 32vw; background: rgb(255, 255, 255); border: 1px solid rgb(221, 225, 233); border-radius: 5px; padding: 8px 12px; color: rgb(105, 117, 141);">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3-3"></path></svg>
-        <input placeholder="Buscar ref. externa, cliente, destino…" style="border: 0px; background: transparent; outline: 0px; font: inherit; color: rgb(19, 32, 56); width: 100%;">
+        <input id="rt-search" placeholder="Buscar en esta vista…" style="border: 0px; background: transparent; outline: 0px; font: inherit; color: rgb(19, 32, 56); width: 100%;">
         <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 10px; color: rgb(154, 164, 184); border: 1px solid rgb(221, 225, 233); border-radius: 3px; padding: 1px 4px;">⌘K</span>
       </div>
-      <button aria-label="Notificaciones" class="scp1" style="width: 37px; height: 37px; border-radius: 5px; border: 1px solid rgb(221, 225, 233); background: rgb(255, 255, 255); display: grid; place-items: center; color: rgb(105, 117, 141); cursor: pointer; position: relative;">
+      <button id="rt-bell" aria-label="Notificaciones" class="scp1" style="width: 37px; height: 37px; border-radius: 5px; border: 1px solid rgb(221, 225, 233); background: rgb(255, 255, 255); display: grid; place-items: center; color: rgb(105, 117, 141); cursor: pointer; position: relative;">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.7 21a2 2 0 0 1-3.4 0"></path></svg>
-        <span style="position: absolute; top: 7px; right: 8px; width: 6px; height: 6px; border-radius: 50%; background: rgb(239, 68, 68); border: 1.5px solid rgb(255, 255, 255);"></span>
+        <span id="rt-belldot" style="position: absolute; top: 7px; right: 8px; width: 6px; height: 6px; border-radius: 50%; background: rgb(239, 68, 68); border: 1.5px solid rgb(255, 255, 255); display: none;"></span>
       </button>
       <div style="display: flex; align-items: center; gap: 9px; padding-left: 3px;">
         <div style="width: 36px; height: 36px; border-radius: 6px; background: rgb(14, 31, 61); color: rgb(255, 255, 255); display: grid; place-items: center; font-weight: 700; font-size: 12px; font-family: &quot;JetBrains Mono&quot;, monospace;" id="rt-uinit">JG</div>
       </div>
     </header>
 
-    <div style="padding: 22px 28px 46px; display: flex; flex-direction: column; gap: 18px; min-width: 0px;">
+    <div style="padding: 22px 28px 46px; display: flex; flex-direction: column; gap: 14px; min-width: 0px;">
 
-      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 1px; background: rgb(232, 234, 239); border: 1px solid rgb(232, 234, 239); border-radius: 6px; overflow: hidden; box-shadow: rgba(19, 32, 56, 0.05) 0px 1px 2px;">
-        <div style="background: rgb(255, 255, 255); padding: 14px 18px 13px; min-width: 0px;">
-          <div style="font-size: 10px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: rgb(105, 117, 141);">Entrantes</div>
-          <div style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 29px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.05; margin-top: 8px; font-variant-numeric: tabular-nums;" id="rt-kpi-p1">14</div>
-          <div style="font-size: 12px; color: rgb(105, 117, 141); margin-top: 4px;">recibidos sin aceptar</div>
-        </div>
-        <div style="background: rgb(255, 255, 255); padding: 14px 18px 13px; min-width: 0px; position: relative;">
-          <span style="position: absolute; left: 0px; top: 0px; bottom: 0px; width: 2px; background: rgb(245, 158, 11);"></span>
-          <div style="font-size: 10px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: rgb(105, 117, 141);">En preparación</div>
-          <div style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 29px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.05; margin-top: 8px; color: rgb(185, 119, 8); font-variant-numeric: tabular-nums;"><span class="sc-interp" id="rt-kpi-p2">3</span></div>
-          <div style="font-size: 12px; color: rgb(105, 117, 141); margin-top: 4px;">en el almacén</div>
-        </div>
-        <div style="background: rgb(255, 255, 255); padding: 14px 18px 13px; min-width: 0px; position: relative;">
-          <span style="position: absolute; left: 0px; top: 0px; bottom: 0px; width: 2px; background: rgb(239, 68, 68);"></span>
-          <div style="font-size: 10px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: rgb(105, 117, 141);">Incidencias</div>
-          <div style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 29px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.05; margin-top: 8px; color: rgb(239, 68, 68); font-variant-numeric: tabular-nums;"><span class="sc-interp" id="rt-kpi-p3">2</span></div>
-          <div style="font-size: 12px; color: rgb(105, 117, 141); margin-top: 4px;">requieren atención</div>
-        </div>
-        <div style="background: rgb(255, 255, 255); padding: 14px 18px 13px; min-width: 0px;">
-          <div style="font-size: 10px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: rgb(105, 117, 141);">Procesados</div>
-          <div style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 29px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.05; margin-top: 8px; font-variant-numeric: tabular-nums;"><span class="sc-interp" id="rt-kpi-p4">88</span></div>
-          <div style="font-size: 12px; color: rgb(105, 117, 141); margin-top: 4px;">en flujo (preparación + enviados)</div>
-        </div>
+      <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+        <span style="font-size: 9.5px; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase; color: rgb(105, 117, 141);">Entrada de pedidos</span>
+        <button id="rt-imp-open" style="border: 1px solid rgb(37, 99, 235); background: rgb(37, 99, 235); color: rgb(255, 255, 255); border-radius: 5px; cursor: pointer; font-family: inherit; font-weight: 700; font-size: 12px; padding: 7px 13px; display: inline-flex; align-items: center; gap: 8px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 16V4"></path><path d="m7 9 5-5 5 5"></path><path d="M4 20h16"></path></svg>Importar CSV/Excel</button>
+        <a href="/agenda/todos" style="font-size: 12px; font-weight: 700; color: rgb(37, 99, 235); text-decoration: none;">Ver toda la agenda →</a>
       </div>
 
-      <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
-        <span style="font-size: 11.5px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: rgb(105, 117, 141);">Canal de entrada</span>
-        <div style="display: flex; align-items: center; gap: 7px; flex-wrap: wrap;">
-          
-            <button data-ch="" class="rt-chip" style="display: flex; align-items: center; gap: 7px; font-family: inherit; font-size: 12.5px; font-weight: 700; padding: 7px 12px; border-radius: 5px; cursor: pointer; background: rgb(14, 31, 61); color: rgb(255, 255, 255); border: 1px solid rgb(14, 31, 61);"><span class="sc-interp">Todos</span><span style="font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 10.5px; font-weight: 700; color: rgb(127, 176, 255);"><span class="sc-interp">12</span></span></button>
-          
-            <button data-ch="api" class="rt-chip" style="display: flex; align-items: center; gap: 7px; font-family: inherit; font-size: 12.5px; font-weight: 700; padding: 7px 12px; border-radius: 5px; cursor: pointer; background: rgb(255, 255, 255); color: rgb(105, 117, 141); border: 1px solid rgb(221, 225, 233);"><span class="sc-interp">API</span><span style="font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 10.5px; font-weight: 700; color: rgb(154, 164, 184);"><span class="sc-interp">3</span></span></button>
-          
-            <button data-ch="connector" class="rt-chip" style="display: flex; align-items: center; gap: 7px; font-family: inherit; font-size: 12.5px; font-weight: 700; padding: 7px 12px; border-radius: 5px; cursor: pointer; background: rgb(255, 255, 255); color: rgb(105, 117, 141); border: 1px solid rgb(221, 225, 233);"><span class="sc-interp">Conector</span><span style="font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 10.5px; font-weight: 700; color: rgb(154, 164, 184);"><span class="sc-interp">2</span></span></button>
-          
-            <button data-ch="csv" class="rt-chip" style="display: flex; align-items: center; gap: 7px; font-family: inherit; font-size: 12.5px; font-weight: 700; padding: 7px 12px; border-radius: 5px; cursor: pointer; background: rgb(255, 255, 255); color: rgb(105, 117, 141); border: 1px solid rgb(221, 225, 233);"><span class="sc-interp">CSV</span><span style="font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 10.5px; font-weight: 700; color: rgb(154, 164, 184);"><span class="sc-interp">3</span></span></button>
-          
-            <button data-ch="email" class="rt-chip" style="display: flex; align-items: center; gap: 7px; font-family: inherit; font-size: 12.5px; font-weight: 700; padding: 7px 12px; border-radius: 5px; cursor: pointer; background: rgb(255, 255, 255); color: rgb(105, 117, 141); border: 1px solid rgb(221, 225, 233);"><span class="sc-interp">Email</span><span style="font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 10.5px; font-weight: 700; color: rgb(154, 164, 184);"><span class="sc-interp">2</span></span></button>
-          
-            <button data-ch="manual" class="rt-chip" style="display: flex; align-items: center; gap: 7px; font-family: inherit; font-size: 12.5px; font-weight: 700; padding: 7px 12px; border-radius: 5px; cursor: pointer; background: rgb(255, 255, 255); color: rgb(105, 117, 141); border: 1px solid rgb(221, 225, 233);"><span class="sc-interp">Manual</span><span style="font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 10.5px; font-weight: 700; color: rgb(154, 164, 184);"><span class="sc-interp">2</span></span></button>
-          
+      <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; background: rgb(255, 255, 255); border: 1px solid rgb(232, 234, 239); border-radius: 6px; box-shadow: rgba(19, 32, 56, 0.05) 0px 1px 2px; padding: 10px 14px;">
+        <span style="font-size: 9.5px; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase; color: rgb(105, 117, 141);">Fecha prevista</span>
+        <div style="display: flex; align-items: center; gap: 6px;">
+          <button id="rt-day-prev" aria-label="Día anterior" title="Día anterior" style="border: 1px solid rgb(221, 225, 233); background: rgb(255, 255, 255); color: rgb(105, 117, 141); border-radius: 4px; cursor: pointer; font-family: inherit; font-weight: 700; font-size: 11.5px; padding: 6px 10px; width: 29px; height: 29px; padding: 0px; display: grid; place-items: center;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 6-6 6 6 6"></path></svg></button>
+          <input type="date" id="rt-date" style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 12px; font-weight: 700; color: rgb(19, 32, 56); border: 1px solid rgb(221, 225, 233); border-radius: 4px; background: rgb(255, 255, 255); padding: 6px 9px; outline: 0px;">
+          <button id="rt-day-next" aria-label="Día siguiente" title="Día siguiente" style="border: 1px solid rgb(221, 225, 233); background: rgb(255, 255, 255); color: rgb(105, 117, 141); border-radius: 4px; cursor: pointer; font-family: inherit; font-weight: 700; font-size: 11.5px; padding: 6px 10px; width: 29px; height: 29px; padding: 0px; display: grid; place-items: center;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"></path></svg></button>
         </div>
-        <button class="scp2" style="margin-left: auto; display: flex; align-items: center; gap: 8px; font-family: inherit; font-size: 12.5px; font-weight: 700; background: rgb(14, 31, 61); color: rgb(255, 255, 255); border: 0px; border-radius: 5px; padding: 9px 14px; cursor: pointer; flex: 0 0 auto;">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg>Añadir pedido manual</button>
+        <button id="rt-day-all" style="border: 1px solid rgb(221, 225, 233); background: rgb(255, 255, 255); color: rgb(105, 117, 141); border-radius: 4px; cursor: pointer; font-family: inherit; font-weight: 700; font-size: 11.5px; padding: 6px 10px;">Todas las fechas</button>
+        <span id="rt-day-note" style="font-size: 12px; color: rgb(154, 164, 184); font-family: Newsreader, Georgia, serif; font-style: italic;"></span>
+        <button id="rt-clear-filters" style="border: 1px solid rgb(221, 225, 233); background: rgb(255, 255, 255); color: rgb(105, 117, 141); border-radius: 4px; cursor: pointer; font-family: inherit; font-weight: 700; font-size: 11.5px; padding: 6px 10px; margin-left: auto;">Limpiar filtros</button>
       </div>
 
-      <div style="display: flex; flex-wrap: wrap; gap: 18px; align-items: flex-start; min-width: 0px;">
-
-        <section style="background: rgb(255, 255, 255); border: 1px solid rgb(232, 234, 239); border-radius: 6px; box-shadow: rgba(19, 32, 56, 0.05) 0px 1px 2px; overflow: hidden; min-width: 0px; flex: 1 1 620px;">
-          <div style="display: flex; align-items: baseline; justify-content: space-between; padding: 14px 18px 12px; border-bottom: 1px solid rgb(232, 234, 239); gap: 12px; flex-wrap: wrap;">
-            <div>
-              <span style="font-family: Newsreader, Georgia, serif; font-size: 17px; font-weight: 500;">Bandeja de entrada</span>
-              <span style="display: block; font-size: 12px; font-weight: 600; color: rgb(105, 117, 141); margin-top: 2px;"><span class="sc-interp" id="rt-listcount">12 pedidos · canal: todos</span></span>
-            </div>
-            <span style="font-size: 12.5px; color: rgb(154, 164, 184); font-family: Newsreader, Georgia, serif; font-style: italic;"><span class="sc-interp">ordenados por antigüedad</span></span>
+      <div style="display: flex; gap: 14px; align-items: flex-start; flex-wrap: wrap; min-width: 0px;">
+        <section style="flex: 1 1 560px; min-width: 0px; background: rgb(255, 255, 255); border: 1px solid rgb(232, 234, 239); border-radius: 6px; box-shadow: rgba(19, 32, 56, 0.05) 0px 1px 2px; overflow: hidden;">
+          <div style="display: flex; align-items: center; gap: 12px; padding: 13px 18px 12px; border-bottom: 1px solid rgb(232, 234, 239); background: rgb(250, 251, 252); flex-wrap: wrap;">
+            <span id="rt-est-head" style="font-size: 10px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: rgb(105, 117, 141);">Pedidos</span>
+            <span id="rt-est-count" style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11.5px; font-weight: 700; color: rgb(58, 70, 95);">—</span>
+            <span id="rt-est-bultos" style="margin-left: auto; font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11.5px; font-weight: 600; color: rgb(105, 117, 141);"></span>
           </div>
-
           <div style="overflow-x: auto;">
-            <table style="border-collapse: separate; border-spacing: 0px; width: 100%; font-size: 13px;">
-              <thead>
-                <tr>
-                  <th style="text-align: left; padding: 9px 10px 9px 18px; background: rgb(250, 251, 252); border-bottom: 1px solid rgb(221, 225, 233); font-size: 9.5px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: rgb(105, 117, 141); white-space: nowrap;">Canal</th>
-                  <th style="text-align: left; padding: 9px 10px; background: rgb(250, 251, 252); border-bottom: 1px solid rgb(221, 225, 233); font-size: 9.5px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: rgb(105, 117, 141); white-space: nowrap;">Ref. externa</th>
-                  <th style="text-align: left; padding: 9px 10px; background: rgb(250, 251, 252); border-bottom: 1px solid rgb(221, 225, 233); font-size: 9.5px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: rgb(105, 117, 141); white-space: nowrap;">Cliente</th>
-                  <th style="text-align: left; padding: 9px 10px; background: rgb(250, 251, 252); border-bottom: 1px solid rgb(221, 225, 233); font-size: 9.5px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: rgb(105, 117, 141); white-space: nowrap;">Recibido</th>
-                  <th style="text-align: right; padding: 9px 10px; background: rgb(250, 251, 252); border-bottom: 1px solid rgb(221, 225, 233); font-size: 9.5px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: rgb(105, 117, 141); white-space: nowrap;">Bultos</th>
-                  <th style="text-align: left; padding: 9px 10px; background: rgb(250, 251, 252); border-bottom: 1px solid rgb(221, 225, 233); font-size: 9.5px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: rgb(105, 117, 141); white-space: nowrap;">Destino</th>
-                  <th style="text-align: left; padding: 9px 10px; background: rgb(250, 251, 252); border-bottom: 1px solid rgb(221, 225, 233); font-size: 9.5px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: rgb(105, 117, 141); white-space: nowrap;">Estado</th>
-                  <th style="text-align: right; padding: 9px 18px 9px 10px; background: rgb(250, 251, 252); border-bottom: 1px solid rgb(221, 225, 233); font-size: 9.5px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: rgb(105, 117, 141); white-space: nowrap;">Acción</th>
-                </tr>
-              </thead>
-              
-                <tbody id="rt-orders">
-
-
-                    <tr style="cursor: pointer;">
-                      <td style="padding: 11px 10px 11px 18px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; white-space: nowrap;">
-                        <span style="display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border: 1px solid rgb(227, 230, 236); border-radius: 4px; margin-right: 9px; vertical-align: middle; color: rgb(58, 70, 95); background: rgb(250, 251, 252);">
-                          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="m9 7-5 5 5 5"></path><path d="m15 7 5 5-5 5"></path></svg>
-                          
-                          
-                          
-                          
-                        </span>
-                        <span style="font-size: 11.5px; font-weight: 700; color: rgb(58, 70, 95); letter-spacing: 0.01em;"><span class="sc-interp">API</span></span>
-                      </td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 12px; font-weight: 600; white-space: nowrap; color: rgb(19, 32, 56);"><span class="sc-interp">HCL-API-88214</span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; font-weight: 600; min-width: 170px;"><span class="sc-interp">Laboratorio Vitalis</span><span style="display: block; font-size: 11px; font-weight: 500; color: rgb(154, 164, 184); margin-top: 1px;"><span class="sc-interp">contrato 2024-11 · API v2</span></span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; color: rgb(105, 117, 141); font-size: 12.5px; white-space: nowrap;"><span class="sc-interp">hace 3 min</span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; text-align: right; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-weight: 600; font-variant-numeric: tabular-nums;"><span class="sc-interp">4</span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; white-space: nowrap; color: rgb(58, 70, 95);"><span class="sc-interp">Alcalá de Henares</span><span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11px; color: rgb(154, 164, 184); margin-left: 7px;"><span class="sc-interp">28805</span></span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; white-space: nowrap;"><span style="display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 700; letter-spacing: 0.02em; padding: 3px 8px; border-radius: 3px; white-space: nowrap; background: rgb(238, 243, 254); color: rgb(29, 78, 216); border: 1px solid rgb(207, 224, 253);"><span style="width: 5px; height: 5px; border-radius: 50%; flex: 0 0 auto; background: rgb(37, 99, 235);"></span><span class="sc-interp">Nuevo</span></span></td>
-                      <td style="padding: 11px 18px 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; text-align: right; white-space: nowrap;"><button style="font-family: inherit; font-size: 12px; font-weight: 700; border-radius: 4px; padding: 6px 11px; cursor: pointer; background: rgb(37, 99, 235); color: rgb(255, 255, 255); border: 1px solid rgb(37, 99, 235);"><span class="sc-interp">Aceptar</span></button></td>
-                    </tr>
-                  
-                    <tr style="cursor: pointer;">
-                      <td style="padding: 11px 10px 11px 18px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; white-space: nowrap;">
-                        <span style="display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border: 1px solid rgb(227, 230, 236); border-radius: 4px; margin-right: 9px; vertical-align: middle; color: rgb(58, 70, 95); background: rgb(250, 251, 252);">
-                          
-                          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="6" cy="6" r="2.6"></circle><circle cx="18" cy="18" r="2.6"></circle><path d="M8.6 6H14a4 4 0 0 1 4 4v5.4"></path></svg>
-                          
-                          
-                          
-                        </span>
-                        <span style="font-size: 11.5px; font-weight: 700; color: rgb(58, 70, 95); letter-spacing: 0.01em;"><span class="sc-interp">Conector</span></span>
-                      </td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 12px; font-weight: 600; white-space: nowrap; color: rgb(19, 32, 56);"><span class="sc-interp">PS-4471</span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; font-weight: 600; min-width: 170px;"><span class="sc-interp">Óptica Vela</span><span style="display: block; font-size: 11px; font-weight: 500; color: rgb(154, 164, 184); margin-top: 1px;"><span class="sc-interp">Conector Prestashop</span></span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; color: rgb(105, 117, 141); font-size: 12.5px; white-space: nowrap;"><span class="sc-interp">hace 12 min</span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; text-align: right; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-weight: 600; font-variant-numeric: tabular-nums;"><span class="sc-interp">1</span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; white-space: nowrap; color: rgb(58, 70, 95);"><span class="sc-interp">Torrejón de Ardoz</span><span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11px; color: rgb(154, 164, 184); margin-left: 7px;"><span class="sc-interp">28850</span></span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; white-space: nowrap;"><span style="display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 700; letter-spacing: 0.02em; padding: 3px 8px; border-radius: 3px; white-space: nowrap; background: rgb(233, 248, 242); color: rgb(14, 127, 95); border: 1px solid rgb(201, 233, 220);"><span style="width: 5px; height: 5px; border-radius: 50%; flex: 0 0 auto; background: rgb(16, 185, 129);"></span><span class="sc-interp">Listo para aceptar</span></span></td>
-                      <td style="padding: 11px 18px 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; text-align: right; white-space: nowrap;"><button style="font-family: inherit; font-size: 12px; font-weight: 700; border-radius: 4px; padding: 6px 11px; cursor: pointer; background: rgb(37, 99, 235); color: rgb(255, 255, 255); border: 1px solid rgb(37, 99, 235);"><span class="sc-interp">Aceptar</span></button></td>
-                    </tr>
-                  
-                    <tr style="cursor: pointer; box-shadow: rgb(37, 99, 235) 2px 0px 0px inset;">
-                      <td style="padding: 11px 10px 11px 18px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; background: rgb(247, 250, 255); white-space: nowrap;">
-                        <span style="display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border: 1px solid rgb(227, 230, 236); border-radius: 4px; margin-right: 9px; vertical-align: middle; color: rgb(58, 70, 95); background: rgb(250, 251, 252);">
-                          
-                          
-                          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M5 3h9l5 5v13H5z"></path><path d="M8 12h8M8 16h8M8 12v4"></path></svg>
-                          
-                          
-                        </span>
-                        <span style="font-size: 11.5px; font-weight: 700; color: rgb(58, 70, 95); letter-spacing: 0.01em;"><span class="sc-interp">CSV</span></span>
-                      </td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; background: rgb(247, 250, 255); font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 12px; font-weight: 600; white-space: nowrap; color: rgb(19, 32, 56);"><span class="sc-interp">CSV0824-014</span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; background: rgb(247, 250, 255); font-weight: 600; min-width: 170px;"><span class="sc-interp">Ferretería Ortega</span><span style="display: block; font-size: 11px; font-weight: 500; color: rgb(154, 164, 184); margin-top: 1px;"><span class="sc-interp">lote 24/08 · fila 14</span></span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; background: rgb(247, 250, 255); color: rgb(105, 117, 141); font-size: 12.5px; white-space: nowrap;"><span class="sc-interp">hace 26 min</span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; background: rgb(247, 250, 255); text-align: right; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-weight: 600; font-variant-numeric: tabular-nums;"><span class="sc-interp">6</span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; background: rgb(247, 250, 255); white-space: nowrap; color: rgb(58, 70, 95);"><span class="sc-interp">Meco</span><span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11px; color: rgb(154, 164, 184); margin-left: 7px;"><span class="sc-interp">2886</span></span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; background: rgb(247, 250, 255); white-space: nowrap;"><span style="display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 700; letter-spacing: 0.02em; padding: 3px 8px; border-radius: 3px; white-space: nowrap; background: rgb(253, 238, 238); color: rgb(197, 48, 48); border: 1px solid rgb(246, 207, 207);"><span style="width: 5px; height: 5px; border-radius: 50%; flex: 0 0 auto; background: rgb(239, 68, 68);"></span><span class="sc-interp">Error de mapeo</span></span></td>
-                      <td style="padding: 11px 18px 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; background: rgb(247, 250, 255); text-align: right; white-space: nowrap;"><button style="font-family: inherit; font-size: 12px; font-weight: 700; border-radius: 4px; padding: 6px 11px; cursor: pointer; background: rgb(255, 255, 255); color: rgb(19, 32, 56); border: 1px solid rgb(221, 225, 233);"><span class="sc-interp">Revisar</span></button></td>
-                    </tr>
-                  
-                    <tr style="cursor: pointer;">
-                      <td style="padding: 11px 10px 11px 18px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; white-space: nowrap;">
-                        <span style="display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border: 1px solid rgb(227, 230, 236); border-radius: 4px; margin-right: 9px; vertical-align: middle; color: rgb(58, 70, 95); background: rgb(250, 251, 252);">
-                          
-                          
-                          
-                          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3" y="5" width="18" height="14"></rect><path d="m3 7 9 6 9-6"></path></svg>
-                          
-                        </span>
-                        <span style="font-size: 11.5px; font-weight: 700; color: rgb(58, 70, 95); letter-spacing: 0.01em;"><span class="sc-interp">Email</span></span>
-                      </td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 12px; font-weight: 600; white-space: nowrap; color: rgb(19, 32, 56);"><span class="sc-interp">MAIL-2291</span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; font-weight: 600; min-width: 170px;"><span class="sc-interp">Bodega Marín</span><span style="display: block; font-size: 11px; font-weight: 500; color: rgb(154, 164, 184); margin-top: 1px;"><span class="sc-interp">pedidos@bodegamarin.es</span></span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; color: rgb(105, 117, 141); font-size: 12.5px; white-space: nowrap;"><span class="sc-interp">hace 41 min</span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; text-align: right; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-weight: 600; font-variant-numeric: tabular-nums;"><span class="sc-interp">9</span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; white-space: nowrap; color: rgb(58, 70, 95);"><span class="sc-interp">Coslada</span><span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11px; color: rgb(154, 164, 184); margin-left: 7px;"><span class="sc-interp">28820</span></span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; white-space: nowrap;"><span style="display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 700; letter-spacing: 0.02em; padding: 3px 8px; border-radius: 3px; white-space: nowrap; background: rgb(253, 244, 228); color: rgb(154, 98, 6); border: 1px solid rgb(243, 221, 180);"><span style="width: 5px; height: 5px; border-radius: 50%; flex: 0 0 auto; background: rgb(245, 158, 11);"></span><span class="sc-interp">Pendiente de validar</span></span></td>
-                      <td style="padding: 11px 18px 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; text-align: right; white-space: nowrap;"><button style="font-family: inherit; font-size: 12px; font-weight: 700; border-radius: 4px; padding: 6px 11px; cursor: pointer; background: rgb(255, 255, 255); color: rgb(19, 32, 56); border: 1px solid rgb(221, 225, 233);"><span class="sc-interp">Revisar</span></button></td>
-                    </tr>
-                  
-                    <tr style="cursor: pointer;">
-                      <td style="padding: 11px 10px 11px 18px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; white-space: nowrap;">
-                        <span style="display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border: 1px solid rgb(227, 230, 236); border-radius: 4px; margin-right: 9px; vertical-align: middle; color: rgb(58, 70, 95); background: rgb(250, 251, 252);">
-                          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="m9 7-5 5 5 5"></path><path d="m15 7 5 5-5 5"></path></svg>
-                          
-                          
-                          
-                          
-                        </span>
-                        <span style="font-size: 11.5px; font-weight: 700; color: rgb(58, 70, 95); letter-spacing: 0.01em;"><span class="sc-interp">API</span></span>
-                      </td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 12px; font-weight: 600; white-space: nowrap; color: rgb(19, 32, 56);"><span class="sc-interp">HCL-API-88219</span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; font-weight: 600; min-width: 170px;"><span class="sc-interp">Talleres Nuño</span><span style="display: block; font-size: 11px; font-weight: 500; color: rgb(154, 164, 184); margin-top: 1px;"><span class="sc-interp">contrato 2025-03 · API v2</span></span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; color: rgb(105, 117, 141); font-size: 12.5px; white-space: nowrap;"><span class="sc-interp">hace 52 min</span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; text-align: right; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-weight: 600; font-variant-numeric: tabular-nums;"><span class="sc-interp">2</span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; white-space: nowrap; color: rgb(58, 70, 95);"><span class="sc-interp">Azuqueca de Henares</span><span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11px; color: rgb(154, 164, 184); margin-left: 7px;"><span class="sc-interp">19200</span></span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; white-space: nowrap;"><span style="display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 700; letter-spacing: 0.02em; padding: 3px 8px; border-radius: 3px; white-space: nowrap; background: rgb(233, 248, 242); color: rgb(14, 127, 95); border: 1px solid rgb(201, 233, 220);"><span style="width: 5px; height: 5px; border-radius: 50%; flex: 0 0 auto; background: rgb(16, 185, 129);"></span><span class="sc-interp">Listo para aceptar</span></span></td>
-                      <td style="padding: 11px 18px 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; text-align: right; white-space: nowrap;"><button style="font-family: inherit; font-size: 12px; font-weight: 700; border-radius: 4px; padding: 6px 11px; cursor: pointer; background: rgb(37, 99, 235); color: rgb(255, 255, 255); border: 1px solid rgb(37, 99, 235);"><span class="sc-interp">Aceptar</span></button></td>
-                    </tr>
-                  
-                    <tr style="cursor: pointer;">
-                      <td style="padding: 11px 10px 11px 18px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; white-space: nowrap;">
-                        <span style="display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border: 1px solid rgb(227, 230, 236); border-radius: 4px; margin-right: 9px; vertical-align: middle; color: rgb(58, 70, 95); background: rgb(250, 251, 252);">
-                          
-                          
-                          
-                          
-                          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M4 20l4.5-1.2L19 8.3 15.7 5 5.2 15.5z"></path><path d="M14 6.6 17.4 10"></path></svg>
-                        </span>
-                        <span style="font-size: 11.5px; font-weight: 700; color: rgb(58, 70, 95); letter-spacing: 0.01em;"><span class="sc-interp">Manual</span></span>
-                      </td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 12px; font-weight: 600; white-space: nowrap; color: rgb(19, 32, 56);"><span class="sc-interp">MAN-0043</span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; font-weight: 600; min-width: 170px;"><span class="sc-interp">Clínica Dental Sanz</span><span style="display: block; font-size: 11px; font-weight: 500; color: rgb(154, 164, 184); margin-top: 1px;"><span class="sc-interp">alta manual · Jesús G.</span></span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; color: rgb(105, 117, 141); font-size: 12.5px; white-space: nowrap;"><span class="sc-interp">hace 1 h</span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; text-align: right; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-weight: 600; font-variant-numeric: tabular-nums;"><span class="sc-interp">3</span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; white-space: nowrap; color: rgb(58, 70, 95);"><span class="sc-interp">Alcalá de Henares</span><span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11px; color: rgb(154, 164, 184); margin-left: 7px;"><span class="sc-interp">28801</span></span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; white-space: nowrap;"><span style="display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 700; letter-spacing: 0.02em; padding: 3px 8px; border-radius: 3px; white-space: nowrap; background: rgb(253, 244, 228); color: rgb(154, 98, 6); border: 1px solid rgb(243, 221, 180);"><span style="width: 5px; height: 5px; border-radius: 50%; flex: 0 0 auto; background: rgb(245, 158, 11);"></span><span class="sc-interp">Pendiente de validar</span></span></td>
-                      <td style="padding: 11px 18px 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; text-align: right; white-space: nowrap;"><button style="font-family: inherit; font-size: 12px; font-weight: 700; border-radius: 4px; padding: 6px 11px; cursor: pointer; background: rgb(255, 255, 255); color: rgb(19, 32, 56); border: 1px solid rgb(221, 225, 233);"><span class="sc-interp">Revisar</span></button></td>
-                    </tr>
-                  
-                    <tr style="cursor: pointer;">
-                      <td style="padding: 11px 10px 11px 18px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; white-space: nowrap;">
-                        <span style="display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border: 1px solid rgb(227, 230, 236); border-radius: 4px; margin-right: 9px; vertical-align: middle; color: rgb(58, 70, 95); background: rgb(250, 251, 252);">
-                          
-                          
-                          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M5 3h9l5 5v13H5z"></path><path d="M8 12h8M8 16h8M8 12v4"></path></svg>
-                          
-                          
-                        </span>
-                        <span style="font-size: 11.5px; font-weight: 700; color: rgb(58, 70, 95); letter-spacing: 0.01em;"><span class="sc-interp">CSV</span></span>
-                      </td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 12px; font-weight: 600; white-space: nowrap; color: rgb(19, 32, 56);"><span class="sc-interp">CSV0824-015</span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; font-weight: 600; min-width: 170px;"><span class="sc-interp">Papelería Duero</span><span style="display: block; font-size: 11px; font-weight: 500; color: rgb(154, 164, 184); margin-top: 1px;"><span class="sc-interp">lote 24/08 · fila 15</span></span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; color: rgb(105, 117, 141); font-size: 12.5px; white-space: nowrap;"><span class="sc-interp">hace 1 h</span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; text-align: right; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-weight: 600; font-variant-numeric: tabular-nums;"><span class="sc-interp">5</span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; white-space: nowrap; color: rgb(58, 70, 95);"><span class="sc-interp">San Fernando de Henares</span><span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11px; color: rgb(154, 164, 184); margin-left: 7px;"><span class="sc-interp">28830</span></span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; white-space: nowrap;"><span style="display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 700; letter-spacing: 0.02em; padding: 3px 8px; border-radius: 3px; white-space: nowrap; background: rgb(233, 248, 242); color: rgb(14, 127, 95); border: 1px solid rgb(201, 233, 220);"><span style="width: 5px; height: 5px; border-radius: 50%; flex: 0 0 auto; background: rgb(16, 185, 129);"></span><span class="sc-interp">Listo para aceptar</span></span></td>
-                      <td style="padding: 11px 18px 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; text-align: right; white-space: nowrap;"><button style="font-family: inherit; font-size: 12px; font-weight: 700; border-radius: 4px; padding: 6px 11px; cursor: pointer; background: rgb(37, 99, 235); color: rgb(255, 255, 255); border: 1px solid rgb(37, 99, 235);"><span class="sc-interp">Aceptar</span></button></td>
-                    </tr>
-                  
-                    <tr style="cursor: pointer;">
-                      <td style="padding: 11px 10px 11px 18px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; white-space: nowrap;">
-                        <span style="display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border: 1px solid rgb(227, 230, 236); border-radius: 4px; margin-right: 9px; vertical-align: middle; color: rgb(58, 70, 95); background: rgb(250, 251, 252);">
-                          
-                          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="6" cy="6" r="2.6"></circle><circle cx="18" cy="18" r="2.6"></circle><path d="M8.6 6H14a4 4 0 0 1 4 4v5.4"></path></svg>
-                          
-                          
-                          
-                        </span>
-                        <span style="font-size: 11.5px; font-weight: 700; color: rgb(58, 70, 95); letter-spacing: 0.01em;"><span class="sc-interp">Conector</span></span>
-                      </td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 12px; font-weight: 600; white-space: nowrap; color: rgb(19, 32, 56);"><span class="sc-interp">WOO-8812</span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; font-weight: 600; min-width: 170px;"><span class="sc-interp">Cerámica Torrejón</span><span style="display: block; font-size: 11px; font-weight: 500; color: rgb(154, 164, 184); margin-top: 1px;"><span class="sc-interp">Conector WooCommerce</span></span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; color: rgb(105, 117, 141); font-size: 12.5px; white-space: nowrap;"><span class="sc-interp">hace 2 h</span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; text-align: right; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-weight: 600; font-variant-numeric: tabular-nums;"><span class="sc-interp">14</span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; white-space: nowrap; color: rgb(58, 70, 95);"><span class="sc-interp">Madrid</span><span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11px; color: rgb(154, 164, 184); margin-left: 7px;"><span class="sc-interp">28022</span></span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; white-space: nowrap;"><span style="display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 700; letter-spacing: 0.02em; padding: 3px 8px; border-radius: 3px; white-space: nowrap; background: rgb(253, 238, 238); color: rgb(197, 48, 48); border: 1px solid rgb(246, 207, 207);"><span style="width: 5px; height: 5px; border-radius: 50%; flex: 0 0 auto; background: rgb(239, 68, 68);"></span><span class="sc-interp">Error de mapeo</span></span></td>
-                      <td style="padding: 11px 18px 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; text-align: right; white-space: nowrap;"><button style="font-family: inherit; font-size: 12px; font-weight: 700; border-radius: 4px; padding: 6px 11px; cursor: pointer; background: rgb(255, 255, 255); color: rgb(19, 32, 56); border: 1px solid rgb(221, 225, 233);"><span class="sc-interp">Revisar</span></button></td>
-                    </tr>
-                  
-                    <tr style="cursor: pointer;">
-                      <td style="padding: 11px 10px 11px 18px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; white-space: nowrap;">
-                        <span style="display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border: 1px solid rgb(227, 230, 236); border-radius: 4px; margin-right: 9px; vertical-align: middle; color: rgb(58, 70, 95); background: rgb(250, 251, 252);">
-                          
-                          
-                          
-                          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3" y="5" width="18" height="14"></rect><path d="m3 7 9 6 9-6"></path></svg>
-                          
-                        </span>
-                        <span style="font-size: 11.5px; font-weight: 700; color: rgb(58, 70, 95); letter-spacing: 0.01em;"><span class="sc-interp">Email</span></span>
-                      </td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 12px; font-weight: 600; white-space: nowrap; color: rgb(19, 32, 56);"><span class="sc-interp">MAIL-2292</span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; font-weight: 600; min-width: 170px;"><span class="sc-interp">Distribuciones Meco</span><span style="display: block; font-size: 11px; font-weight: 500; color: rgb(154, 164, 184); margin-top: 1px;"><span class="sc-interp">compras@dmeco.com</span></span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; color: rgb(105, 117, 141); font-size: 12.5px; white-space: nowrap;"><span class="sc-interp">hace 2 h</span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; text-align: right; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-weight: 600; font-variant-numeric: tabular-nums;"><span class="sc-interp">7</span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; white-space: nowrap; color: rgb(58, 70, 95);"><span class="sc-interp">Guadalajara</span><span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11px; color: rgb(154, 164, 184); margin-left: 7px;"><span class="sc-interp">19004</span></span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; white-space: nowrap;"><span style="display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 700; letter-spacing: 0.02em; padding: 3px 8px; border-radius: 3px; white-space: nowrap; background: rgb(238, 243, 254); color: rgb(29, 78, 216); border: 1px solid rgb(207, 224, 253);"><span style="width: 5px; height: 5px; border-radius: 50%; flex: 0 0 auto; background: rgb(37, 99, 235);"></span><span class="sc-interp">Nuevo</span></span></td>
-                      <td style="padding: 11px 18px 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; text-align: right; white-space: nowrap;"><button style="font-family: inherit; font-size: 12px; font-weight: 700; border-radius: 4px; padding: 6px 11px; cursor: pointer; background: rgb(37, 99, 235); color: rgb(255, 255, 255); border: 1px solid rgb(37, 99, 235);"><span class="sc-interp">Aceptar</span></button></td>
-                    </tr>
-                  
-                    <tr style="cursor: pointer;">
-                      <td style="padding: 11px 10px 11px 18px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; white-space: nowrap;">
-                        <span style="display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border: 1px solid rgb(227, 230, 236); border-radius: 4px; margin-right: 9px; vertical-align: middle; color: rgb(58, 70, 95); background: rgb(250, 251, 252);">
-                          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="m9 7-5 5 5 5"></path><path d="m15 7 5 5-5 5"></path></svg>
-                          
-                          
-                          
-                          
-                        </span>
-                        <span style="font-size: 11.5px; font-weight: 700; color: rgb(58, 70, 95); letter-spacing: 0.01em;"><span class="sc-interp">API</span></span>
-                      </td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 12px; font-weight: 600; white-space: nowrap; color: rgb(19, 32, 56);"><span class="sc-interp">HCL-API-88221</span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; font-weight: 600; min-width: 170px;"><span class="sc-interp">Laboratorio Vitalis</span><span style="display: block; font-size: 11px; font-weight: 500; color: rgb(154, 164, 184); margin-top: 1px;"><span class="sc-interp">contrato 2024-11 · API v2</span></span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; color: rgb(105, 117, 141); font-size: 12.5px; white-space: nowrap;"><span class="sc-interp">hace 3 h</span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; text-align: right; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-weight: 600; font-variant-numeric: tabular-nums;"><span class="sc-interp">2</span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; white-space: nowrap; color: rgb(58, 70, 95);"><span class="sc-interp">Alcalá de Henares</span><span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11px; color: rgb(154, 164, 184); margin-left: 7px;"><span class="sc-interp">28806</span></span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; white-space: nowrap;"><span style="display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 700; letter-spacing: 0.02em; padding: 3px 8px; border-radius: 3px; white-space: nowrap; background: rgb(233, 248, 242); color: rgb(14, 127, 95); border: 1px solid rgb(201, 233, 220);"><span style="width: 5px; height: 5px; border-radius: 50%; flex: 0 0 auto; background: rgb(16, 185, 129);"></span><span class="sc-interp">Listo para aceptar</span></span></td>
-                      <td style="padding: 11px 18px 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; text-align: right; white-space: nowrap;"><button style="font-family: inherit; font-size: 12px; font-weight: 700; border-radius: 4px; padding: 6px 11px; cursor: pointer; background: rgb(37, 99, 235); color: rgb(255, 255, 255); border: 1px solid rgb(37, 99, 235);"><span class="sc-interp">Aceptar</span></button></td>
-                    </tr>
-                  
-                    <tr style="cursor: pointer;">
-                      <td style="padding: 11px 10px 11px 18px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; white-space: nowrap;">
-                        <span style="display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border: 1px solid rgb(227, 230, 236); border-radius: 4px; margin-right: 9px; vertical-align: middle; color: rgb(58, 70, 95); background: rgb(250, 251, 252);">
-                          
-                          
-                          
-                          
-                          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M4 20l4.5-1.2L19 8.3 15.7 5 5.2 15.5z"></path><path d="M14 6.6 17.4 10"></path></svg>
-                        </span>
-                        <span style="font-size: 11.5px; font-weight: 700; color: rgb(58, 70, 95); letter-spacing: 0.01em;"><span class="sc-interp">Manual</span></span>
-                      </td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 12px; font-weight: 600; white-space: nowrap; color: rgb(19, 32, 56);"><span class="sc-interp">MAN-0044</span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; font-weight: 600; min-width: 170px;"><span class="sc-interp">Farmacia Central</span><span style="display: block; font-size: 11px; font-weight: 500; color: rgb(154, 164, 184); margin-top: 1px;"><span class="sc-interp">alta manual · mostrador</span></span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; color: rgb(105, 117, 141); font-size: 12.5px; white-space: nowrap;"><span class="sc-interp">hace 3 h</span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; text-align: right; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-weight: 600; font-variant-numeric: tabular-nums;"><span class="sc-interp">1</span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; white-space: nowrap; color: rgb(58, 70, 95);"><span class="sc-interp">Alcalá de Henares</span><span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11px; color: rgb(154, 164, 184); margin-left: 7px;"><span class="sc-interp">28802</span></span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; white-space: nowrap;"><span style="display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 700; letter-spacing: 0.02em; padding: 3px 8px; border-radius: 3px; white-space: nowrap; background: rgb(253, 244, 228); color: rgb(154, 98, 6); border: 1px solid rgb(243, 221, 180);"><span style="width: 5px; height: 5px; border-radius: 50%; flex: 0 0 auto; background: rgb(245, 158, 11);"></span><span class="sc-interp">Pendiente de validar</span></span></td>
-                      <td style="padding: 11px 18px 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; text-align: right; white-space: nowrap;"><button style="font-family: inherit; font-size: 12px; font-weight: 700; border-radius: 4px; padding: 6px 11px; cursor: pointer; background: rgb(255, 255, 255); color: rgb(19, 32, 56); border: 1px solid rgb(221, 225, 233);"><span class="sc-interp">Revisar</span></button></td>
-                    </tr>
-                  
-                    <tr style="cursor: pointer;">
-                      <td style="padding: 11px 10px 11px 18px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; white-space: nowrap;">
-                        <span style="display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border: 1px solid rgb(227, 230, 236); border-radius: 4px; margin-right: 9px; vertical-align: middle; color: rgb(58, 70, 95); background: rgb(250, 251, 252);">
-                          
-                          
-                          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M5 3h9l5 5v13H5z"></path><path d="M8 12h8M8 16h8M8 12v4"></path></svg>
-                          
-                          
-                        </span>
-                        <span style="font-size: 11.5px; font-weight: 700; color: rgb(58, 70, 95); letter-spacing: 0.01em;"><span class="sc-interp">CSV</span></span>
-                      </td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 12px; font-weight: 600; white-space: nowrap; color: rgb(19, 32, 56);"><span class="sc-interp">CSV0824-016</span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; font-weight: 600; min-width: 170px;"><span class="sc-interp">Ferretería Ortega</span><span style="display: block; font-size: 11px; font-weight: 500; color: rgb(154, 164, 184); margin-top: 1px;"><span class="sc-interp">lote 24/08 · fila 16</span></span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; color: rgb(105, 117, 141); font-size: 12.5px; white-space: nowrap;"><span class="sc-interp">hace 4 h</span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; text-align: right; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-weight: 600; font-variant-numeric: tabular-nums;"><span class="sc-interp">3</span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; white-space: nowrap; color: rgb(58, 70, 95);"><span class="sc-interp">Meco</span><span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11px; color: rgb(154, 164, 184); margin-left: 7px;"><span class="sc-interp">28880</span></span></td>
-                      <td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; white-space: nowrap;"><span style="display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 700; letter-spacing: 0.02em; padding: 3px 8px; border-radius: 3px; white-space: nowrap; background: rgb(233, 248, 242); color: rgb(14, 127, 95); border: 1px solid rgb(201, 233, 220);"><span style="width: 5px; height: 5px; border-radius: 50%; flex: 0 0 auto; background: rgb(16, 185, 129);"></span><span class="sc-interp">Listo para aceptar</span></span></td>
-                      <td style="padding: 11px 18px 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; text-align: right; white-space: nowrap;"><button style="font-family: inherit; font-size: 12px; font-weight: 700; border-radius: 4px; padding: 6px 11px; cursor: pointer; background: rgb(37, 99, 235); color: rgb(255, 255, 255); border: 1px solid rgb(37, 99, 235);"><span class="sc-interp">Aceptar</span></button></td>
-                    </tr>
-                  
-                </tbody>
-              
-            </table>
+            <table id="rt-est-table" style="table-layout: fixed; width: 100%; min-width: 720px; border-collapse: separate; border-spacing: 0px; font-size: 12.5px;"></table>
           </div>
-
-          <div style="display: flex; align-items: center; gap: 18px; padding: 11px 18px; border-top: 1px solid rgb(232, 234, 239); flex-wrap: wrap;">
-            <span style="display: flex; align-items: center; gap: 7px; font-size: 11.5px; color: rgb(105, 117, 141); font-weight: 600;"><i style="width: 6px; height: 6px; border-radius: 50%; background: rgb(37, 99, 235); display: inline-block;"></i> Nuevo</span>
-            <span style="display: flex; align-items: center; gap: 7px; font-size: 11.5px; color: rgb(105, 117, 141); font-weight: 600;"><i style="width: 6px; height: 6px; border-radius: 50%; background: rgb(16, 185, 129); display: inline-block;"></i> Listo para aceptar</span>
-            <span style="display: flex; align-items: center; gap: 7px; font-size: 11.5px; color: rgb(105, 117, 141); font-weight: 600;"><i style="width: 6px; height: 6px; border-radius: 50%; background: rgb(245, 158, 11); display: inline-block;"></i> Pendiente de validar</span>
-            <span style="display: flex; align-items: center; gap: 7px; font-size: 11.5px; color: rgb(105, 117, 141); font-weight: 600;"><i style="width: 6px; height: 6px; border-radius: 50%; background: rgb(239, 68, 68); display: inline-block;"></i> Error de mapeo</span>
-            <span style="margin-left: auto; font-size: 11.5px; color: rgb(154, 164, 184); font-weight: 600;">↑ ↓ para moverse · <span style="font-family: &quot;JetBrains Mono&quot;, monospace;">A</span> para aceptar</span>
-          </div>
+          <div id="rt-est-empty" style="display: none; padding: 44px 22px; text-align: center; color: rgb(154, 164, 184); font-size: 12.5px;">No hay pedidos con estos filtros.</div>
         </section>
 
-        
-          <aside id="rt-pedido-detail" style="background: rgb(255, 255, 255); border: 1px solid rgb(232, 234, 239); border-radius: 6px; box-shadow: rgba(19, 32, 56, 0.05) 0px 1px 2px; align-self: flex-start; overflow: hidden; flex: 1 1 340px; max-width: 392px; min-width: 0px;"><div id="rt-pd-body"><div style="padding:40px 22px; text-align:center; color:rgb(154,164,184); font-size:12.5px;">Selecciona un pedido para ver su detalle.</div></div></aside>
-        
+        <aside id="rt-est-detail" style="background: rgb(255, 255, 255); border: 1px solid rgb(232, 234, 239); border-radius: 6px; box-shadow: rgba(19, 32, 56, 0.05) 0px 1px 2px; align-self: flex-start; overflow: hidden; flex: 1 1 360px; max-width: 420px; min-width: 0px; position: sticky; top: 82px;"><div id="rt-est-detail-body"><div style="padding: 40px 22px; text-align: center; color: rgb(154, 164, 184); font-size: 12.5px;">Selecciona un pedido para ver el detalle.</div></div></aside>
+      </div>
 
+  <div id="rt-imp-modal" style="display: none; position: fixed; top: 0px; right: 0px; bottom: 0px; left: 0px; background: rgba(19, 32, 56, 0.45); z-index: 120; align-items: center; justify-content: center; padding: 24px;">
+    <div style="background: rgb(255, 255, 255); border: 1px solid rgb(232, 234, 239); border-radius: 6px; box-shadow: rgba(19, 32, 56, 0.05) 0px 1px 2px; width: 780px; max-width: 100%; max-height: 86vh; display: flex; flex-direction: column; overflow: hidden;">
+      <div style="padding: 15px 18px 14px; border-bottom: 1px solid rgb(232, 234, 239); background: rgb(250, 251, 252); display: flex; align-items: flex-start; gap: 12px;">
+        <div style="flex: 1 1 auto; min-width: 0px;">
+          <div style="font-family: Newsreader, Georgia, serif; font-size: 17px; font-weight: 500; color: rgb(19, 32, 56);">Importar pedidos</div>
+          <div style="font-size: 12px; color: rgb(105, 117, 141); margin-top: 3px;">CSV o Excel · cabecera <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11px;">cliente,destinatario,ciudad,cp,sku,articulo,cantidad,ubicacion,ean</span> · una fila = un pedido</div>
+        </div>
+        <button id="rt-imp-close" aria-label="Cerrar" style="flex: 0 0 auto; width: 26px; height: 26px; border-radius: 4px; border: 1px solid rgb(221, 225, 233); background: rgb(255, 255, 255); color: rgb(105, 117, 141); cursor: pointer; font-family: inherit; font-size: 15px; line-height: 1; display: grid; place-items: center;">×</button>
+      </div>
+      <div style="padding: 14px 18px; border-bottom: 1px solid rgb(232, 234, 239); display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+        <input type="file" id="rt-imp-file" accept=".csv,.xlsx,.xls,text/csv" style="font-family: inherit; font-size: 12px; color: rgb(58, 70, 95);">
+        <a href="#" id="rt-imp-tpl" style="font-size: 12px; font-weight: 700; color: rgb(37, 99, 235); text-decoration: none;">descargar plantilla</a>
+        <span id="rt-imp-summary" style="margin-left: auto; font-size: 12px; color: rgb(105, 117, 141);"></span>
+      </div>
+      <div id="rt-imp-preview" style="flex: 1 1 auto; overflow: auto; min-height: 120px;"><div style="padding: 26px; text-align: center; color: rgb(154, 164, 184); font-size: 12.5px;">Elige un fichero para previsualizar.</div></div>
+      <div style="padding: 13px 18px; border-top: 1px solid rgb(232, 234, 239); background: rgb(250, 251, 252); display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+        <div id="rt-imp-result" style="display: none; flex: 1 1 100%; order: -1; padding-bottom: 4px;"></div>
+        <span style="font-size: 11.5px; color: rgb(154, 164, 184);">Las filas con errores se saltan y se listan.</span>
+        <button id="rt-imp-go" disabled style="margin-left: auto; border: 1px solid rgb(37, 99, 235); background: rgb(37, 99, 235); color: rgb(255, 255, 255); border-radius: 5px; cursor: pointer; font-family: inherit; font-weight: 700; font-size: 12.5px; padding: 9px 16px; opacity: 0.5;">Importar</button>
       </div>
     </div>
-  </div></div></div></div>
+  </div>
 
-
+    </div>
+  </div>
+</div></div></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>(async()=>{try{const db=supabase.createClient("https://bcfeawgxswvtlklrkzii.supabase.co","sb_publishable_eSca9huQfloG321aY7UV9A_m50pucxw");const{data:{session}}=await db.auth.getSession();if(!session){location.replace("/login");return;}window.__db=db;}catch(e){}document.documentElement.style.visibility="";})();</script>
 <script id="rt-hydrate">
 (async function(){
+  const U="https://bcfeawgxswvtlklrkzii.supabase.co",K="sb_publishable_eSca9huQfloG321aY7UV9A_m50pucxw";
+  let n=0; while(!window.supabase && n++<60){ await new Promise(r=>setTimeout(r,80)); }
+  const db = window.__db || (window.supabase && window.supabase.createClient(U,K)); if(!db) return;
+  const $=id=>document.getElementById(id);
+  const A={courier:'Courier','3pl':'3PL',almacen:'Almac\u00e9n'};
+  try{
+    const {data:{user}}=await db.auth.getUser();
+    const {data:tn}=await db.from('tenants').select('name,archetype').limit(1);
+    const t=tn&&tn[0];
+    if(t){ if($('rt-tname'))$('rt-tname').textContent=t.name; if($('rt-tsub'))$('rt-tsub').textContent=A[t.archetype]||t.archetype; if($('rt-tavatar'))$('rt-tavatar').textContent=(t.name||'?').trim().charAt(0).toUpperCase(); }
+    if(user&&$('rt-uinit')){ const p=(user.email||'').split('@')[0].split(/[._-]+/).filter(Boolean); let i=((p[0]||'')[0]||'')+((p[1]||'')[0]||''); if(!i)i=(user.email||'?').slice(0,2); $('rt-uinit').textContent=i.toUpperCase(); }
+  }catch(e){}
+})();
+</script>
+<script id="rt-estado-wire">
+(async function(){
   const U="https://bcfeawgxswvtlklrkzii.supabase.co", K="sb_publishable_eSca9huQfloG321aY7UV9A_m50pucxw";
   let n=0; while(!window.supabase && n++<60){ await new Promise(r=>setTimeout(r,80)); }
   const db=window.__db||(window.supabase&&window.supabase.createClient(U,K)); if(!db) return;
   const $=id=>document.getElementById(id);
+  const T=$('rt-est-table'); if(!T) return;
   const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
-  const ARCH={courier:'Courier','3pl':'3PL',almacen:'Almacén'};
-  const CH={api:{l:'API',ic:'<path d="m9 7-5 5 5 5"></path><path d="m15 7 5 5-5 5"></path>'},connector:{l:'Conector',ic:'<circle cx="6" cy="6" r="2.6"></circle><circle cx="18" cy="18" r="2.6"></circle><path d="M8.6 6H14a4 4 0 0 1 4 4v5.4"></path>'},csv:{l:'CSV',ic:'<path d="M6 3h8l4 4v14H6z"></path><path d="M9 13h6M9 17h6"></path>'},email:{l:'Email',ic:'<rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m3 7 9 6 9-6"></path>'},manual:{l:'Manual',ic:'<path d="M12 20h9"></path><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"></path>'}};
-  function ago(iso){const s=(Date.now()-new Date(iso).getTime())/1000;if(s<90)return 'hace 1 min';const m=Math.floor(s/60);if(m<60)return 'hace '+m+' min';const h=Math.floor(m/60);if(h<24)return 'hace '+h+' h';return 'hace '+Math.floor(h/24)+' d';}
-  try{
-    const {data:{user}}=await db.auth.getUser();
-    const {data:tn}=await db.from('tenants').select('name,archetype').limit(1); const t=tn&&tn[0];
-    if(t){ if($('rt-tname'))$('rt-tname').textContent=t.name; if($('rt-tsub'))$('rt-tsub').textContent=ARCH[t.archetype]||t.archetype; if($('rt-tavatar'))$('rt-tavatar').textContent=(t.name||'?').trim().charAt(0).toUpperCase(); }
-    if(user&&$('rt-uinit')){ const p=(user.email||'').split('@')[0].split(/[._-]+/).filter(Boolean); let i=((p[0]||'')[0]||'')+((p[1]||'')[0]||''); if(!i)i=(user.email||'?').slice(0,2); $('rt-uinit').textContent=i.toUpperCase(); }
-  }catch(e){}
-  const tbody=$('rt-orders'); if(!tbody) return;
-  let ALL=[], filter='', selId=null;
-  async function refreshKpis(){
-    try{ const {data:all}=await db.from('orders').select('status'); if(!all) return;
-      const c=k=>all.filter(o=>o.status===k).length; const set=(id,v)=>{const e=$(id); if(e)e.textContent=v;};
-      set('rt-kpi-p1',c('recibido')); set('rt-kpi-p2',c('picking')); set('rt-kpi-p3',c('incidencia')); set('rt-kpi-p4',c('picking')+c('picked')+c('enviado'));
-    }catch(e){}
+  const DAYMS=86400000;
+  const WDL=['dom','lun','mar','mié','jue','vie','sáb'];
+  const MES=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+  const today=new Date(); today.setHours(0,0,0,0); const T0=today.getTime();
+  const pad=v=>String(v).padStart(2,'0');
+  const ymd=ms=>{const d=new Date(ms); return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());};
+  const fdate=ms=>{const d=new Date(ms); return WDL[d.getDay()]+' '+d.getDate()+' '+MES[d.getMonth()];};
+  const fshort=ms=>{const d=new Date(ms); return d.getDate()+' '+MES[d.getMonth()];};
+  const fes=ms=>{const d=new Date(ms); return pad(d.getDate())+'/'+pad(d.getMonth()+1)+'/'+String(d.getFullYear()).slice(2);};
+  const parseYmd=s=>{const p=String(s||'').split('-'); if(p.length!==3) return null; const d=new Date(Number(p[0]),Number(p[1])-1,Number(p[2])); d.setHours(0,0,0,0); return isNaN(d.getTime())?null:d.getTime();};
+  const MONO='font-family: &quot;JetBrains Mono&quot;, monospace;';
+
+  /* Status = fase del pedido */
+  const FASE={
+    recibido:{l:'Pendiente',      bg:'rgb(253, 244, 228)', c:'rgb(154, 98, 6)',   b:'rgb(243, 221, 180)', d:'rgb(245, 158, 11)'},
+    picking: {l:'En preparación', bg:'rgb(238, 243, 254)', c:'rgb(29, 78, 216)',  b:'rgb(207, 224, 253)', d:'rgb(37, 99, 235)'},
+    picked:  {l:'Preparado',      bg:'rgb(238, 240, 253)', c:'rgb(67, 56, 202)',  b:'rgb(213, 217, 248)', d:'rgb(99, 102, 241)'},
+    enviado: {l:'Enviado',        bg:'rgb(233, 248, 242)', c:'rgb(14, 127, 95)',  b:'rgb(201, 233, 220)', d:'rgb(16, 185, 129)'},
+    incidencia:{l:'Incidencia',   bg:'rgb(253, 238, 238)', c:'rgb(197, 48, 48)',  b:'rgb(246, 207, 207)', d:'rgb(239, 68, 68)'}
+  };
+  const FASE_ORDER=['recibido','picking','picked','enviado','incidencia'];
+  const FLOW=['recibido','picking','picked','enviado'];
+  const badge=s=>'<span style="display: inline-flex; align-items: center; gap: 6px; font-size: 10.5px; font-weight: 700; padding: 3px 8px; border-radius: 3px; white-space: nowrap; background: '+s.bg+'; color: '+s.c+'; border: 1px solid '+s.b+';"><span style="width: 4px; height: 4px; border-radius: 50%; flex: 0 0 auto; background: '+s.d+';"></span>'+esc(s.l)+'</span>';
+
+  const VIEWS=[
+    {slug:'todos',        k:null,        l:'Todos',          pl:'Pedidos'},
+    {slug:'recibido',     k:'recibido',  l:'Pendiente',      pl:'Pendientes'},
+    {slug:'en-preparacion',k:'picking',  l:'En preparación', pl:'En preparación'},
+    {slug:'preparado',    k:'picked',    l:'Preparado',      pl:'Preparados'},
+    {slug:'enviado',      k:'enviado',   l:'Enviado',        pl:'Enviados'},
+    {slug:'incidencia',   k:'incidencia',l:'Incidencia',     pl:'Incidencias'}
+  ];
+
+  /* ---- ruta ---- */
+  const seg=(location.pathname||'').split('/').filter(Boolean);
+  let slug=seg.length?seg[seg.length-1].replace(/\.html$/,''):'todos';
+  const ENTRANTES=(slug==='pedidos-entrantes');
+  if(slug==='agenda'||slug==='agenda-estado') slug='todos';
+  const qs=new URLSearchParams(location.search||'');
+  const dParam=qs.get('d')||'';
+  const qParam=(qs.get('q')||'').trim();
+  const view=ENTRANTES?VIEWS[1]:(VIEWS.filter(v=>v.slug===slug)[0]||null);
+  const mode = ENTRANTES?'entrantes' : (view?'estado' : (slug==='alertas'?'alertas' : (slug==='buscar'?'buscar' : (slug==='atrasados'?'atrasados':'estado'))));
+  const base = view || VIEWS[0];
+
+  let curDay=(dParam&&dParam!=='atrasado')?parseYmd(dParam):null;
+  let onlyLate=(dParam==='atrasado')||(mode==='atrasados');
+
+  /* ---- datos (RLS) ---- */
+  let OR=[], byId={}, incBy={}, incidents=[], CLIENTS=[], TENANT=null;
+  const CLOSED=['cerrada','cerrado','resuelta','resuelto','closed','resolved','anulada','anulado'];
+  const isOpenInc=i=>CLOSED.indexOf(String(i.estado||'').toLowerCase())<0;
+
+  function decorate(o){
+    const cr=new Date(o.created_at); cr.setHours(0,0,0,0);
+    const dest=o.ship_to||{};
+    o._rec=cr.getTime();
+    o._sla=(o.clients&&o.clients.sla_days!=null)?o.clients.sla_days:1;
+    o._due=o._rec+o._sla*DAYMS;
+    o._bultos=(o.order_items||[]).reduce((a,i)=>a+(i.qty||0),0);
+    o._cli=(o.clients&&o.clients.name)||'—';
+    o._city=dest.city||'—';
+    o._cp=dest.postal||'';
+    o._ref=o.external_ref||'—';
+    o._fase=(FASE[o.status]||FASE.recibido).l;
+    o._late=(o._due<T0 && o.status!=='enviado');
+    return o;
   }
-  function rowsFor(){ return ALL.filter(o=> !filter || (o.clients&&o.clients.intake_channel)===filter ); }
-  function render(){
-    const orders=rowsFor();
-    if($('rt-navcount')) $('rt-navcount').textContent=ALL.length;
-    if($('rt-listcount')) $('rt-listcount').textContent=orders.length+' pedido'+(orders.length===1?'':'s')+' · canal: '+(filter?CH[filter].l:'todos');
-    const lastEl=document.querySelector('header span span'); if(ALL[0]&&lastEl) lastEl.textContent=ago(ALL[0].created_at);
-    if(!orders.length){ tbody.innerHTML='<tr><td colspan="8" style="padding:34px;text-align:center;color:rgb(154,164,184);font-size:13px">No hay pedidos en este filtro.</td></tr>'; return; }
-    tbody.innerHTML=orders.map(function(o){
-      const ch=CH[o.clients&&o.clients.intake_channel]||{l:(o.clients&&o.clients.intake_channel)||'—',ic:'<circle cx="12" cy="12" r="8"></circle>'};
-      const cli=(o.clients&&o.clients.name)||'—'; const dest=o.ship_to||{}; const bultos=(o.order_items||[]).reduce((a,i)=>a+(i.qty||0),0)||1;
-      const recip=dest.name?('→ '+esc(dest.name)):''; const selBg=o.id===selId?' background: rgb(247, 250, 255);':'';
-      return '<tr data-id="'+o.id+'" style="cursor: pointer;'+selBg+'">'
-        +'<td style="padding: 11px 10px 11px 18px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; white-space: nowrap;"><span style="display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border: 1px solid rgb(227, 230, 236); border-radius: 4px; margin-right: 9px; vertical-align: middle; color: rgb(58, 70, 95); background: rgb(250, 251, 252);"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9">'+ch.ic+'</svg></span><span style="font-size: 11.5px; font-weight: 700; color: rgb(58, 70, 95);">'+esc(ch.l)+'</span></td>'
-        +'<td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 12px; font-weight: 600; white-space: nowrap; color: rgb(19, 32, 56);">'+esc(o.external_ref||'—')+'</td>'
-        +'<td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; font-weight: 600; min-width: 170px;">'+esc(cli)+'<span style="display: block; font-size: 11px; font-weight: 500; color: rgb(154, 164, 184); margin-top: 1px;">'+recip+'</span></td>'
-        +'<td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; color: rgb(105, 117, 141); font-size: 12.5px; white-space: nowrap;">'+esc(ago(o.created_at))+'</td>'
-        +'<td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; text-align: right; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-weight: 600;">'+bultos+'</td>'
-        +'<td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; white-space: nowrap; color: rgb(58, 70, 95);">'+esc(dest.city||'—')+'<span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11px; color: rgb(154, 164, 184); margin-left: 7px;">'+esc(dest.postal||'')+'</span></td>'
-        +'<td style="padding: 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; white-space: nowrap;"><span style="display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 3px; white-space: nowrap; background: rgb(238, 243, 254); color: rgb(29, 78, 216); border: 1px solid rgb(207, 224, 253);"><span style="width: 5px; height: 5px; border-radius: 50%; flex: 0 0 auto; background: rgb(37, 99, 235);"></span>Nuevo</span></td>'
-        +'<td style="padding: 11px 18px 11px 10px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle; text-align: right; white-space: nowrap;"><button class="rt-accept" data-id="'+o.id+'" style="font-family: inherit; font-size: 12px; font-weight: 700; border-radius: 4px; padding: 6px 11px; cursor: pointer; background: rgb(37, 99, 235); color: rgb(255, 255, 255); border: 1px solid rgb(37, 99, 235);">Aceptar</button></td>'
-        +'</tr>';
+  async function fetchAll(){
+    const res=await Promise.all([
+      db.from('orders').select('id,external_ref,status,created_at,ship_to,client_id,clients(name,sla_days),order_items(sku,description,qty,ubicacion,ean)'),
+      db.from('incidents').select('order_id,tipo,prioridad,descripcion,estado,responsable,created_at'),
+      db.from('clients').select('id,name,sla_days')
+    ]);
+    if(res[0].error){ T.innerHTML='<tbody><tr><td style="padding: 20px; color: rgb(197, 48, 48); font-size: 12.5px;">Error: '+esc(res[0].error.message)+'</td></tr></tbody>'; return false; }
+    OR=(res[0].data||[]).map(decorate);
+    incidents=res[1].data||[];
+    CLIENTS=res[2].data||[];
+    byId={}; OR.forEach(o=>{byId[o.id]=o;});
+    incBy={}; incidents.forEach(function(i){ (incBy[i.order_id]||(incBy[i.order_id]=[])).push(i); });
+    return true;
+  }
+  if(!(await fetchAll())) return;
+  try{ const t=await db.from('tenants').select('id').limit(1); TENANT=(t.data&&t.data[0]&&t.data[0].id)||null; }catch(e){}
+
+  /* ---- pool segun la vista ---- */
+  let fixedTitle='', fixedSub='';
+  if(mode==='alertas'){ fixedTitle='Alertas'; fixedSub='pedidos fuera de plazo e incidencias abiertas'; }
+  if(mode==='buscar'){ fixedTitle='Búsqueda'; fixedSub='"'+qParam+'"'; }
+  function computePool(){
+    if(mode==='alertas'){
+      const ids={};
+      OR.forEach(function(o){ if(o._late) ids[o.id]=1; });
+      incidents.forEach(function(i){ if(isOpenInc(i)&&byId[i.order_id]) ids[i.order_id]=1; });
+      return OR.filter(o=>ids[o.id]);
+    }
+    if(mode==='buscar'){
+      const q=qParam.toLowerCase(); if(q.length<2) return [];
+      const nm=s=>String(s==null?'':s).toLowerCase();
+      return OR.filter(function(o){ const d=o.ship_to||{};
+        return nm(o._ref).indexOf(q)>=0||nm(o._cli).indexOf(q)>=0||nm(d.city).indexOf(q)>=0||nm(d.postal).indexOf(q)>=0||nm(d.name).indexOf(q)>=0; });
+    }
+    if(base.k) return OR.filter(o=>o.status===base.k);
+    return OR.slice();
+  }
+
+  /* ---- columnas (sin Status binario; la fase se llama Status) ---- */
+  const COLS=[
+    {k:'_ref',  l:'Pedido',          t:'txt',  f:'text', w:128},
+    {k:'_cli',  l:'Cliente',         t:'txt',  f:'text', w:0},
+    {k:'_city', l:'Ciudad',          t:'txt',  f:'text', w:112},
+    {k:'_cp',   l:'CP',              t:'txt',  f:'text', w:70},
+    {k:'_bultos',l:'Bultos',         t:'num',  f:null,   w:64,  a:'right'},
+    {k:'_rec',  l:'Fecha recepción', t:'date', f:null,   w:96},
+    {k:'_sla',  l:'SLA',             t:'num',  f:null,   w:56,  a:'right'},
+    {k:'_fase', l:'Status',          t:'txt',  f:'fase', w:132}
+  ];
+  let sortK='_due', sortDir=1;
+  const filters={};
+  let headQ='', shown=[], selId=null;
+
+  /* ---- cabecera + fila de filtros ---- */
+  const TH='position: sticky; top: 0px; z-index: 3; background: rgb(250, 251, 252); border-bottom: 1px solid rgb(221, 225, 233); padding: 9px 10px; font-size: 10px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: rgb(105, 117, 141); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: pointer; user-select: none;';
+  const INP='width: 100%; box-sizing: border-box; border: 1px solid rgb(227, 230, 236); border-radius: 4px; background: rgb(255, 255, 255); font-family: inherit; font-size: 11.5px; color: rgb(19, 32, 56); padding: 4px 6px; outline: 0px;';
+  function renderHead(){
+    let h='<thead><tr>';
+    COLS.forEach(function(c){
+      h+='<th class="rt-sort" data-k="'+c.k+'" style="'+TH+(c.w?(' width: '+c.w+'px;'):'')+(c.a==='right'?' text-align: right;':' text-align: left;')+'">'+esc(c.l)+'<span class="rt-ind" data-k="'+c.k+'" style="font-size: 9px; margin-left: 4px; color: rgb(37, 99, 235);"></span></th>';
+    });
+    h+='</tr><tr>';
+    COLS.forEach(function(c){
+      let cell='';
+      if(c.f==='text') cell='<input class="rt-flt" data-k="'+c.k+'" type="text" placeholder="filtrar…" style="'+INP+'">';
+      else if(c.f==='fase') cell='<select class="rt-flt" data-k="_fase" style="'+INP+'"><option value="">Todos</option>'+FASE_ORDER.map(k=>'<option value="'+esc(FASE[k].l)+'">'+esc(FASE[k].l)+'</option>').join('')+'</select>';
+      h+='<td style="padding: 6px 8px 8px; background: rgb(250, 251, 252); border-bottom: 1px solid rgb(232, 234, 239); vertical-align: middle;">'+cell+'</td>';
+    });
+    h+='</tr></thead><tbody id="rt-est-tbody"></tbody>';
+    T.innerHTML=h;
+  }
+
+  const TD='padding: 9px 10px; border-bottom: 1px solid rgb(240, 242, 245); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;';
+  function rowHTML(o){
+    const sel=(o.id===selId);
+    return '<tr class="rt-est-item" data-id="'+esc(o.id)+'" style="cursor: pointer;'+(o._late?' box-shadow: inset 2px 0px 0px 0px rgb(239, 68, 68);':'')+(sel?' background: rgb(248, 250, 253);':'')+'">'
+      +'<td style="'+TD+' '+MONO+' font-weight: 700; color: rgb(19, 32, 56);">'+esc(o._ref)+'</td>'
+      +'<td style="'+TD+' font-weight: 600; color: rgb(19, 32, 56);">'+esc(o._cli)+'</td>'
+      +'<td style="'+TD+' color: rgb(58, 70, 95);">'+esc(o._city)+'</td>'
+      +'<td style="'+TD+' '+MONO+' font-size: 11.5px; color: rgb(105, 117, 141);">'+esc(o._cp||'—')+'</td>'
+      +'<td style="'+TD+' '+MONO+' font-weight: 700; text-align: right; font-variant-numeric: tabular-nums; color: rgb(19, 32, 56);">'+o._bultos+'</td>'
+      +'<td style="'+TD+' '+MONO+' font-size: 11.5px; color: rgb(105, 117, 141);">'+fes(o._rec)+'</td>'
+      +'<td style="'+TD+' '+MONO+' font-weight: 600; text-align: right; font-variant-numeric: tabular-nums; color: rgb(58, 70, 95);">'+o._sla+' d</td>'
+      +'<td style="'+TD+'">'+badge(FASE[o.status]||FASE.recibido)+'</td></tr>';
+  }
+  function currentSel(){
+    let s=computePool();
+    if(onlyLate) s=s.filter(o=>o._late);
+    else if(curDay!=null) s=s.filter(o=>o._due===curDay);
+    return s;
+  }
+  function applyFilters(list){
+    const hq=(headQ||'').toLowerCase();
+    return list.filter(function(o){
+      for(const k in filters){
+        const v=filters[k]; if(!v) continue;
+        if(k==='_fase'){ if(String(o[k])!==v) return false; }
+        else if(String(o[k]==null?'':o[k]).toLowerCase().indexOf(String(v).toLowerCase())<0) return false;
+      }
+      if(hq){
+        const d=o.ship_to||{};
+        const hay=[o._ref,o._cli,d.city,d.postal,d.name].map(x=>String(x==null?'':x).toLowerCase()).join(' ');
+        if(hay.indexOf(hq)<0) return false;
+      }
+      return true;
+    });
+  }
+  function sortList(list){
+    const c=COLS.filter(x=>x.k===sortK)[0];
+    const t=c?c.t:'num';
+    return list.slice().sort(function(a,b){
+      const av=a[sortK], bv=b[sortK];
+      let r;
+      if(t==='num'||t==='date') r=(av||0)-(bv||0);
+      else r=String(av==null?'':av).localeCompare(String(bv==null?'':bv),'es',{numeric:true,sensitivity:'base'});
+      if(r===0) r=(a._due||0)-(b._due||0);
+      return r*sortDir;
+    });
+  }
+  function renderBody(){
+    const sel=currentSel();
+    shown=sortList(applyFilters(sel));
+    const tb=$('rt-est-tbody');
+    if(tb) tb.innerHTML=shown.map(rowHTML).join('');
+    const emp=$('rt-est-empty'); if(emp) emp.style.display=shown.length?'none':'block';
+    COLS.forEach(function(c){
+      const ind=T.querySelector('.rt-ind[data-k="'+c.k+'"]');
+      if(ind) ind.textContent=(sortK===c.k)?(sortDir>0?'▲':'▼'):'';
+    });
+    const cc=$('rt-est-count'); if(cc) cc.textContent=shown.length+' pedidos';
+    const bb=$('rt-est-bultos'); if(bb) bb.textContent=shown.reduce((a,o)=>a+o._bultos,0)+' bultos';
+    renderTitle(sel.length);
+  }
+
+  function renderTitle(count){
+    let title, sub;
+    if(mode==='entrantes'){ title='Pedidos entrantes'; sub='pendientes de preparar'; }
+    else if(mode==='alertas'||mode==='buscar'){ title=fixedTitle; sub=fixedSub; }
+    else if(onlyLate){ title=base.pl+' atrasados'; sub='fecha prevista anterior a hoy y sin enviar'; }
+    else if(curDay!=null){ title=base.pl+' del '+fshort(curDay); sub='fecha de entrega prevista · '+fdate(curDay); }
+    else { title=base.l; sub='todas las fechas · por fecha de entrega prevista'; }
+    const h1=$('rt-est-title'); if(h1) h1.textContent=title+' — '+count+' pedido'+(count===1?'':'s');
+    const h2=$('rt-est-sub'); if(h2) h2.textContent=sub;
+    const hd=$('rt-est-head'); if(hd) hd.textContent=(mode==='estado'&&base.k)?base.l:title;
+    const nt=$('rt-day-note'); if(nt) nt.textContent=onlyLate?'solo atrasados':(curDay==null?'sin filtro de día':'');
+    document.title=title+' · Rutevo';
+  }
+
+  function syncUrl(){
+    const p=new URLSearchParams(location.search||'');
+    if(onlyLate) p.set('d','atrasado');
+    else if(curDay!=null) p.set('d',ymd(curDay));
+    else p.delete('d');
+    const q=p.toString();
+    history.replaceState(null,'',location.pathname+(q?('?'+q):''));
+  }
+
+  /* ---- sub-nav ---- */
+  { const box=$('rt-est-chips');
+    if(box && !ENTRANTES){
+      const q=dParam?('?d='+encodeURIComponent(dParam)):'';
+      box.innerHTML=VIEWS.map(function(v){
+        const on=(mode==='estado'&&v.slug===base.slug);
+        return '<a class="rt-navchip" data-slug="'+v.slug+'" href="/agenda/'+v.slug+q+'" style="display: inline-flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 700; padding: 6px 11px; border-radius: 5px; white-space: nowrap; text-decoration: none; background: '+(on?'rgb(14, 31, 61)':'rgb(255, 255, 255)')+'; color: '+(on?'rgb(255, 255, 255)':'rgb(105, 117, 141)')+'; border: 1px solid '+(on?'rgb(14, 31, 61)':'rgb(221, 225, 233)')+';">'+esc(v.l)+'</a>';
+      }).join('');
+    }
+  }
+
+  /* ---- control de fecha ---- */
+  const dInp=$('rt-date');
+  function setDay(ms){ onlyLate=false; curDay=ms; if(dInp) dInp.value=(ms==null)?'':ymd(ms); syncUrl(); renderBody(); }
+  if(dInp){
+    dInp.value=(curDay==null)?'':ymd(curDay);
+    dInp.addEventListener('change', function(){ setDay(parseYmd(dInp.value)); });
+    dInp.addEventListener('input', function(){ if(dInp.value) setDay(parseYmd(dInp.value)); });
+  }
+  { const bp=$('rt-day-prev'), bn=$('rt-day-next'), ba=$('rt-day-all');
+    const step=k=>{ const from=(curDay==null)?T0:curDay; setDay(from+k*DAYMS); };
+    if(bp) bp.addEventListener('click', function(){ step(-1); });
+    if(bn) bn.addEventListener('click', function(){ step(1); });
+    if(ba) ba.addEventListener('click', function(){ setDay(null); });
+  }
+
+  /* ---- orden + filtros ---- */
+  renderHead();
+  T.addEventListener('click', function(e){
+    const th=e.target.closest('.rt-sort'); if(!th) return;
+    const k=th.getAttribute('data-k');
+    if(sortK===k) sortDir=-sortDir; else { sortK=k; sortDir=1; }
+    renderBody();
+  });
+  function onFlt(e){
+    const f=e.target.closest('.rt-flt'); if(!f) return;
+    filters[f.getAttribute('data-k')]=f.value; renderBody();
+  }
+  T.addEventListener('input',onFlt);
+  T.addEventListener('change',onFlt);
+  { const cb=$('rt-clear-filters');
+    if(cb) cb.addEventListener('click', function(){
+      Object.keys(filters).forEach(k=>{delete filters[k];});
+      Array.prototype.forEach.call(T.querySelectorAll('.rt-flt'),x=>{x.value='';});
+      const si=$('rt-search'); if(si){ si.value=''; headQ=''; }
+      renderBody();
+    });
+  }
+
+  /* ---- detalle ---- */
+  const dbody=$('rt-est-detail-body');
+  const rowg=(k,v,c)=>'<span style="color: rgb(154, 164, 184); font-weight: 600; font-size: 11px; letter-spacing: 0.03em; text-transform: uppercase;">'+k+'</span><span style="font-weight: 600;'+(c?(' color: '+c+';'):'')+'">'+esc(v)+'</span>';
+  function linesHTML(list){
+    const H='padding: 4px 6px 6px 0px; border-bottom: 1px solid rgb(227, 230, 236); font-size: 8.5px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: rgb(154, 164, 184); text-align: left;';
+    const C='padding: 8px 6px 8px 0px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: top;';
+    const DASH='<span style="color: rgb(205, 211, 222);">—</span>';
+    let h='<tr><th style="'+H+' width: 66px;">SKU</th><th style="'+H+'">Artículo</th><th style="'+H+' width: 30px; text-align: right;">Cant</th><th style="'+H+' width: 60px;">Ubic.</th><th style="'+H+' width: 88px;">EAN</th></tr>';
+    if(!list||!list.length) return h+'<tr><td colspan="5" style="padding: 10px 0px; color: rgb(154, 164, 184);">Sin líneas</td></tr>';
+    return h+list.map(function(i){
+      const ub=i.ubicacion?('<span style="display: inline-block; '+MONO+' font-size: 10px; font-weight: 700; color: rgb(29, 78, 216); background: rgb(238, 243, 254); border: 1px solid rgb(207, 224, 253); border-radius: 3px; padding: 1px 4px; white-space: nowrap;">'+esc(i.ubicacion)+'</span>'):DASH;
+      return '<tr>'
+        +'<td style="'+C+' '+MONO+' font-size: 10.5px; color: rgb(105, 117, 141); word-break: break-all;">'+esc(i.sku||'—')+'</td>'
+        +'<td style="'+C+' font-size: 12px; font-weight: 600; color: rgb(19, 32, 56); line-height: 1.3;">'+esc(i.description||'Bulto')+'</td>'
+        +'<td style="'+C+' '+MONO+' font-weight: 700; font-size: 11.5px; text-align: right; font-variant-numeric: tabular-nums; color: rgb(19, 32, 56);">'+(i.qty||1)+'</td>'
+        +'<td style="'+C+'">'+ub+'</td>'
+        +'<td style="'+C+' '+MONO+' font-size: 10px; color: rgb(105, 117, 141); white-space: nowrap;">'+(i.ean?esc(i.ean):DASH)+'</td>'
+      +'</tr>';
     }).join('');
   }
-  function detail(o){
-    const body=$('rt-pd-body'); if(!body) return;
-    const ch=CH[o.clients&&o.clients.intake_channel]||{l:'—'}; const dest=o.ship_to||{}; const cli=(o.clients&&o.clients.name)||'—';
-    const items=o.order_items||[]; const bultos=items.reduce((a,i)=>a+(i.qty||0),0)||1;
-    const rowg=(k,v)=>'<span style="color: rgb(154, 164, 184); font-weight: 600; font-size: 11px; letter-spacing: 0.03em; text-transform: uppercase;">'+k+'</span><span style="font-weight: 600;">'+esc(v)+'</span>';
-    const lines=(function(list){const M='font-family: &quot;JetBrains Mono&quot;, monospace;';const H='padding: 4px 8px 6px 0px; border-bottom: 1px solid rgb(227, 230, 236); font-size: 9px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: rgb(154, 164, 184); text-align: left; white-space: nowrap;';const C='padding: 8px 8px 8px 0px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: top;';const DASH='<span style="color: rgb(205, 211, 222);">—</span>';let h='<tr><th style="'+H+'">SKU</th><th style="'+H+'">Artículo</th><th style="'+H+' text-align: right;">Cant.</th><th style="'+H+'">Ubicación</th><th style="'+H+'">EAN</th></tr>';if(!list||!list.length) return h+'<tr><td colspan="5" style="padding: 10px 0px; color: rgb(154, 164, 184);">Sin líneas</td></tr>';return h+list.map(function(i){const ub=i.ubicacion?('<span style="display: inline-block; '+M+' font-size: 10.5px; font-weight: 700; color: rgb(29, 78, 216); background: rgb(238, 243, 254); border: 1px solid rgb(207, 224, 253); border-radius: 3px; padding: 2px 6px; white-space: nowrap;">'+esc(i.ubicacion)+'</span>'):DASH;return '<tr>'+'<td style="'+C+' '+M+' font-size: 11px; color: rgb(105, 117, 141); white-space: nowrap;">'+esc(i.sku||'—')+'</td>'+'<td style="'+C+' font-size: 12.5px; font-weight: 600; color: rgb(19, 32, 56); min-width: 96px;">'+esc(i.description||'Bulto')+'</td>'+'<td style="'+C+' '+M+' font-weight: 700; font-size: 12px; text-align: right; font-variant-numeric: tabular-nums; color: rgb(19, 32, 56);">'+(i.qty||1)+'</td>'+'<td style="'+C+' white-space: nowrap;">'+ub+'</td>'+'<td style="'+C+' '+M+' font-size: 10.5px; color: rgb(105, 117, 141); white-space: nowrap;">'+(i.ean?esc(i.ean):DASH)+'</td>'+'</tr>';}).join('');})(items);
-    body.innerHTML=''
-      +'<div style="padding: 15px 18px 14px; border-bottom: 1px solid rgb(232, 234, 239);">'
-      +'<div style="display: flex; align-items: center; gap: 9px;"><span style="display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 3px; background: rgb(238, 243, 254); color: rgb(29, 78, 216); border: 1px solid rgb(207, 224, 253);"><span style="width: 5px; height: 5px; border-radius: 50%; background: rgb(37, 99, 235);"></span>Nuevo</span><span style="margin-left: auto; font-size: 11px; color: rgb(154, 164, 184); font-weight: 600;">'+esc(ago(o.created_at))+'</span></div>'
-      +'<div style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 16px; font-weight: 700; margin-top: 10px;">'+esc(o.external_ref||'—')+'</div>'
-      +'<div style="font-size: 12.5px; color: rgb(105, 117, 141); margin-top: 2px;">'+esc(ch.l)+' · '+esc(cli)+'</div></div>'
-      +'<div style="padding: 14px 18px 4px;"><span style="font-size: 9.5px; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase; color: rgb(105, 117, 141);">Datos normalizados</span> <span style="font-size: 12px; color: rgb(154, 164, 184); font-family: Newsreader, Georgia, serif; font-style: italic;">formato estándar Rutevo</span></div>'
-      +'<div style="padding: 6px 18px 14px; display: grid; grid-template-columns: 92px minmax(0px, 1fr); gap: 7px 12px; font-size: 12.5px; align-items: baseline;">'
-      + rowg('Destinatario', dest.name||cli) + rowg('Ciudad', dest.city||'—') + rowg('Código postal', dest.postal||'—') + rowg('Cliente', cli) + rowg('Canal', ch.l) + rowg('Bultos', bultos)
-      +'</div>'
+  function phaseSelector(o){
+    const btn=(k)=>{
+      const on=(o.status===k), f=FASE[k];
+      return '<button class="rt-phase" data-ph="'+k+'" data-id="'+esc(o.id)+'" style="flex: 1 1 auto; border: 0px; cursor: pointer; font-family: inherit; font-size: 10.5px; font-weight: 700; padding: 7px 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; background: '+(on?'rgb(14, 31, 61)':'rgb(255, 255, 255)')+'; color: '+(on?'rgb(255, 255, 255)':'rgb(105, 117, 141)')+';">'+esc(f.l)+'</button>';
+    };
+    return '<div style="padding: 12px 18px 14px; border-top: 1px solid rgb(232, 234, 239); background: rgb(250, 251, 252);">'
+      +'<div style="font-size: 9.5px; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase; color: rgb(105, 117, 141); margin-bottom: 8px;">Cambiar fase</div>'
+      +'<div style="display: flex; gap: 1px; border: 1px solid rgb(221, 225, 233); border-radius: 5px; overflow: hidden; background: rgb(221, 225, 233);">'+FLOW.map(btn).join('')+'</div>'
+      +'<div id="rt-phase-msg" style="font-size: 11.5px; color: rgb(105, 117, 141); margin-top: 8px; min-height: 15px;"></div></div>';
+  }
+  function showDetail(o){
+    if(!o||!dbody) return;
+    const dest=o.ship_to||{}, st=FASE[o.status]||FASE.recibido, items=o.order_items||[];
+    const incs=incBy[o.id]||[];
+    const incHTML=incs.length?('<div style="padding: 0px 18px 6px;"><span style="font-size: 9.5px; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase; color: rgb(105, 117, 141);">Incidencia</span></div><div style="padding: 0px 18px 14px;">'+incs.map(i=>'<div style="border: 1px solid rgb(246, 207, 207); background: rgb(253, 238, 238); border-radius: 5px; padding: 10px 12px; margin-bottom: 8px;"><div style="display: flex; align-items: center; gap: 8px;"><span style="font-size: 11.5px; font-weight: 700; color: rgb(197, 48, 48);">'+esc(i.tipo||'Incidencia')+'</span><span style="margin-left: auto; '+MONO+' font-size: 10.5px; font-weight: 700; color: rgb(197, 48, 48); text-transform: uppercase;">'+esc(i.prioridad||'')+'</span></div><div style="font-size: 12.5px; color: rgb(19, 32, 56); margin-top: 5px; line-height: 1.35;">'+esc(i.descripcion||'—')+'</div><div style="font-size: 11.5px; color: rgb(105, 117, 141); margin-top: 5px;">'+esc(i.estado||'—')+(i.responsable?(' · '+esc(i.responsable)):'')+'</div></div>').join('')+'</div>'):'';
+    dbody.innerHTML='<div style="padding: 15px 18px 14px; border-bottom: 1px solid rgb(232, 234, 239);">'+badge(st)
+      +'<div style="'+MONO+' font-size: 16px; font-weight: 700; margin-top: 10px;">'+esc(o._ref)+'</div>'
+      +'<div style="font-size: 12.5px; color: rgb(105, 117, 141); margin-top: 2px;">'+esc(o._cli)+'</div></div>'
+      +'<div style="padding: 12px 18px 14px; display: grid; grid-template-columns: 104px minmax(0px, 1fr); gap: 7px 12px; font-size: 12.5px; align-items: baseline;">'
+      +rowg('Destino',(o._city||'—')+(o._cp?(' · '+o._cp):''))
+      +rowg('Destinatario',dest.name||o._cli)
+      +rowg('Bultos',o._bultos)
+      +rowg('Fecha recepción',fes(o._rec))
+      +rowg('SLA',o._sla+' d')
+      +rowg('Fecha prevista',fdate(o._due),o._late?'rgb(239, 68, 68)':'')
+      +'</div>'+incHTML
       +'<div style="padding: 0px 18px 6px;"><span style="font-size: 9.5px; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase; color: rgb(105, 117, 141);">Líneas</span></div>'
-      +'<div style="padding: 0px 18px 14px; overflow-x: auto;"><table style="width: 100%; min-width: 344px; border-collapse: separate; border-spacing: 0px; font-size: 12.5px;">'+lines+'</table></div>'
-      +'<div style="padding: 13px 18px 15px; border-top: 1px solid rgb(232, 234, 239); background: rgb(250, 251, 252);"><button class="rt-accept" data-id="'+o.id+'" style="font-family: inherit; font-size: 13px; font-weight: 700; border-radius: 5px; padding: 11px 12px; cursor: pointer; width: 100%; background: rgb(37, 99, 235); color: rgb(255, 255, 255); border: 1px solid rgb(37, 99, 235);">Aceptar pedido</button></div>';
+      +'<div style="padding: 0px 18px 16px;"><table id="rt-lines" style="width: 100%; table-layout: fixed; border-collapse: separate; border-spacing: 0px; font-size: 12px;">'+linesHTML(items)+'</table></div>'
+      +phaseSelector(o);
   }
-  async function accept(id, btn){
-    if(btn){ btn.disabled=true; btn.textContent='Aceptando…'; btn.style.opacity='0.6'; }
-    const {error}=await db.from('orders').update({status:'picking',updated_at:new Date().toISOString()}).eq('id',id);
-    if(error){ if(btn){ btn.disabled=false; btn.style.opacity=''; btn.textContent='Reintentar'; } return; }
-    if(selId===id){ selId=null; const b=$('rt-pd-body'); if(b) b.innerHTML='<div style="padding:40px 22px; text-align:center; color:rgb(154,164,184); font-size:12.5px;">Selecciona un pedido para ver su detalle.</div>'; }
-    await load();
-  }
-  async function load(){
-    await refreshKpis();
-    const {data:orders,error}=await db.from('orders').select('id,external_ref,status,created_at,ship_to,clients(name,intake_channel),order_items(sku,description,qty,ubicacion,ean)').eq('status','recibido').order('created_at',{ascending:false});
-    if(error){ tbody.innerHTML='<tr><td colspan="8" style="padding:22px;text-align:center;color:#c53030">Error: '+esc(error.message)+'</td></tr>'; return; }
-    ALL=orders||[]; render();
-  }
-  tbody.addEventListener('click', function(e){
-    const acc=e.target.closest('.rt-accept'); if(acc){ e.stopPropagation(); accept(acc.getAttribute('data-id'), acc); return; }
-    const tr=e.target.closest('tr[data-id]'); if(tr){ selId=tr.getAttribute('data-id'); const o=ALL.find(x=>x.id===selId); if(o){ detail(o); render(); } }
+  T.addEventListener('click', function(e){
+    const tr=e.target.closest('.rt-est-item'); if(!tr) return;
+    selId=tr.getAttribute('data-id');
+    Array.prototype.forEach.call(T.querySelectorAll('.rt-est-item'),x=>{x.style.background='';});
+    tr.style.background='rgb(248, 250, 253)';
+    showDetail(byId[selId]);
   });
-  const dpanel=$('rt-pedido-detail'); if(dpanel) dpanel.addEventListener('click', function(e){ const acc=e.target.closest('.rt-accept'); if(acc) accept(acc.getAttribute('data-id'), acc); });
-  document.querySelectorAll('.rt-chip').forEach(function(ch){ ch.addEventListener('click', function(){
-    filter=ch.getAttribute('data-ch')||'';
-    document.querySelectorAll('.rt-chip').forEach(function(x){ const on=x===ch; x.style.background=on?'rgb(14, 31, 61)':'rgb(255, 255, 255)'; x.style.color=on?'rgb(255, 255, 255)':'rgb(105, 117, 141)'; x.style.borderColor=on?'rgb(14, 31, 61)':'rgb(221, 225, 233)'; });
-    render();
-  }); });
-  await load();
+  if(dbody) dbody.addEventListener('click', async function(e){
+    const b=e.target.closest('.rt-phase'); if(!b) return;
+    const id=b.getAttribute('data-id'), ph=b.getAttribute('data-ph');
+    const o=byId[id]; if(!o||o.status===ph) return;
+    const msg=$('rt-phase-msg'); if(msg){ msg.textContent='Guardando…'; msg.style.color='rgb(105, 117, 141)'; }
+    const r=await db.from('orders').update({status:ph,updated_at:new Date().toISOString()}).eq('id',id);
+    if(r.error){ if(msg){ msg.textContent='Error: '+r.error.message; msg.style.color='rgb(197, 48, 48)'; } return; }
+    o.status=ph; decorate(o);
+    showDetail(o); renderBody();
+    const m2=$('rt-phase-msg'); if(m2){ m2.textContent='Fase actualizada a "'+FASE[ph].l+'".'; m2.style.color='rgb(14, 127, 95)'; }
+  });
+
+  /* ---- buscador de cabecera ---- */
+  { const inp=$('rt-search');
+    if(inp){
+      if(mode==='buscar') inp.value=qParam;
+      let tm=null;
+      const run=function(){ headQ=inp.value.trim(); renderBody(); };
+      inp.addEventListener('input', function(){ clearTimeout(tm); tm=setTimeout(run,180); });
+      inp.addEventListener('keydown', function(e){ if(e.key==='Enter'){ clearTimeout(tm); run(); } });
+    }
+  }
+
+  /* ---- campana ---- */
+  { const openInc=incidents.filter(isOpenInc).length;
+    const late=OR.filter(o=>o._late).length;
+    const dot=$('rt-belldot'); if(dot) dot.style.display=((late+openInc)>0)?'block':'none';
+    const bell=$('rt-bell'); if(bell) bell.addEventListener('click', function(){ location.href='/agenda/alertas'; });
+  }
+
+  /* ================= IMPORTAR CSV / EXCEL ================= */
+  const HEADERS=['cliente','destinatario','ciudad','cp','sku','articulo','cantidad','ubicacion','ean'];
+  const TPL=HEADERS.join(',')+'\n'
+    +'Cliente Ejemplo,Ana García,Madrid,28001,SKU-001,Camiseta azul,2,A-03-2,8412345678905\n'
+    +'Cliente Ejemplo,Luis Pérez,Barcelona,08001,SKU-002,Pantalón chino,1,B-11-4,8498765432101\n';
+  function splitCsvLine(line,sep){
+    const out=[]; let cur='', q=false;
+    for(let i=0;i<line.length;i++){
+      const ch=line[i];
+      if(q){ if(ch==='"'){ if(line[i+1]==='"'){ cur+='"'; i++; } else q=false; } else cur+=ch; }
+      else if(ch==='"') q=true;
+      else if(ch===sep){ out.push(cur); cur=''; }
+      else cur+=ch;
+    }
+    out.push(cur); return out;
+  }
+  function parseCsv(text){
+    const t=String(text).replace(/^﻿/,'').replace(/\r\n?/g,'\n');
+    const lines=t.split('\n').filter(l=>l.trim()!=='');
+    if(!lines.length) return [];
+    const sep=(lines[0].split(';').length>lines[0].split(',').length)?';':',';
+    const head=splitCsvLine(lines[0],sep).map(h=>h.trim().toLowerCase().replace(/\s+/g,''));
+    return lines.slice(1).map(function(l){
+      const cells=splitCsvLine(l,sep);
+      const o={}; head.forEach(function(h,i){ o[h]=(cells[i]==null?'':String(cells[i]).trim()); });
+      return o;
+    });
+  }
+  function normName(s){ return String(s==null?'':s).trim().toLowerCase(); }
+  function validate(rows){
+    const byName={}; CLIENTS.forEach(function(c){ byName[normName(c.name)]=c; });
+    return rows.map(function(r,idx){
+      const errs=[];
+      const cli=byName[normName(r.cliente)];
+      if(!r.cliente) errs.push('falta cliente');
+      else if(!cli) errs.push('cliente "'+r.cliente+'" no existe');
+      const qty=Number(String(r.cantidad==null?'':r.cantidad).replace(',','.'));
+      if(!r.cantidad || !isFinite(qty) || qty<=0) errs.push('cantidad no numérica');
+      if(!String(r.ciudad||'').trim()) errs.push('falta ciudad');
+      if(!String(r.cp||'').trim()) errs.push('falta cp');
+      return {n:idx+2, raw:r, client:cli||null, qty:qty, errs:errs, ok:errs.length===0};
+    });
+  }
+  let PARSED=[];
+  function renderPreview(){
+    const box=$('rt-imp-preview'); if(!box) return;
+    const okN=PARSED.filter(r=>r.ok).length, badN=PARSED.length-okN;
+    const sum=$('rt-imp-summary');
+    if(sum) sum.innerHTML='<span style="'+MONO+' font-weight: 700; color: rgb(14, 127, 95);">'+okN+'</span> válidas · <span style="'+MONO+' font-weight: 700; color: '+(badN?'rgb(197, 48, 48)':'rgb(105, 117, 141)')+';">'+badN+'</span> con errores';
+    const go=$('rt-imp-go'); if(go){ go.disabled=!okN; go.style.opacity=okN?'1':'0.5'; go.textContent='Importar '+okN+' pedido'+(okN===1?'':'s'); }
+    if(!PARSED.length){ box.innerHTML='<div style="padding: 26px; text-align: center; color: rgb(154, 164, 184); font-size: 12.5px;">Elige un fichero para previsualizar.</div>'; return; }
+    const H='padding: 6px 8px; border-bottom: 1px solid rgb(227, 230, 236); font-size: 9px; font-weight: 800; letter-spacing: 0.07em; text-transform: uppercase; color: rgb(154, 164, 184); text-align: left; white-space: nowrap;';
+    const C='padding: 7px 8px; border-bottom: 1px solid rgb(240, 242, 245); white-space: nowrap;';
+    box.innerHTML='<table style="width: 100%; border-collapse: separate; border-spacing: 0px; font-size: 12px;">'
+      +'<tr><th style="'+H+'">Fila</th><th style="'+H+'">Cliente</th><th style="'+H+'">Destino</th><th style="'+H+'">Artículo</th><th style="'+H+'">Cant</th><th style="'+H+'">Estado</th></tr>'
+      +PARSED.map(function(r){
+        const tag=r.ok?'<span style="font-size: 10.5px; font-weight: 700; color: rgb(14, 127, 95);">válida</span>'
+                      :'<span style="font-size: 10.5px; font-weight: 700; color: rgb(197, 48, 48);">'+esc(r.errs.join(' · '))+'</span>';
+        return '<tr'+(r.ok?'':' style="background: rgb(253, 246, 246);"')+'><td style="'+C+' '+MONO+' color: rgb(154, 164, 184);">'+r.n+'</td>'
+          +'<td style="'+C+'">'+esc(r.raw.cliente||'—')+'</td>'
+          +'<td style="'+C+' color: rgb(105, 117, 141);">'+esc(r.raw.ciudad||'—')+' · '+esc(r.raw.cp||'—')+'</td>'
+          +'<td style="'+C+'">'+esc(r.raw.articulo||r.raw.sku||'—')+'</td>'
+          +'<td style="'+C+' '+MONO+' text-align: right;">'+esc(r.raw.cantidad||'')+'</td>'
+          +'<td style="'+C+'">'+tag+'</td></tr>';
+      }).join('')+'</table>';
+  }
+  async function readFile(file){
+    const name=(file.name||'').toLowerCase();
+    if(/\.xlsx?$/.test(name)){
+      if(!window.XLSX){
+        await new Promise(function(res,rej){
+          const sc=document.createElement('script');
+          sc.src='https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js';
+          sc.onload=res; sc.onerror=rej; document.head.appendChild(sc);
+        });
+      }
+      const buf=await file.arrayBuffer();
+      const wb=window.XLSX.read(buf,{type:'array'});
+      const ws=wb.Sheets[wb.SheetNames[0]];
+      const arr=window.XLSX.utils.sheet_to_json(ws,{header:1,defval:''});
+      if(!arr.length) return [];
+      const head=arr[0].map(h=>String(h).trim().toLowerCase().replace(/\s+/g,''));
+      return arr.slice(1).filter(r=>r.some(c=>String(c).trim()!=='')).map(function(r){
+        const o={}; head.forEach(function(h,i){ o[h]=(r[i]==null?'':String(r[i]).trim()); }); return o;
+      });
+    }
+    return parseCsv(await file.text());
+  }
+  async function doImport(){
+    const go=$('rt-imp-go'), res=$('rt-imp-result');
+    const valid=PARSED.filter(r=>r.ok), bad=PARSED.filter(r=>!r.ok);
+    if(!valid.length) return;
+    if(go){ go.disabled=true; go.style.opacity='0.5'; go.textContent='Importando…'; }
+    let created=0; const failed=[];
+    for(let i=0;i<valid.length;i++){
+      const r=valid[i];
+      const row={
+        external_ref:'HCL-'+(Date.now()+i).toString(36).toUpperCase(),
+        status:'recibido',
+        client_id:r.client.id,
+        ship_to:{name:(r.raw.destinatario||r.raw.cliente||''),city:r.raw.ciudad,postal:String(r.raw.cp)}
+      };
+      if(TENANT) row.tenant_id=TENANT;
+      const ins=await db.from('orders').insert(row).select('id').limit(1);
+      if(ins.error||!ins.data||!ins.data[0]){ failed.push('fila '+r.n+': '+((ins.error&&ins.error.message)||'no se pudo crear')); continue; }
+      const oid=ins.data[0].id;
+      const li=await db.from('order_items').insert({
+        order_id:oid, sku:(r.raw.sku||null), description:(r.raw.articulo||null),
+        qty:r.qty, ubicacion:(r.raw.ubicacion||null), ean:(r.raw.ean||null)
+      });
+      if(li.error){ failed.push('fila '+r.n+' (línea): '+li.error.message); }
+      created++;
+    }
+    const skipped=bad.length+failed.length;
+    if(res){
+      res.style.display='block';
+      res.innerHTML='<div style="font-size: 13px; font-weight: 700; color: rgb(19, 32, 56);">'+created+' creados · '+skipped+' saltados</div>'
+        +((bad.length||failed.length)?('<ul style="margin: 8px 0px 0px; padding-left: 18px; font-size: 11.5px; color: rgb(197, 48, 48); line-height: 1.5;">'
+          +bad.map(r=>'<li>fila '+r.n+': '+esc(r.errs.join(' · '))+'</li>').join('')
+          +failed.map(m=>'<li>'+esc(m)+'</li>').join('')+'</ul>'):'');
+    }
+    if(go){ go.textContent='Importar'; go.style.opacity='1'; }
+    await fetchAll();
+    renderBody();
+  }
+  { const openBtn=$('rt-imp-open'), modal=$('rt-imp-modal');
+    if(openBtn&&modal){
+      const closeM=()=>{ modal.style.display='none'; };
+      openBtn.addEventListener('click', function(){
+        PARSED=[]; renderPreview();
+        const r=$('rt-imp-result'); if(r){ r.style.display='none'; r.innerHTML=''; }
+        const f=$('rt-imp-file'); if(f) f.value='';
+        modal.style.display='flex';
+      });
+      modal.addEventListener('click', function(e){
+        if(e.target===modal||e.target.closest('#rt-imp-close')){ closeM(); return; }
+        if(e.target.closest('#rt-imp-go')){ doImport(); return; }
+        if(e.target.closest('#rt-imp-tpl')){
+          e.preventDefault();
+          const a=document.createElement('a');
+          a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(TPL);
+          a.download='plantilla-pedidos-rutevo.csv';
+          document.body.appendChild(a); a.click(); a.remove();
+        }
+      });
+      const fi=$('rt-imp-file');
+      if(fi) fi.addEventListener('change', async function(){
+        const f=fi.files&&fi.files[0]; if(!f) return;
+        const box=$('rt-imp-preview'); if(box) box.innerHTML='<div style="padding: 26px; text-align: center; color: rgb(154, 164, 184); font-size: 12.5px;">Leyendo…</div>';
+        try{ PARSED=validate(await readFile(f)); }
+        catch(err){ PARSED=[]; if(box) box.innerHTML='<div style="padding: 20px; color: rgb(197, 48, 48); font-size: 12.5px;">No se pudo leer el fichero: '+esc(err&&err.message)+'</div>'; return; }
+        renderPreview();
+      });
+      document.addEventListener('keydown', function(e){ if(e.key==='Escape'&&modal.style.display!=='none') closeM(); });
+    }
+  }
+
+  renderBody();
 })();
 </script>
 </body></html>

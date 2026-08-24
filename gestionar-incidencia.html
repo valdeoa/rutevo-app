@@ -1,0 +1,260 @@
+<!doctype html>
+<html><head><script>try{document.documentElement.style.visibility="hidden";setTimeout(function(){document.documentElement.style.visibility=""},4000)}catch(e){}</script><style>
+    .sc-placeholder{background:color-mix(in srgb,currentColor 8%,transparent);
+      border:1px solid color-mix(in srgb,currentColor 50%,transparent);
+      border-radius:2px;box-sizing:border-box;overflow:hidden}
+    @keyframes sc-shine{0%{background-position:100% 50%}100%{background-position:0% 50%}}
+    html.sc-dc-streaming .sc-placeholder,
+    html.sc-dc-streaming .sc-interp.sc-missing{position:relative;
+      background:color-mix(in srgb,currentColor 5%,transparent);
+      border-color:transparent}
+    html.sc-dc-streaming .sc-placeholder::before,
+    html.sc-dc-streaming .sc-interp.sc-missing::before{content:'';
+      position:absolute;inset:0;pointer-events:none;
+      background:linear-gradient(90deg,rgba(217,119,87,0) 25%,rgba(247,225,211,.95) 37%,rgba(217,119,87,0) 63%);
+      background-size:400% 100%;animation:sc-shine 1.4s ease infinite}
+    html.sc-dc-streaming .sc-placeholder:nth-child(n+9 of .sc-placeholder)::before,
+    html.sc-dc-streaming .sc-interp.sc-missing:nth-child(n+9 of .sc-interp.sc-missing)::before{animation:none;
+      background:color-mix(in srgb,currentColor 8%,transparent)}
+    .sc-placeholder-error{padding:4px 8px;font:11px/1.4 ui-monospace,monospace;
+      color:color-mix(in srgb,currentColor 70%,transparent);word-break:break-word}
+    .sc-interp.sc-missing{display:inline-block;width:2em;height:1em;overflow:hidden;
+      vertical-align:text-bottom;background:rgba(255,255,255,.3);border:1px solid rgba(0,0,0,.5);
+      border-radius:2px;box-sizing:border-box;color:transparent;
+      user-select:none}
+    .sc-interp.sc-unresolved{font-family:ui-monospace,monospace;font-size:.85em;
+      color:color-mix(in srgb,currentColor 50%,transparent);
+      background:color-mix(in srgb,currentColor 10%,transparent);border-radius:3px;
+      padding:0 3px}
+    .sc-host.sc-has-error{position:relative}
+    .sc-logic-error{position:absolute;top:8px;left:8px;z-index:2147483647;max-width:60ch;
+      padding:6px 10px;background:#b00020;color:#fff;font:12px/1.4 ui-monospace,monospace;
+      border-radius:4px;white-space:pre-wrap;pointer-events:none}
+    /* Mirrors PRINT_BASELINE_CSS in apps/web deck-stage-export.ts — keep both
+       in sync until dc-runtime regains a build step. */
+    @media print {
+      @page { margin: 0.5cm; }
+      figure, table { break-inside: avoid; }
+      #dc-root, #dc-root > .sc-host { height: auto; }
+      *, *::before, *::after {
+        print-color-adjust: exact; -webkit-print-color-adjust: exact;
+        backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
+        animation-delay: -99s !important; animation-duration: .001s !important;
+        animation-iteration-count: 1 !important; animation-fill-mode: both !important;
+        animation-play-state: running !important; transition-duration: 0s !important;
+      }
+    }
+  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>x-dc{display:none!important}</style><script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" integrity="sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z" crossorigin="anonymous"></script><script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" integrity="sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1" crossorigin="anonymous"></script>
+<style id="__dc-atomics">.fx{display:flex}.col{display:flex;flex-direction:column}.grid{display:grid}.ac{align-items:center}.jc{justify-content:center}.jb{justify-content:space-between}.f1{flex:1}.noshrink{flex-shrink:0}.wrap{flex-wrap:wrap}.fw5{font-weight:500}.fw6{font-weight:600}.fw7{font-weight:700}.fw8{font-weight:800}.fs11{font-size:11px}.fs12{font-size:12px}.fs13{font-size:13px}.fs14{font-size:14px}.fs15{font-size:15px}.fs16{font-size:16px}.fs20{font-size:20px}.fs22{font-size:22px}.upper{text-transform:uppercase}.tc{text-align:center}.nowrap{white-space:nowrap}.gap8{gap:8px}.gap10{gap:10px}.gap12{gap:12px}.gap16{gap:16px}.gap24{gap:24px}.m0{margin:0}.mt8{margin-top:8px}.mt12{margin-top:12px}.mt16{margin-top:16px}.mb8{margin-bottom:8px}.mb12{margin-bottom:12px}.mb16{margin-bottom:16px}.posrel{position:relative}.posabs{position:absolute}.round{border-radius:50%}.ohide{overflow:hidden}.bbox{box-sizing:border-box}.pointer{cursor:pointer}.w100{width:100%}.b0{border:none}</style><style></style><style>html,body{height:100%;margin:0}#dc-root,#dc-root>.sc-host{height:100%}</style><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""><link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&amp;family=Hanken+Grotesk:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500;600;700&amp;display=swap" rel="stylesheet"><style>
+html,body{margin:0;padding:0}
+body{background:#f5f6f8;-webkit-font-smoothing:antialiased;text-wrap:pretty}
+*{box-sizing:border-box}
+a{color:#2563EB;text-decoration:none}
+a:hover{color:#1d4ed8}
+input::placeholder{color:#9aa4b8}
+::selection{background:#dbe7fd}
+</style><title>Agenda de entregas · Rutevo</title></head>
+<body>
+<div id="dc-root"><div class="sc-host"><div style="display: grid; grid-template-columns: 252px minmax(0px, 1fr); min-height: 100vh; font-family: &quot;Hanken Grotesk&quot;, system-ui, sans-serif; font-size: 14px; line-height: 1.5; color: rgb(19, 32, 56); background: rgb(245, 246, 248);">
+
+  <aside style="background: rgb(14, 31, 61); color: rgb(211, 221, 240); display: flex; flex-direction: column; position: sticky; top: 0px; height: 100vh;">
+    <div style="display: flex; align-items: center; gap: 11px; padding: 23px 22px 18px;">
+      <svg width="28" height="28" viewBox="0 0 48 48" fill="none" aria-label="Rutevo"><path d="M11 35 C 20 35, 22 13, 33 13" stroke="#5b9bff" stroke-width="4.4" stroke-linecap="round"></path><circle cx="11" cy="35" r="5.2" fill="#5b9bff"></circle><circle cx="33" cy="13" r="6.2" fill="#10B981"></circle><circle cx="33" cy="13" r="2.4" fill="#0e1f3d"></circle></svg>
+      <span style="font-family: Newsreader, Georgia, serif; font-size: 25px; font-weight: 500; letter-spacing: -0.005em; color: rgb(255, 255, 255);">rutev<span style="color: rgb(91, 155, 255);">o</span></span>
+    </div>
+
+    <div style="margin: 0px 16px 6px; padding: 11px 13px 12px; background: rgb(21, 41, 74); border: 1px solid rgb(33, 52, 88); border-radius: 8px;">
+      <div style="display: flex; align-items: center; gap: 9px;">
+        <span style="width: 23px; height: 23px; border-radius: 5px; background: rgb(37, 99, 235); display: grid; place-items: center; font-weight: 800; font-size: 12px; color: rgb(255, 255, 255); flex: 0 0 auto;" id="rt-tavatar">H</span>
+        <span id="rt-tname" style="font-weight: 700; font-size: 14px; color: rgb(255, 255, 255);">HCL Express</span>
+      </div>
+      <div id="rt-tsub" style="font-size: 11.5px; color: rgb(126, 145, 183); margin-top: 5px; padding-left: 32px; letter-spacing: 0.01em;">Courier · GLS Alcalá</div>
+    </div>
+
+    <nav style="padding: 6px 14px; display: flex; flex-direction: column;">
+      <div style="font-size: 9.5px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(126, 145, 183); padding: 16px 10px 7px;">Operación</div>
+      <a href="/agenda" style="display: flex; align-items: center; gap: 12px; padding: 9px 11px; border-radius: 6px; color: rgb(255, 255, 255); font-weight: 600; font-size: 13.5px; position: relative; background: rgba(91, 155, 255, 0.11);">
+        <span style="position: absolute; left: -14px; top: 7px; bottom: 7px; width: 3px; background: rgb(37, 99, 235);"></span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 17px; height: 17px; flex: 0 0 auto; color: rgb(127, 176, 255);"><rect x="3" y="4" width="18" height="4" rx="1"></rect><rect x="3" y="10" width="18" height="4" rx="1"></rect><rect x="3" y="16" width="18" height="4" rx="1"></rect></svg>Agenda de entregas</a>
+      <a href="/pedidos-entrantes" class="scp0" style="display: flex; align-items: center; gap: 12px; padding: 9px 11px; border-radius: 6px; color: rgb(211, 221, 240); font-weight: 600; font-size: 13.5px;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 17px; height: 17px; flex: 0 0 auto; opacity: 0.82;"><path d="M4 4h16v5H4z"></path><path d="M4 13h10v7H4z"></path><path d="M18 13l3 3-3 3"></path></svg>Pedidos entrantes
+        <span style="margin-left: auto; font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 10.5px; font-weight: 700; background: rgb(245, 158, 11); color: rgb(69, 44, 0); padding: 1px 6px; border-radius: 3px;">3</span></a>
+      <a href="/incidencias" class="scp0" style="display: flex; align-items: center; gap: 12px; padding: 9px 11px; border-radius: 6px; color: rgb(211, 221, 240); font-weight: 600; font-size: 13.5px;background: rgb(21, 41, 74); color: rgb(255, 255, 255);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 17px; height: 17px; flex: 0 0 auto; opacity: 0.82;"><path d="M12 3l9 16H3z"></path><path d="M12 10v4"></path><circle cx="12" cy="17" r=".7" fill="currentColor"></circle></svg>Incidencias
+        <span style="margin-left: auto; font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 10.5px; font-weight: 700; color: rgb(239, 68, 68);">4</span></a>
+      <div style="font-size: 9.5px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(126, 145, 183); padding: 18px 10px 7px;">Configuración</div>
+      <a href="/clientes-plantillas" class="scp0" style="display: flex; align-items: center; gap: 12px; padding: 9px 11px; border-radius: 6px; color: rgb(211, 221, 240); font-weight: 600; font-size: 13.5px;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 17px; height: 17px; flex: 0 0 auto; opacity: 0.82;"><rect x="3" y="4" width="7" height="7" rx="1"></rect><rect x="14" y="4" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect><path d="M14 17.5h7"></path></svg>Clientes y plantillas</a>
+    </nav>
+
+    <div style="margin-top: auto; padding: 17px 22px; border-top: 1px solid rgb(33, 52, 88); font-size: 11.5px; color: rgb(126, 145, 183); line-height: 1.6;">Sesión: <span style="color: rgb(211, 221, 240); font-weight: 700;">Jesús G.</span> · admin<br>Agencia GLS · Alcalá de Henares</div>
+  </aside>
+
+  <div style="display: flex; flex-direction: column; min-width: 0px;">
+    <header style="display: flex; align-items: center; gap: 16px; padding: 0px 28px; height: 66px; background: rgb(245, 246, 248); border-bottom: 1px solid rgb(232, 234, 239); position: sticky; top: 0px; z-index: 20;">
+      <div style="display: flex; flex-direction: column; gap: 1px;">
+        <h1 id="rt-gi-title" style="font-family: Newsreader, Georgia, serif; font-size: 21px; font-weight: 500; letter-spacing: -0.01em; line-height: 1.1; margin: 0px;">Agenda</h1>
+        <span id="rt-gi-sub" style="font-size: 11px; color: rgb(154, 164, 184);">cargando…</span>
+      </div>
+      <div style="margin-left: auto; display: flex; align-items: center; gap: 9px; width: 330px; max-width: 32vw; background: rgb(255, 255, 255); border: 1px solid rgb(221, 225, 233); border-radius: 5px; padding: 8px 12px; color: rgb(105, 117, 141);">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3-3"></path></svg>
+        <input id="rt-search" placeholder="Buscar en esta vista…" style="border: 0px; background: transparent; outline: 0px; font: inherit; color: rgb(19, 32, 56); width: 100%;">
+        <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 10px; color: rgb(154, 164, 184); border: 1px solid rgb(221, 225, 233); border-radius: 3px; padding: 1px 4px;">⌘K</span>
+      </div>
+      <button id="rt-bell" aria-label="Notificaciones" class="scp1" style="width: 37px; height: 37px; border-radius: 5px; border: 1px solid rgb(221, 225, 233); background: rgb(255, 255, 255); display: grid; place-items: center; color: rgb(105, 117, 141); cursor: pointer; position: relative;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.7 21a2 2 0 0 1-3.4 0"></path></svg>
+        <span id="rt-belldot" style="position: absolute; top: 7px; right: 8px; width: 6px; height: 6px; border-radius: 50%; background: rgb(239, 68, 68); border: 1.5px solid rgb(255, 255, 255); display: none;"></span>
+      </button>
+      <div style="display: flex; align-items: center; gap: 9px; padding-left: 3px;">
+        <div style="width: 36px; height: 36px; border-radius: 6px; background: rgb(14, 31, 61); color: rgb(255, 255, 255); display: grid; place-items: center; font-weight: 700; font-size: 12px; font-family: &quot;JetBrains Mono&quot;, monospace;" id="rt-uinit">JG</div>
+      </div>
+    </header>
+
+    <div style="padding: 22px 28px 46px; display: flex; flex-direction: column; gap: 14px; min-width: 0px; max-width: 1100px;">
+
+      <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+        <a href="/incidencias" style="display: inline-flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 700; color: rgb(37, 99, 235); text-decoration: none;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 6-6 6 6 6"></path></svg>Volver a incidencias</a>
+      </div>
+
+      <div style="display: flex; gap: 14px; align-items: flex-start; flex-wrap: wrap; min-width: 0px;">
+
+        <section style="flex: 1 1 380px; min-width: 0px; background: rgb(255, 255, 255); border: 1px solid rgb(232, 234, 239); border-radius: 6px; box-shadow: rgba(19, 32, 56, 0.05) 0px 1px 2px; overflow: hidden;">
+          <div style="padding: 13px 18px 12px; border-bottom: 1px solid rgb(232, 234, 239); background: rgb(250, 251, 252);"><span style="font-size: 9.5px; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase; color: rgb(105, 117, 141);">Incidencia</span></div>
+          <div id="rt-gi-info"><div style="padding: 40px 22px; text-align: center; color: rgb(154, 164, 184); font-size: 12.5px;">Cargando…</div></div>
+        </section>
+
+        <section style="flex: 1 1 340px; min-width: 0px; background: rgb(255, 255, 255); border: 1px solid rgb(232, 234, 239); border-radius: 6px; box-shadow: rgba(19, 32, 56, 0.05) 0px 1px 2px; overflow: hidden;">
+          <div style="padding: 13px 18px 12px; border-bottom: 1px solid rgb(232, 234, 239); background: rgb(250, 251, 252);"><span style="font-size: 9.5px; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase; color: rgb(105, 117, 141);">Gestión</span></div>
+          <div style="padding: 16px 18px 6px;">
+            <label for="rt-gi-estado" style="display: block; font-size: 9.5px; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase; color: rgb(105, 117, 141); margin-bottom: 6px;">Estado</label>
+            <select id="rt-gi-estado" style="width: 100%; box-sizing: border-box; border: 1px solid rgb(221, 225, 233); border-radius: 5px; background: rgb(255, 255, 255); font-family: inherit; font-size: 13px; color: rgb(19, 32, 56); padding: 9px 11px; outline: 0px;">
+              <option value="abierta">Abierta</option>
+              <option value="en_curso">En curso</option>
+              <option value="resuelta">Resuelta</option>
+            </select>
+          </div>
+          <div style="padding: 14px 18px 6px;">
+            <label for="rt-gi-resp" style="display: block; font-size: 9.5px; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase; color: rgb(105, 117, 141); margin-bottom: 6px;">Responsable</label>
+            <input type="text" id="rt-gi-resp" placeholder="Nombre y apellidos" style="width: 100%; box-sizing: border-box; border: 1px solid rgb(221, 225, 233); border-radius: 5px; background: rgb(255, 255, 255); font-family: inherit; font-size: 13px; color: rgb(19, 32, 56); padding: 9px 11px; outline: 0px;">
+          </div>
+          <div style="padding: 14px 18px 6px;">
+            <label for="rt-gi-res" style="display: block; font-size: 9.5px; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase; color: rgb(105, 117, 141); margin-bottom: 6px;">Nota de resolución</label>
+            <textarea id="rt-gi-res" rows="5" placeholder="Qué se ha hecho para resolverla…" style="width: 100%; box-sizing: border-box; border: 1px solid rgb(221, 225, 233); border-radius: 5px; background: rgb(255, 255, 255); font-family: inherit; font-size: 13px; color: rgb(19, 32, 56); padding: 9px 11px; outline: 0px; resize: vertical; line-height: 1.45;"></textarea>
+          </div>
+          <div style="padding: 14px 18px 16px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+            <button id="rt-gi-save" style="border: 1px solid rgb(37, 99, 235); background: rgb(37, 99, 235); color: rgb(255, 255, 255); border-radius: 5px; cursor: pointer; font-family: inherit; font-weight: 700; font-size: 13px; padding: 10px 16px;">Guardar cambios</button>
+            <span id="rt-gi-msg" style="font-size: 12px; color: rgb(105, 117, 141);"></span>
+          </div>
+        </section>
+
+      </div>
+
+    </div>
+  </div>
+</div></div></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>(async()=>{try{const db=supabase.createClient("https://bcfeawgxswvtlklrkzii.supabase.co","sb_publishable_eSca9huQfloG321aY7UV9A_m50pucxw");const{data:{session}}=await db.auth.getSession();if(!session){location.replace("/login");return;}window.__db=db;}catch(e){}document.documentElement.style.visibility="";})();</script>
+<script id="rt-hydrate">
+(async function(){
+  const U="https://bcfeawgxswvtlklrkzii.supabase.co",K="sb_publishable_eSca9huQfloG321aY7UV9A_m50pucxw";
+  let n=0; while(!window.supabase && n++<60){ await new Promise(r=>setTimeout(r,80)); }
+  const db = window.__db || (window.supabase && window.supabase.createClient(U,K)); if(!db) return;
+  const $=id=>document.getElementById(id);
+  const A={courier:'Courier','3pl':'3PL',almacen:'Almac\u00e9n'};
+  try{
+    const {data:{user}}=await db.auth.getUser();
+    const {data:tn}=await db.from('tenants').select('name,archetype').limit(1);
+    const t=tn&&tn[0];
+    if(t){ if($('rt-tname'))$('rt-tname').textContent=t.name; if($('rt-tsub'))$('rt-tsub').textContent=A[t.archetype]||t.archetype; if($('rt-tavatar'))$('rt-tavatar').textContent=(t.name||'?').trim().charAt(0).toUpperCase(); }
+    if(user&&$('rt-uinit')){ const p=(user.email||'').split('@')[0].split(/[._-]+/).filter(Boolean); let i=((p[0]||'')[0]||'')+((p[1]||'')[0]||''); if(!i)i=(user.email||'?').slice(0,2); $('rt-uinit').textContent=i.toUpperCase(); }
+  }catch(e){}
+})();
+</script>
+<script id="rt-gestionar-wire">
+(async function(){
+  const U="https://bcfeawgxswvtlklrkzii.supabase.co", K="sb_publishable_eSca9huQfloG321aY7UV9A_m50pucxw";
+  let n=0; while(!window.supabase && n++<60){ await new Promise(r=>setTimeout(r,80)); }
+  const db=window.__db||(window.supabase&&window.supabase.createClient(U,K)); if(!db) return;
+  const $=id=>document.getElementById(id);
+  const info=$('rt-gi-info'); if(!info) return;
+  const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+  const MONO='font-family: &quot;JetBrains Mono&quot;, monospace;';
+  const WDL=['dom','lun','mar','mié','jue','vie','sáb'];
+  const MES=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+  const fdt=iso=>{ const d=new Date(iso); if(isNaN(d.getTime())) return '—';
+    return WDL[d.getDay()]+' '+d.getDate()+' '+MES[d.getMonth()]+' '+d.getFullYear()+' · '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0'); };
+  const TIPO={direccion:{l:'Dirección',d:'rgb(37, 99, 235)'},paqueteria:{l:'Paquetería',d:'rgb(245, 158, 11)'},stock:{l:'Stock',d:'rgb(21, 41, 74)'},pago:{l:'Pago',d:'rgb(239, 68, 68)'},cliente:{l:'Cliente',d:'rgb(16, 185, 129)'},otro:{l:'Otro',d:'rgb(105, 117, 141)'}};
+  const PRIO={alta:{bg:'rgb(253, 238, 238)',c:'rgb(197, 48, 48)',b:'rgb(246, 207, 207)'},media:{bg:'rgb(253, 244, 228)',c:'rgb(154, 98, 6)',b:'rgb(243, 221, 180)'},baja:{bg:'rgb(240, 242, 245)',c:'rgb(105, 117, 141)',b:'rgb(221, 225, 233)'}};
+  const EST={abierta:{l:'Abierta',bg:'rgb(253, 238, 238)',c:'rgb(197, 48, 48)',b:'rgb(246, 207, 207)',d:'rgb(239, 68, 68)'},en_curso:{l:'En curso',bg:'rgb(253, 244, 228)',c:'rgb(154, 98, 6)',b:'rgb(243, 221, 180)',d:'rgb(245, 158, 11)'},resuelta:{l:'Resuelta',bg:'rgb(233, 248, 242)',c:'rgb(14, 127, 95)',b:'rgb(201, 233, 220)',d:'rgb(16, 185, 129)'}};
+
+  const id=(new URLSearchParams(location.search||'')).get('id')||'';
+  const setMsg=(t,c)=>{ const m=$('rt-gi-msg'); if(m){ m.textContent=t; m.style.color=c||'rgb(105, 117, 141)'; } };
+  const bad=t=>{ info.innerHTML='<div style="padding: 34px 22px; text-align: center; color: rgb(197, 48, 48); font-size: 12.5px;">'+esc(t)+'</div>';
+    const s=$('rt-gi-save'); if(s){ s.disabled=true; s.style.opacity='0.5'; s.style.cursor='default'; } };
+
+  if(!id){ bad('Falta el parámetro ?id= de la incidencia.'); return; }
+
+  const r=await db.from('incidents')
+    .select('id,tipo,prioridad,descripcion,estado,responsable,resolucion,created_at,orders(external_ref,ship_to,clients(name))')
+    .eq('id',id).limit(1);
+  if(r.error){ bad('Error: '+r.error.message); return; }
+  const inc=r.data&&r.data[0];
+  if(!inc){ bad('Incidencia no encontrada (o sin acceso).'); return; }
+
+  const o=inc.orders||{}, dest=o.ship_to||{}, cli=(o.clients&&o.clients.name)||'—';
+  const tp=TIPO[inc.tipo]||TIPO.otro, pr=PRIO[inc.prioridad]||PRIO.media, es=EST[inc.estado]||EST.abierta;
+  const rowg=(k,v)=>'<span style="color: rgb(154, 164, 184); font-weight: 600; font-size: 11px; letter-spacing: 0.03em; text-transform: uppercase;">'+k+'</span><span style="font-weight: 600;">'+esc(v)+'</span>';
+
+  const h1=$('rt-gi-title'); if(h1) h1.textContent='Gestionar incidencia';
+  const h2=$('rt-gi-sub'); if(h2) h2.textContent=(o.external_ref||'—')+' · '+cli;
+  document.title='Gestionar incidencia · Rutevo';
+
+  info.innerHTML=''
+    +'<div style="padding: 15px 18px 14px; border-bottom: 1px solid rgb(232, 234, 239);">'
+    +'<div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">'
+    +'<span id="rt-gi-estbadge" style="display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 3px; background: '+es.bg+'; color: '+es.c+'; border: 1px solid '+es.b+';"><span style="width: 5px; height: 5px; border-radius: 50%; background: '+es.d+';"></span>'+esc(es.l)+'</span>'
+    +'<span style="'+MONO+' font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 7px; border-radius: 3px; background: '+pr.bg+'; color: '+pr.c+'; border: 1px solid '+pr.b+';">'+esc(inc.prioridad||'—')+'</span>'
+    +'<span style="display: inline-flex; align-items: center; gap: 7px; font-size: 11.5px; font-weight: 700; color: rgb(58, 70, 95);"><span style="display: inline-block; width: 7px; height: 7px; border-radius: 2px; background: '+tp.d+';"></span>'+esc(tp.l)+'</span></div>'
+    +'<div style="'+MONO+' font-size: 17px; font-weight: 700; margin-top: 11px;">'+esc(o.external_ref||'—')+'</div>'
+    +'<div style="font-size: 12.5px; color: rgb(105, 117, 141); margin-top: 2px;">'+esc(cli)+'</div></div>'
+    +'<div style="padding: 14px 18px 4px;"><span style="font-size: 9.5px; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase; color: rgb(105, 117, 141);">Descripción</span></div>'
+    +'<div style="margin: 4px 18px 14px; border-left: 2px solid '+es.d+'; background: rgb(250, 251, 252); border-radius: 4px; padding: 11px 13px; font-size: 12.5px; color: rgb(58, 70, 95); line-height: 1.5;">'+esc(inc.descripcion||'—')+'</div>'
+    +'<div style="padding: 0px 18px 18px; display: grid; grid-template-columns: 104px minmax(0px, 1fr); gap: 7px 12px; font-size: 12.5px; align-items: baseline;">'
+    + rowg('Cliente', cli)
+    + rowg('Destinatario', dest.name||cli)
+    + rowg('Destino', [dest.city,dest.postal].filter(Boolean).join(' · ')||'—')
+    + rowg('Tipo', tp.l)
+    + rowg('Prioridad', inc.prioridad||'—')
+    + rowg('Creada', fdt(inc.created_at))
+    +'</div>';
+
+  const selEst=$('rt-gi-estado'), inResp=$('rt-gi-resp'), taRes=$('rt-gi-res'), btn=$('rt-gi-save');
+  if(selEst) selEst.value=(EST[inc.estado]?inc.estado:'abierta');
+  if(inResp) inResp.value=inc.responsable||'';
+  if(taRes) taRes.value=inc.resolucion||'';
+
+  if(btn) btn.addEventListener('click', async function(){
+    btn.disabled=true; btn.style.opacity='0.6';
+    setMsg('Guardando…');
+    const patch={
+      estado: selEst?selEst.value:inc.estado,
+      responsable: (inResp&&inResp.value.trim())?inResp.value.trim():null,
+      resolucion: (taRes&&taRes.value.trim())?taRes.value.trim():null
+    };
+    const up=await db.from('incidents').update(patch).eq('id',id);
+    btn.disabled=false; btn.style.opacity='1';
+    if(up.error){ setMsg('Error: '+up.error.message,'rgb(197, 48, 48)'); return; }
+    inc.estado=patch.estado; inc.responsable=patch.responsable; inc.resolucion=patch.resolucion;
+    const e2=EST[patch.estado]||EST.abierta;
+    const bg=$('rt-gi-estbadge');
+    if(bg){ bg.style.background=e2.bg; bg.style.color=e2.c; bg.style.borderColor=e2.b;
+      bg.innerHTML='<span style="width: 5px; height: 5px; border-radius: 50%; background: '+e2.d+';"></span>'+esc(e2.l); }
+    setMsg('Cambios guardados.','rgb(14, 127, 95)');
+  });
+})();
+</script>
+</body></html>
