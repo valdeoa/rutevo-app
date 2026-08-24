@@ -115,24 +115,39 @@ input::placeholder{color:#9aa4b8}
       </div>
     </header>
 
-    <div style="padding: 22px 28px 46px; display: flex; flex-direction: column; gap: 16px; min-width: 0px;">
+    <div style="padding: 22px 28px 46px; display: flex; flex-direction: column; gap: 14px; min-width: 0px;">
 
       <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
         <a href="/agenda" style="display: inline-flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 700; color: rgb(37, 99, 235); text-decoration: none;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 6-6 6 6 6"></path></svg>Agenda</a>
         <div id="rt-est-chips" style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap;"></div>
       </div>
 
-      <div style="display: flex; gap: 16px; align-items: flex-start; flex-wrap: wrap; min-width: 0px;">
-        <section style="flex: 1 1 460px; min-width: 0px; background: rgb(255, 255, 255); border: 1px solid rgb(232, 234, 239); border-radius: 6px; box-shadow: rgba(19, 32, 56, 0.05) 0px 1px 2px; overflow: hidden;">
+      <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; background: rgb(255, 255, 255); border: 1px solid rgb(232, 234, 239); border-radius: 6px; padding: 10px 14px; box-shadow: rgba(19, 32, 56, 0.05) 0px 1px 2px;">
+        <span style="font-size: 9.5px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: rgb(105, 117, 141);">Fecha prevista</span>
+        <div style="display: flex; align-items: center; gap: 6px;">
+          <button id="rt-day-prev" aria-label="Día anterior" title="Día anterior" style="border: 1px solid rgb(221, 225, 233); background: rgb(255, 255, 255); color: rgb(105, 117, 141); border-radius: 4px; cursor: pointer; font-family: inherit; font-weight: 700; font-size: 11.5px; padding: 6px 10px; width: 29px; height: 29px; padding: 0px; display: grid; place-items: center;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 6-6 6 6 6"></path></svg></button>
+          <input type="date" id="rt-date" style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 12px; font-weight: 700; color: rgb(19, 32, 56); border: 1px solid rgb(221, 225, 233); border-radius: 4px; background: rgb(255, 255, 255); padding: 6px 9px; outline: 0px;">
+          <button id="rt-day-next" aria-label="Día siguiente" title="Día siguiente" style="border: 1px solid rgb(221, 225, 233); background: rgb(255, 255, 255); color: rgb(105, 117, 141); border-radius: 4px; cursor: pointer; font-family: inherit; font-weight: 700; font-size: 11.5px; padding: 6px 10px; width: 29px; height: 29px; padding: 0px; display: grid; place-items: center;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"></path></svg></button>
+        </div>
+        <button id="rt-day-all" style="border: 1px solid rgb(221, 225, 233); background: rgb(255, 255, 255); color: rgb(105, 117, 141); border-radius: 4px; cursor: pointer; font-family: inherit; font-weight: 700; font-size: 11.5px; padding: 6px 10px;">Todas las fechas</button>
+        <span id="rt-day-note" style="font-size: 12px; color: rgb(154, 164, 184); font-family: Newsreader, Georgia, serif; font-style: italic;"></span>
+        <button id="rt-clear-filters" style="border: 1px solid rgb(221, 225, 233); background: rgb(255, 255, 255); color: rgb(105, 117, 141); border-radius: 4px; cursor: pointer; font-family: inherit; font-weight: 700; font-size: 11.5px; padding: 6px 10px; margin-left: auto;">Limpiar filtros</button>
+      </div>
+
+      <div style="display: flex; gap: 14px; align-items: flex-start; flex-wrap: wrap; min-width: 0px;">
+        <section style="flex: 1 1 640px; min-width: 0px; background: rgb(255, 255, 255); border: 1px solid rgb(232, 234, 239); border-radius: 6px; box-shadow: rgba(19, 32, 56, 0.05) 0px 1px 2px; overflow: hidden;">
           <div style="display: flex; align-items: center; gap: 12px; padding: 13px 18px 12px; border-bottom: 1px solid rgb(232, 234, 239); background: rgb(250, 251, 252); flex-wrap: wrap;">
             <span id="rt-est-head" style="font-size: 10px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: rgb(105, 117, 141);">Pedidos</span>
             <span id="rt-est-count" style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11.5px; font-weight: 700; color: rgb(58, 70, 95);">—</span>
             <span id="rt-est-bultos" style="margin-left: auto; font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11.5px; font-weight: 600; color: rgb(105, 117, 141);"></span>
           </div>
-          <div id="rt-est-list"><div style="padding: 40px 22px; text-align: center; color: rgb(154, 164, 184); font-size: 12.5px;">Cargando…</div></div>
+          <div style="overflow-x: auto;">
+            <table id="rt-est-table" style="border-collapse: separate; border-spacing: 0px; width: 100%; font-size: 12.5px;"></table>
+          </div>
+          <div id="rt-est-empty" style="display: none; padding: 44px 22px; text-align: center; color: rgb(154, 164, 184); font-size: 12.5px;">No hay pedidos con estos filtros.</div>
         </section>
 
-        <aside id="rt-est-detail" style="background: rgb(255, 255, 255); border: 1px solid rgb(232, 234, 239); border-radius: 6px; box-shadow: rgba(19, 32, 56, 0.05) 0px 1px 2px; align-self: flex-start; overflow: hidden; flex: 1 1 320px; max-width: 380px; min-width: 0px; position: sticky; top: 82px;"><div id="rt-est-detail-body"><div style="padding: 40px 22px; text-align: center; color: rgb(154, 164, 184); font-size: 12.5px;">Selecciona un pedido para ver el detalle.</div></div></aside>
+        <aside id="rt-est-detail" style="background: rgb(255, 255, 255); border: 1px solid rgb(232, 234, 239); border-radius: 6px; box-shadow: rgba(19, 32, 56, 0.05) 0px 1px 2px; align-self: flex-start; overflow: hidden; flex: 1 1 300px; max-width: 350px; min-width: 0px; position: sticky; top: 82px;"><div id="rt-est-detail-body"><div style="padding: 40px 22px; text-align: center; color: rgb(154, 164, 184); font-size: 12.5px;">Selecciona un pedido para ver el detalle.</div></div></aside>
       </div>
 
     </div>
@@ -163,22 +178,39 @@ input::placeholder{color:#9aa4b8}
   let n=0; while(!window.supabase && n++<60){ await new Promise(r=>setTimeout(r,80)); }
   const db=window.__db||(window.supabase&&window.supabase.createClient(U,K)); if(!db) return;
   const $=id=>document.getElementById(id);
-  const list=$('rt-est-list'); if(!list) return;
+  const T=$('rt-est-table'); if(!T) return;
   const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
   const DAYMS=86400000;
   const WDL=['dom','lun','mar','mié','jue','vie','sáb'];
   const MES=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
   const today=new Date(); today.setHours(0,0,0,0); const T0=today.getTime();
+  const pad=v=>String(v).padStart(2,'0');
+  const ymd=ms=>{const d=new Date(ms); return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());};
   const fdate=ms=>{const d=new Date(ms); return WDL[d.getDay()]+' '+d.getDate()+' '+MES[d.getMonth()];};
   const fshort=ms=>{const d=new Date(ms); return d.getDate()+' '+MES[d.getMonth()];};
-  const STL={recibido:{l:'Recibido',bg:'rgb(253, 244, 228)',c:'rgb(154, 98, 6)',b:'rgb(243, 221, 180)',d:'rgb(245, 158, 11)'},picking:{l:'En preparación',bg:'rgb(238, 243, 254)',c:'rgb(29, 78, 216)',b:'rgb(207, 224, 253)',d:'rgb(37, 99, 235)'},picked:{l:'Preparado',bg:'rgb(238, 240, 253)',c:'rgb(67, 56, 202)',b:'rgb(213, 217, 248)',d:'rgb(99, 102, 241)'},enviado:{l:'Enviado',bg:'rgb(233, 248, 242)',c:'rgb(14, 127, 95)',b:'rgb(201, 233, 220)',d:'rgb(16, 185, 129)'},incidencia:{l:'Incidencia',bg:'rgb(253, 238, 238)',c:'rgb(197, 48, 48)',b:'rgb(246, 207, 207)',d:'rgb(239, 68, 68)'}};
+  const fes=ms=>{const d=new Date(ms); return pad(d.getDate())+'/'+pad(d.getMonth()+1)+'/'+String(d.getFullYear()).slice(2);};
+  const parseYmd=s=>{const p=String(s||'').split('-'); if(p.length!==3) return null; const d=new Date(Number(p[0]),Number(p[1])-1,Number(p[2])); d.setHours(0,0,0,0); return isNaN(d.getTime())?null:d.getTime();};
+
+  /* fases (Recorrido) */
+  const FASE={
+    recibido:{l:'Recibido',       bg:'rgb(253, 244, 228)', c:'rgb(154, 98, 6)',   b:'rgb(243, 221, 180)', d:'rgb(245, 158, 11)'},
+    picking: {l:'En preparación', bg:'rgb(238, 243, 254)', c:'rgb(29, 78, 216)',  b:'rgb(207, 224, 253)', d:'rgb(37, 99, 235)'},
+    picked:  {l:'Preparado',      bg:'rgb(238, 240, 253)', c:'rgb(67, 56, 202)',  b:'rgb(213, 217, 248)', d:'rgb(99, 102, 241)'},
+    enviado: {l:'Enviado',        bg:'rgb(233, 248, 242)', c:'rgb(14, 127, 95)',  b:'rgb(201, 233, 220)', d:'rgb(16, 185, 129)'},
+    incidencia:{l:'Incidencia',   bg:'rgb(253, 238, 238)', c:'rgb(197, 48, 48)',  b:'rgb(246, 207, 207)', d:'rgb(239, 68, 68)'}
+  };
+  const FASE_ORDER=['recibido','picking','picked','enviado','incidencia'];
+  const ST_REC={l:'Recibido', bg:'rgb(250, 246, 237)', c:'rgb(154, 98, 6)',  b:'rgb(238, 228, 208)', d:'rgb(245, 158, 11)'};
+  const ST_ACC={l:'Aceptado', bg:'rgb(233, 248, 242)', c:'rgb(14, 127, 95)', b:'rgb(201, 233, 220)', d:'rgb(16, 185, 129)'};
+  const badge=(s,dot)=>'<span style="display: inline-flex; align-items: center; gap: 6px; font-size: 10.5px; font-weight: 700; padding: 3px 8px; border-radius: 3px; white-space: nowrap; background: '+s.bg+'; color: '+s.c+'; border: 1px solid '+s.b+';">'+(dot!==false?'<span style="width: 4px; height: 4px; border-radius: 50%; flex: 0 0 auto; background: '+s.d+';"></span>':'')+esc(s.l)+'</span>';
+
   const VIEWS=[
-    {slug:'todos',   k:null,         l:'Todos',          pl:'Pedidos'},
-    {slug:'recibido',k:'recibido',   l:'Recibido',       pl:'Recibidos'},
-    {slug:'en-preparacion',k:'picking',l:'En preparación',pl:'En preparación'},
-    {slug:'preparado',k:'picked',    l:'Preparado',      pl:'Preparados'},
-    {slug:'enviado', k:'enviado',    l:'Enviado',        pl:'Enviados'},
-    {slug:'incidencia',k:'incidencia',l:'Incidencia',    pl:'Incidencias'}
+    {slug:'todos',        k:null,        l:'Todos',          pl:'Pedidos'},
+    {slug:'recibido',     k:'recibido',  l:'Recibido',       pl:'Recibidos'},
+    {slug:'en-preparacion',k:'picking',  l:'En preparación', pl:'En preparación'},
+    {slug:'preparado',    k:'picked',    l:'Preparado',      pl:'Preparados'},
+    {slug:'enviado',      k:'enviado',   l:'Enviado',        pl:'Enviados'},
+    {slug:'incidencia',   k:'incidencia',l:'Incidencia',     pl:'Incidencias'}
   ];
 
   /* ---- ruta ---- */
@@ -192,12 +224,8 @@ input::placeholder{color:#9aa4b8}
   const mode = view?'estado' : (slug==='alertas'?'alertas' : (slug==='buscar'?'buscar' : (slug==='atrasados'?'atrasados':'estado')));
   const base = view || VIEWS[0];
 
-  let dayMs=null;
-  if(dParam && dParam!=='atrasado'){
-    const p=dParam.split('-');
-    if(p.length===3){ const d=new Date(Number(p[0]),Number(p[1])-1,Number(p[2])); d.setHours(0,0,0,0); if(!isNaN(d.getTime())) dayMs=d.getTime(); }
-  }
-  const onlyLate=(dParam==='atrasado')||(mode==='atrasados');
+  let curDay=(dParam&&dParam!=='atrasado')?parseYmd(dParam):null;
+  let onlyLate=(dParam==='atrasado')||(mode==='atrasados');
 
   /* ---- datos (RLS) ---- */
   const res=await Promise.all([
@@ -205,14 +233,21 @@ input::placeholder{color:#9aa4b8}
     db.from('incidents').select('order_id,tipo,prioridad,descripcion,estado,responsable,created_at')
   ]);
   const orders=res[0].data, error=res[0].error, incidents=res[1].data;
-  if(error){ list.innerHTML='<div style="padding: 20px; color: rgb(197, 48, 48); font-size: 12.5px;">Error: '+esc(error.message)+'</div>'; return; }
+  if(error){ T.innerHTML='<tbody><tr><td style="padding: 20px; color: rgb(197, 48, 48); font-size: 12.5px;">Error: '+esc(error.message)+'</td></tr></tbody>'; return; }
 
   const OR=(orders||[]).map(function(o){
     const cr=new Date(o.created_at); cr.setHours(0,0,0,0);
-    const sla=(o.clients&&o.clients.sla_days!=null)?o.clients.sla_days:1;
-    o._due=cr.getTime()+sla*DAYMS;
+    const dest=o.ship_to||{};
+    o._rec=cr.getTime();
+    o._sla=(o.clients&&o.clients.sla_days!=null)?o.clients.sla_days:1;
+    o._due=o._rec+o._sla*DAYMS;
     o._bultos=(o.order_items||[]).reduce((a,i)=>a+(i.qty||0),0);
     o._cli=(o.clients&&o.clients.name)||'—';
+    o._city=dest.city||'—';
+    o._cp=dest.postal||'';
+    o._ref=o.external_ref||'—';
+    o._fase=(FASE[o.status]||FASE.recibido).l;
+    o._st=(o.status==='recibido')?ST_REC.l:ST_ACC.l;
     o._late=(o._due<T0 && o.status!=='enviado');
     return o;
   });
@@ -221,120 +256,242 @@ input::placeholder{color:#9aa4b8}
   const CLOSED=['cerrada','cerrado','resuelta','resuelto','closed','resolved','anulada','anulado'];
   const isOpenInc=i=>CLOSED.indexOf(String(i.estado||'').toLowerCase())<0;
 
-  /* ---- seleccion ---- */
-  let sel=OR.slice(), title='', sub='';
+  /* ---- pool segun la vista (sin filtro de fecha) ---- */
+  let pool=OR.slice(), fixedTitle='', fixedSub='';
   if(mode==='alertas'){
     const ids={};
     OR.forEach(function(o){ if(o._late) ids[o.id]=1; });
     (incidents||[]).forEach(function(i){ if(isOpenInc(i)&&byId[i.order_id]) ids[i.order_id]=1; });
-    sel=OR.filter(o=>ids[o.id]);
-    title='Alertas';
-    sub='pedidos fuera de plazo e incidencias abiertas';
+    pool=OR.filter(o=>ids[o.id]);
+    fixedTitle='Alertas'; fixedSub='pedidos fuera de plazo e incidencias abiertas';
   } else if(mode==='buscar'){
     const q=qParam.toLowerCase();
     const nm=s=>String(s==null?'':s).toLowerCase();
-    sel=q.length<2?[]:OR.filter(function(o){ const d=o.ship_to||{};
-      return nm(o.external_ref).indexOf(q)>=0||nm(o._cli).indexOf(q)>=0||nm(d.city).indexOf(q)>=0||nm(d.postal).indexOf(q)>=0||nm(d.name).indexOf(q)>=0; });
-    title='Búsqueda';
-    sub='"'+qParam+'"';
-  } else {
-    if(base.k) sel=OR.filter(o=>o.status===base.k);
-    if(onlyLate){
-      sel=sel.filter(o=>o._late);
-      title=base.pl+' atrasados';
-      sub='fecha prevista anterior a hoy y sin enviar';
-    } else if(dayMs!=null){
-      sel=sel.filter(o=>o._due===dayMs);
-      title=base.pl+' del '+fshort(dayMs);
-      sub='por fecha de entrega prevista';
-    } else {
-      title=base.l;
-      sub='todas las fechas · por fecha de entrega prevista';
-    }
+    pool=q.length<2?[]:OR.filter(function(o){ const d=o.ship_to||{};
+      return nm(o._ref).indexOf(q)>=0||nm(o._cli).indexOf(q)>=0||nm(d.city).indexOf(q)>=0||nm(d.postal).indexOf(q)>=0||nm(d.name).indexOf(q)>=0; });
+    fixedTitle='Búsqueda'; fixedSub='"'+qParam+'"';
+  } else if(base.k){
+    pool=OR.filter(o=>o.status===base.k);
   }
-  sel.sort((a,b)=>a._due-b._due || String(a.external_ref||'').localeCompare(String(b.external_ref||'')));
 
-  const h1=$('rt-est-title'); if(h1) h1.textContent=title+' — '+sel.length+' pedido'+(sel.length===1?'':'s');
-  const h2=$('rt-est-sub'); if(h2) h2.textContent=sub;
-  document.title=title+' · Rutevo';
-  const hd=$('rt-est-head'); if(hd) hd.textContent=(mode==='estado'&&base.k)?base.l:title;
-  const cc=$('rt-est-count'); if(cc) cc.textContent=sel.length+' pedidos';
-  const bb=$('rt-est-bultos'); if(bb) bb.textContent=sel.reduce((a,o)=>a+o._bultos,0)+' bultos';
+  /* ---- columnas ---- */
+  const COLS=[
+    {k:'_cli',  l:'Cliente',         t:'txt',  f:'text'},
+    {k:'_city', l:'Ciudad',          t:'txt',  f:'text'},
+    {k:'_cp',   l:'CP',              t:'txt',  f:'text', mono:true},
+    {k:'_ref',  l:'Pedido',          t:'txt',  f:'text', mono:true},
+    {k:'_bultos',l:'Bultos',         t:'num',  f:null,   mono:true, a:'right'},
+    {k:'_rec',  l:'Fecha recepción', t:'date', f:null,   mono:true},
+    {k:'_sla',  l:'SLA',             t:'num',  f:null,   mono:true, a:'right'},
+    {k:'_fase', l:'Recorrido',       t:'txt',  f:'fase'},
+    {k:'_st',   l:'Status',          t:'txt',  f:'status'}
+  ];
+  let sortK='_due', sortDir=1;                     /* por defecto: fecha prevista asc */
+  const filters={};                                 /* k -> string */
 
-  /* ---- chips de navegacion ---- */
+  /* ---- cabecera + fila de filtros (se pinta una sola vez) ---- */
+  const TH='position: sticky; top: 0px; z-index: 3; background: rgb(250, 251, 252); border-bottom: 1px solid rgb(221, 225, 233); padding: 9px 11px; font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(105, 117, 141); white-space: nowrap; cursor: pointer; user-select: none;';
+  const INP='width: 100%; box-sizing: border-box; border: 1px solid rgb(227, 230, 236); border-radius: 4px; background: rgb(255, 255, 255); font-family: inherit; font-size: 11.5px; color: rgb(19, 32, 56); padding: 4px 7px; outline: 0px;';
+  function renderHead(){
+    let h='<thead><tr>';
+    COLS.forEach(function(c){
+      h+='<th class="rt-sort" data-k="'+c.k+'" style="'+TH+(c.a==='right'?' text-align: right;':' text-align: left;')+'">'+esc(c.l)+'<span class="rt-ind" data-k="'+c.k+'" style="font-size: 9px; margin-left: 5px; color: rgb(37, 99, 235);"></span></th>';
+    });
+    h+='</tr><tr>';
+    COLS.forEach(function(c){
+      let cell='';
+      if(c.f==='text') cell='<input class="rt-flt" data-k="'+c.k+'" type="text" placeholder="filtrar…" style="'+INP+'">';
+      else if(c.f==='fase') cell='<select class="rt-flt" data-k="_fase" style="'+INP+'"><option value="">Todas</option>'+FASE_ORDER.map(k=>'<option value="'+esc(FASE[k].l)+'">'+esc(FASE[k].l)+'</option>').join('')+'</select>';
+      else if(c.f==='status') cell='<select class="rt-flt" data-k="_st" style="'+INP+'"><option value="">Todos</option><option value="'+ST_REC.l+'">'+ST_REC.l+'</option><option value="'+ST_ACC.l+'">'+ST_ACC.l+'</option></select>';
+      h+='<td style="padding: 6px 8px 8px; background: rgb(250, 251, 252); border-bottom: 1px solid rgb(232, 234, 239); vertical-align: middle;">'+cell+'</td>';
+    });
+    h+='</tr></thead><tbody id="rt-est-tbody"></tbody>';
+    T.innerHTML=h;
+  }
+
+  /* ---- cuerpo ---- */
+  const TD='padding: 9px 11px; border-bottom: 1px solid rgb(240, 242, 245); white-space: nowrap;';
+  function rowHTML(o){
+    const late=o._late;
+    return '<tr class="rt-est-item" data-id="'+esc(o.id)+'" style="cursor: pointer;'+(late?' box-shadow: inset 2px 0px 0px 0px rgb(239, 68, 68);':'')+'">'
+      +'<td style="'+TD+' font-weight: 600; color: rgb(19, 32, 56); white-space: normal; min-width: 120px;">'+esc(o._cli)+'</td>'
+      +'<td style="'+TD+' color: rgb(58, 70, 95);">'+esc(o._city)+'</td>'
+      +'<td style="'+TD+' font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11.5px; color: rgb(105, 117, 141);">'+esc(o._cp||'—')+'</td>'
+      +'<td style="'+TD+' font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; color: rgb(19, 32, 56);">'+esc(o._ref)+'</td>'
+      +'<td style="'+TD+' font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 700; text-align: right; font-variant-numeric: tabular-nums; color: rgb(19, 32, 56);">'+o._bultos+'</td>'
+      +'<td style="'+TD+' font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11.5px; color: rgb(105, 117, 141);">'+fes(o._rec)+'</td>'
+      +'<td style="'+TD+' font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 600; text-align: right; font-variant-numeric: tabular-nums; color: rgb(58, 70, 95);">'+o._sla+' d</td>'
+      +'<td style="'+TD+'">'+badge(FASE[o.status]||FASE.recibido)+'</td>'
+      +'<td style="'+TD+'">'+badge(o.status==='recibido'?ST_REC:ST_ACC)+'</td></tr>';
+  }
+  function currentSel(){
+    let s=pool;
+    if(onlyLate) s=s.filter(o=>o._late);
+    else if(curDay!=null) s=s.filter(o=>o._due===curDay);
+    return s;
+  }
+  function applyFilters(list){
+    const hq=(headQ||'').toLowerCase();
+    return list.filter(function(o){
+      for(const k in filters){
+        const v=filters[k]; if(!v) continue;
+        const cell=String(o[k]==null?'':o[k]).toLowerCase();
+        if(k==='_fase'||k==='_st'){ if(String(o[k])!==v) return false; }
+        else if(cell.indexOf(String(v).toLowerCase())<0) return false;
+      }
+      if(hq){
+        const d=o.ship_to||{};
+        const hay=[o._ref,o._cli,d.city,d.postal,d.name].map(x=>String(x==null?'':x).toLowerCase()).join(' ');
+        if(hay.indexOf(hq)<0) return false;
+      }
+      return true;
+    });
+  }
+  function sortList(list){
+    const c=COLS.filter(x=>x.k===sortK)[0];
+    const t=c?c.t:'num';
+    return list.slice().sort(function(a,b){
+      const av=a[sortK], bv=b[sortK];
+      let r;
+      if(t==='num'||t==='date') r=(av||0)-(bv||0);
+      else r=String(av==null?'':av).localeCompare(String(bv==null?'':bv),'es',{numeric:true,sensitivity:'base'});
+      if(r===0) r=(a._due||0)-(b._due||0);
+      return r*sortDir;
+    });
+  }
+  let headQ='';
+  let shown=[];
+  function renderBody(){
+    const sel=currentSel();
+    shown=sortList(applyFilters(sel));
+    const tb=$('rt-est-tbody');
+    if(tb) tb.innerHTML=shown.map(rowHTML).join('');
+    const emp=$('rt-est-empty'); if(emp) emp.style.display=shown.length?'none':'block';
+    COLS.forEach(function(c){
+      const ind=T.querySelector('.rt-ind[data-k="'+c.k+'"]');
+      if(ind) ind.textContent=(sortK===c.k)?(sortDir>0?'▲':'▼'):'';
+    });
+    const cc=$('rt-est-count'); if(cc) cc.textContent=shown.length+' pedidos';
+    const bb=$('rt-est-bultos'); if(bb) bb.textContent=shown.reduce((a,o)=>a+o._bultos,0)+' bultos';
+    renderTitle(sel.length);
+  }
+
+  /* ---- titulo / subtitulo ---- */
+  function renderTitle(count){
+    let title, sub;
+    if(mode==='alertas'||mode==='buscar'){ title=fixedTitle; sub=fixedSub; }
+    else if(onlyLate){ title=base.pl+' atrasados'; sub='fecha prevista anterior a hoy y sin enviar'; }
+    else if(curDay!=null){ title=base.pl+' del '+fshort(curDay); sub='fecha de entrega prevista · '+fdate(curDay); }
+    else { title=base.l; sub='todas las fechas · por fecha de entrega prevista'; }
+    const h1=$('rt-est-title'); if(h1) h1.textContent=title+' — '+count+' pedido'+(count===1?'':'s');
+    const h2=$('rt-est-sub'); if(h2) h2.textContent=sub;
+    const hd=$('rt-est-head'); if(hd) hd.textContent=(mode==='estado'&&base.k)?base.l:title;
+    const nt=$('rt-day-note'); if(nt) nt.textContent=onlyLate?'solo atrasados':(curDay==null?'sin filtro de día':'');
+    document.title=title+' · Rutevo';
+  }
+
+  /* ---- url sin recargar ---- */
+  function syncUrl(){
+    const p=new URLSearchParams(location.search||'');
+    if(onlyLate) p.set('d','atrasado');
+    else if(curDay!=null) p.set('d',ymd(curDay));
+    else p.delete('d');
+    const q=p.toString();
+    history.replaceState(null,'',location.pathname+(q?('?'+q):''));
+  }
+
+  /* ---- sub-nav por estado ---- */
   { const box=$('rt-est-chips');
     if(box){
       const q=dParam?('?d='+encodeURIComponent(dParam)):'';
       box.innerHTML=VIEWS.map(function(v){
         const on=(mode==='estado'&&v.slug===base.slug);
-        return '<a href="/agenda/'+v.slug+q+'" style="display: inline-flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 700; padding: 6px 11px; border-radius: 5px; white-space: nowrap; text-decoration: none; background: '+(on?'rgb(14, 31, 61)':'rgb(255, 255, 255)')+'; color: '+(on?'rgb(255, 255, 255)':'rgb(105, 117, 141)')+'; border: 1px solid '+(on?'rgb(14, 31, 61)':'rgb(221, 225, 233)')+';">'+esc(v.l)+'</a>';
+        return '<a class="rt-navchip" data-slug="'+v.slug+'" href="/agenda/'+v.slug+q+'" style="display: inline-flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 700; padding: 6px 11px; border-radius: 5px; white-space: nowrap; text-decoration: none; background: '+(on?'rgb(14, 31, 61)':'rgb(255, 255, 255)')+'; color: '+(on?'rgb(255, 255, 255)':'rgb(105, 117, 141)')+'; border: 1px solid '+(on?'rgb(14, 31, 61)':'rgb(221, 225, 233)')+';">'+esc(v.l)+'</a>';
       }).join('');
     }
   }
 
-  /* ---- lista ---- */
-  const EMPTY='<div style="padding: 44px 22px; text-align: center; color: rgb(154, 164, 184); font-size: 12.5px;">No hay pedidos en esta vista.</div>';
-  function itemHTML(o){
-    const dest=o.ship_to||{}, st=STL[o.status]||STL.recibido;
-    const inc=(incBy[o.id]||[]).filter(isOpenInc).length;
-    return '<div class="rt-est-item" data-id="'+esc(o.id)+'" style="padding: 12px 18px; border-bottom: 1px solid rgb(240, 242, 245); cursor: pointer; display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">'
-      +'<div style="min-width: 0px; flex: 1 1 210px;">'
-      +'<div style="display: flex; align-items: center; gap: 8px;"><span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 12.5px; font-weight: 700; color: rgb(19, 32, 56);">'+esc(o.external_ref||'—')+'</span>'
-      +'<span style="display: inline-flex; align-items: center; gap: 6px; font-size: 10.5px; font-weight: 700; padding: 2px 7px; border-radius: 3px; background: '+st.bg+'; color: '+st.c+'; border: 1px solid '+st.b+';"><span style="width: 4px; height: 4px; border-radius: 50%; background: '+st.d+';"></span>'+esc(st.l)+'</span>'
-      +(inc?'<span style="font-size: 10.5px; font-weight: 700; color: rgb(197, 48, 48);">· incidencia</span>':'')+'</div>'
-      +'<div style="font-size: 13px; font-weight: 600; margin-top: 5px; color: rgb(19, 32, 56);">'+esc(o._cli)+'</div>'
-      +'<div style="font-size: 12px; color: rgb(105, 117, 141); margin-top: 2px;">'+esc(dest.city||'—')+'<span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11px; color: rgb(154, 164, 184); margin-left: 6px;">'+esc(dest.postal||'')+'</span></div></div>'
-      +'<div style="flex: 0 0 auto; text-align: right; min-width: 104px;">'
-      +'<div style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11.5px; font-weight: 700; white-space: nowrap; color: '+(o._late?'rgb(239, 68, 68)':'rgb(105, 117, 141)')+';">'+esc(fdate(o._due))+'</div>'
-      +'<div style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11.5px; font-weight: 600; color: rgb(105, 117, 141); margin-top: 4px;">'+o._bultos+' bultos</div></div></div>';
+  /* ---- control de fecha ---- */
+  const dInp=$('rt-date');
+  function setDay(ms){
+    onlyLate=false;
+    curDay=ms;
+    if(dInp) dInp.value=(ms==null)?'':ymd(ms);
+    syncUrl(); renderBody();
   }
-  let shown=sel;
-  function paint(){ list.innerHTML=shown.length?shown.map(itemHTML).join(''):EMPTY;
-    const cc2=$('rt-est-count'); if(cc2) cc2.textContent=shown.length+' pedidos';
-    const bb2=$('rt-est-bultos'); if(bb2) bb2.textContent=shown.reduce((a,o)=>a+o._bultos,0)+' bultos';
+  if(dInp){
+    dInp.value=(curDay==null)?'':ymd(curDay);
+    dInp.addEventListener('change', function(){ setDay(parseYmd(dInp.value)); });
+    dInp.addEventListener('input', function(){ if(dInp.value) setDay(parseYmd(dInp.value)); });
   }
-  paint();
+  { const bp=$('rt-day-prev'), bn=$('rt-day-next'), ba=$('rt-day-all');
+    const step=k=>{ const from=(curDay==null)?T0:curDay; setDay(from+k*DAYMS); };
+    if(bp) bp.addEventListener('click', function(){ step(-1); });
+    if(bn) bn.addEventListener('click', function(){ step(1); });
+    if(ba) ba.addEventListener('click', function(){ setDay(null); });
+  }
+
+  /* ---- orden + filtros ---- */
+  renderHead();
+  T.addEventListener('click', function(e){
+    const th=e.target.closest('.rt-sort'); if(!th) return;
+    const k=th.getAttribute('data-k');
+    if(sortK===k) sortDir=-sortDir; else { sortK=k; sortDir=1; }
+    renderBody();
+  });
+  T.addEventListener('input', function(e){
+    const f=e.target.closest('.rt-flt'); if(!f) return;
+    filters[f.getAttribute('data-k')]=f.value; renderBody();
+  });
+  T.addEventListener('change', function(e){
+    const f=e.target.closest('.rt-flt'); if(!f) return;
+    filters[f.getAttribute('data-k')]=f.value; renderBody();
+  });
+  { const cb=$('rt-clear-filters');
+    if(cb) cb.addEventListener('click', function(){
+      Object.keys(filters).forEach(k=>{delete filters[k];});
+      Array.prototype.forEach.call(T.querySelectorAll('.rt-flt'),x=>{x.value='';});
+      const si=$('rt-search'); if(si){ si.value=''; headQ=''; }
+      renderBody();
+    });
+  }
 
   /* ---- detalle ---- */
   const dbody=$('rt-est-detail-body');
   const rowg=(k,v,c)=>'<span style="color: rgb(154, 164, 184); font-weight: 600; font-size: 11px; letter-spacing: 0.03em; text-transform: uppercase;">'+k+'</span><span style="font-weight: 600;'+(c?(' color: '+c+';'):'')+'">'+esc(v)+'</span>';
   function showDetail(o){
     if(!o||!dbody) return;
-    const dest=o.ship_to||{}, st=STL[o.status]||STL.recibido, items=o.order_items||[];
+    const dest=o.ship_to||{}, st=FASE[o.status]||FASE.recibido, items=o.order_items||[];
     const lines=items.length?items.map(i=>'<tr><td style="padding: 6px 8px 6px 0px; border-bottom: 1px solid rgb(240, 242, 245); font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11.5px; color: rgb(105, 117, 141); white-space: nowrap;">'+esc(i.sku||'—')+'</td><td style="padding: 6px 8px; border-bottom: 1px solid rgb(240, 242, 245); color: rgb(19, 32, 56);">'+esc(i.description||'Bulto')+'</td><td style="padding: 6px 0px 6px 8px; border-bottom: 1px solid rgb(240, 242, 245); text-align: right; font-family: &quot;JetBrains Mono&quot;, monospace; font-weight: 600;">'+(i.qty||1)+'</td></tr>').join(''):'<tr><td colspan="3" style="padding: 8px 0px; color: rgb(154, 164, 184);">Sin líneas</td></tr>';
     const incs=incBy[o.id]||[];
     const incHTML=incs.length?('<div style="padding: 0px 18px 6px;"><span style="font-size: 9.5px; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase; color: rgb(105, 117, 141);">Incidencia</span></div><div style="padding: 0px 18px 14px;">'+incs.map(i=>'<div style="border: 1px solid rgb(246, 207, 207); background: rgb(253, 238, 238); border-radius: 5px; padding: 10px 12px; margin-bottom: 8px;"><div style="display: flex; align-items: center; gap: 8px;"><span style="font-size: 11.5px; font-weight: 700; color: rgb(197, 48, 48);">'+esc(i.tipo||'Incidencia')+'</span><span style="margin-left: auto; font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 10.5px; font-weight: 700; color: rgb(197, 48, 48); text-transform: uppercase;">'+esc(i.prioridad||'')+'</span></div><div style="font-size: 12.5px; color: rgb(19, 32, 56); margin-top: 5px; line-height: 1.35;">'+esc(i.descripcion||'—')+'</div><div style="font-size: 11.5px; color: rgb(105, 117, 141); margin-top: 5px;">'+esc(i.estado||'—')+(i.responsable?(' · '+esc(i.responsable)):'')+'</div></div>').join('')+'</div>'):'';
-    dbody.innerHTML='<div style="padding: 15px 18px 14px; border-bottom: 1px solid rgb(232, 234, 239);"><span style="display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 3px; background: '+st.bg+'; color: '+st.c+'; border: 1px solid '+st.b+';"><span style="width: 5px; height: 5px; border-radius: 50%; background: '+st.d+';"></span>'+esc(st.l)+'</span>'
-      +'<div style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 16px; font-weight: 700; margin-top: 10px;">'+esc(o.external_ref||'—')+'</div>'
+    dbody.innerHTML='<div style="padding: 15px 18px 14px; border-bottom: 1px solid rgb(232, 234, 239);">'+badge(st)+'<span style="margin-left: 6px;">'+badge(o.status==='recibido'?ST_REC:ST_ACC)+'</span>'
+      +'<div style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 16px; font-weight: 700; margin-top: 10px;">'+esc(o._ref)+'</div>'
       +'<div style="font-size: 12.5px; color: rgb(105, 117, 141); margin-top: 2px;">'+esc(o._cli)+'</div></div>'
-      +'<div style="padding: 12px 18px 14px; display: grid; grid-template-columns: 104px minmax(0px, 1fr); gap: 7px 12px; font-size: 12.5px; align-items: baseline;">'
-      +rowg('Destino',(dest.city||'—')+(dest.postal?(' · '+dest.postal):''))
+      +'<div style="padding: 12px 18px 14px; display: grid; grid-template-columns: 108px minmax(0px, 1fr); gap: 7px 12px; font-size: 12.5px; align-items: baseline;">'
+      +rowg('Destino',(o._city||'—')+(o._cp?(' · '+o._cp):''))
       +rowg('Destinatario',dest.name||o._cli)
       +rowg('Bultos',o._bultos)
+      +rowg('Fecha recepción',fes(o._rec))
+      +rowg('SLA',o._sla+' d')
       +rowg('Fecha prevista',fdate(o._due),o._late?'rgb(239, 68, 68)':'')
       +'</div>'+incHTML
       +'<div style="padding: 0px 18px 6px;"><span style="font-size: 9.5px; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase; color: rgb(105, 117, 141);">Líneas</span></div>'
       +'<div style="padding: 0px 18px 20px;"><table style="width: 100%; border-collapse: separate; border-spacing: 0px; font-size: 12.5px;">'+lines+'</table></div>';
   }
-  list.addEventListener('click', function(e){
-    const it=e.target.closest('.rt-est-item'); if(!it) return;
-    Array.prototype.forEach.call(list.querySelectorAll('.rt-est-item'),x=>{x.style.background='';});
-    it.style.background='rgb(248, 250, 253)';
-    showDetail(byId[it.getAttribute('data-id')]);
+  T.addEventListener('click', function(e){
+    const tr=e.target.closest('.rt-est-item'); if(!tr) return;
+    Array.prototype.forEach.call(T.querySelectorAll('.rt-est-item'),x=>{x.style.background='';});
+    tr.style.background='rgb(248, 250, 253)';
+    showDetail(byId[tr.getAttribute('data-id')]);
   });
 
-  /* ---- buscador: filtra dentro de la vista ---- */
+  /* ---- buscador de cabecera ---- */
   { const inp=$('rt-search');
     if(inp){
       if(mode==='buscar') inp.value=qParam;
-      const nm=s=>String(s==null?'':s).toLowerCase();
-      const run=function(){
-        const q=nm(inp.value).trim();
-        shown=q?sel.filter(function(o){ const d=o.ship_to||{};
-          return nm(o.external_ref).indexOf(q)>=0||nm(o._cli).indexOf(q)>=0||nm(d.city).indexOf(q)>=0||nm(d.postal).indexOf(q)>=0||nm(d.name).indexOf(q)>=0; }):sel;
-        paint();
-      };
       let tm=null;
+      const run=function(){ headQ=inp.value.trim(); renderBody(); };
       inp.addEventListener('input', function(){ clearTimeout(tm); tm=setTimeout(run,180); });
       inp.addEventListener('keydown', function(e){ if(e.key==='Enter'){ clearTimeout(tm); run(); } });
     }
@@ -346,6 +503,8 @@ input::placeholder{color:#9aa4b8}
     const dot=$('rt-belldot'); if(dot) dot.style.display=((late+openInc)>0)?'block':'none';
     const bell=$('rt-bell'); if(bell) bell.addEventListener('click', function(){ location.href='/agenda/alertas'; });
   }
+
+  renderBody();
 })();
 </script>
 </body></html>
