@@ -575,11 +575,21 @@ select{font:inherit;color:inherit}
   const PLANT={courier:'Mensajería','3pl':'3PL · E-commerce',almacen:'Almacén'};
   const BB='border-bottom: 1px solid rgb(240, 242, 245); vertical-align: middle;';
   const initials=nm=>{const p=(nm||'?').trim().split(/\s+/);return (((p[0]||'')[0]||'')+((p[1]||'')[0]||'')).toUpperCase();};
+  /* clave de intake por MARCA: mismo formato que las ya emitidas ('rtvc_' + 32 hex) */
+  const KEYS={};
+  function nuevaClave(){
+    const b=new Uint8Array(16);
+    if(window.crypto&&window.crypto.getRandomValues) window.crypto.getRandomValues(b);
+    else for(let i=0;i<16;i++) b[i]=Math.floor(Math.random()*256);
+    let h=''; for(let i=0;i<16;i++) h+=('0'+b[i].toString(16)).slice(-2);
+    return 'rtvc_'+h;
+  }
+  const maskKey=k=>!k?'Sin clave':(k.length<=9?k:k.slice(0,5)+'\u2022'.repeat(24)+k.slice(-4));
   const btnStyle='font-family: inherit; font-size: 12px; font-weight: 700; border-radius: 4px; padding: 6px 11px; cursor: pointer; background: rgb(255, 255, 255); color: rgb(19, 32, 56); border: 1px solid rgb(221, 225, 233);';
   let arche='';
   async function load(){
     try{ const {data:tn}=await db.from('tenants').select('archetype').limit(1); arche=tn&&tn[0]&&tn[0].archetype; }catch(e){}
-    let {data:cls,error}=await db.from('clients').select('id,name,intake_channel,active,sla_days,orders(count)').order('name');
+    let {data:cls,error}=await db.from('clients').select('id,name,intake_channel,active,sla_days,intake_key,orders(count)').order('name');
     if(error){ body.innerHTML='<tr><td colspan="7" style="padding:22px;text-align:center;color:#c53030;font-size:12.5px">No se pudieron cargar los clientes.</td></tr>'; return; }
     cls=cls||[];
     if($('rt-clients-count')) $('rt-clients-count').textContent=cls.length+' de '+cls.length+' cliente'+(cls.length===1?'':'s');
@@ -587,6 +597,7 @@ select{font:inherit;color:inherit}
     { const setc=(id,v)=>{const e=$(id);if(e)e.textContent=v;}; const nn=cls.length;
       setc('rt-pc-todas',nn); setc('rt-pc-mens',arche==='courier'?nn:0); setc('rt-pc-3pl',arche==='3pl'?nn:0); setc('rt-pc-alma',arche==='almacen'?nn:0); }
     if(!cls.length){ body.innerHTML='<tr><td colspan="7" style="padding:30px;text-align:center;color:rgb(154,164,184);font-size:13px">Sin clientes todavía.</td></tr>'; return; }
+    cls.forEach(function(c){ KEYS[c.id]=c.intake_key||''; });
     body.innerHTML=cls.map(function(c){
       const ch=CH[c.intake_channel]||{l:c.intake_channel||'—',d:'rgb(105, 117, 141)'};
       const orders=(c.orders&&c.orders[0]&&c.orders[0].count)||0;
@@ -600,7 +611,7 @@ select{font:inherit;color:inherit}
        +'<td style="padding: 12px 10px; '+BB+' text-align: right; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-weight: 600; font-variant-numeric: tabular-nums;">'+orders+'</td>'
        +'<td style="padding: 12px 10px; '+BB+'"><span style="display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 3px; white-space: nowrap; background: '+mapBg+'; color: '+mapC+'; border: 1px solid '+mapB+';"><span style="width: 5px; height: 5px; border-radius: 50%; flex: 0 0 auto; background: '+mapD+';"></span>'+mapL+'</span></td>'
        +'<td style="padding: 12px 10px; '+BB+'"><span style="font-size: 11.5px; font-weight: 700; letter-spacing: 0.02em; color: '+estC+';">'+est+'</span></td>'
-       +'<td style="padding: 12px 18px 12px 10px; '+BB+' text-align: right; white-space: nowrap;" data-cell="'+c.id+'"><span style="font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 12px; color: rgb(58, 70, 95); margin-right: 12px;">SLA <b>'+sla+'</b> d</span><button class="rt-cfg" data-id="'+c.id+'" data-sla="'+sla+'" style="'+btnStyle+'">Editar SLA</button></td>';
+       +'<td style="padding: 12px 18px 12px 10px; '+BB+' text-align: right; white-space: nowrap;" data-cell="'+c.id+'"><span style="font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 12px; color: rgb(58, 70, 95); margin-right: 12px;">SLA <b>'+sla+'</b> d</span><button class="rt-key" data-id="'+c.id+'" data-name="'+esc(c.name)+'" title="Ver o regenerar la clave de intake" style="'+btnStyle+'margin-right: 6px;">Clave</button><button class="rt-cfg" data-id="'+c.id+'" data-sla="'+sla+'" style="'+btnStyle+'">Editar SLA</button></td>';
     }).join('');
   }
   body.addEventListener('click', async function(e){
@@ -663,7 +674,7 @@ select{font:inherit;color:inherit}
         try{ const t=await db.from('tenants').select('id').limit(1); tenant=(t.data&&t.data[0]&&t.data[0].id)||null; }catch(err){}
         if(!tenant){ msg.textContent='No se pudo identificar el tenant.'; msg.style.color='rgb(197, 48, 48)'; return; }
         sv.disabled=true; sv.style.opacity='0.6'; msg.textContent='Creando…'; msg.style.color='rgb(105, 117, 141)';
-        const row={tenant_id:tenant, name:nombre, intake_channel:$('rt-cli-ch').value, sla_days:sla, active:$('rt-cli-act').checked};
+        const row={tenant_id:tenant, name:nombre, intake_channel:$('rt-cli-ch').value, sla_days:sla, active:$('rt-cli-act').checked, intake_key:nuevaClave()};
         const r=await db.from('clients').insert(row);
         sv.disabled=false; sv.style.opacity='1';
         if(r.__rtSession){ msg.textContent='Actualizando sesión… vuelve a intentarlo en un momento.'; msg.style.color='rgb(105, 117, 141)'; return; }
@@ -672,6 +683,93 @@ select{font:inherit;color:inherit}
       });
       document.addEventListener('keydown', function(e){ if(e.key==='Escape') close(); });
     }
+  }
+  /* ---- clave de intake: ver, copiar, regenerar ---- */
+  { const km=document.createElement('div');
+    km.id='rt-key-modal';
+    km.style.cssText='position: fixed; top: 0px; right: 0px; bottom: 0px; left: 0px; background: rgba(19, 32, 56, 0.45); z-index: 130; align-items: center; justify-content: center; padding: 24px; display: none;';
+    km.innerHTML='<div style="background: rgb(255, 255, 255); border-radius: 8px; width: 470px; max-width: 100%; box-shadow: rgba(19, 32, 56, 0.2) 0px 8px 28px; overflow: hidden;">'
+      +'<div style="padding: 15px 20px 14px; border-bottom: 1px solid rgb(232, 234, 239); background: rgb(250, 251, 252); display: flex; align-items: center; gap: 12px;">'
+      +'<div style="font-family: Newsreader, Georgia, serif; font-size: 17px; font-weight: 500; color: rgb(19, 32, 56); flex: 1 1 auto;">Clave de intake</div>'
+      +'<button id="rt-key-x" aria-label="Cerrar" style="width: 26px; height: 26px; border-radius: 4px; border: 1px solid rgb(221, 225, 233); background: rgb(255, 255, 255); color: rgb(105, 117, 141); cursor: pointer; font-family: inherit; font-size: 15px; line-height: 1; display: grid; place-items: center;">\u00d7</button></div>'
+      +'<div style="padding: 16px 20px 0px;"><div id="rt-key-cli" style="font-size: 13.5px; font-weight: 700; color: rgb(19, 32, 56);"></div>'
+      +'<p style="margin: 7px 0px 0px; font-size: 12px; line-height: 1.55; color: rgb(105, 117, 141);">Identifica a este cliente en los pedidos que entran por email o API. Tr\u00e1tala como una contrase\u00f1a: quien la tenga puede dar de alta pedidos a su nombre.</p></div>'
+      +'<div style="padding: 15px 20px 0px;"><label style="display: block; font-size: 9.5px; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase; color: rgb(105, 117, 141); margin-bottom: 6px;">Clave</label>'
+      +'<div style="display: flex; align-items: stretch; gap: 8px;">'
+      +'<code id="rt-key-val" style="flex: 1 1 auto; min-width: 0px; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 12.5px; color: rgb(19, 32, 56); background: rgb(250, 251, 252); border: 1px solid rgb(221, 225, 233); border-radius: 5px; padding: 10px 11px; overflow-x: auto; white-space: nowrap;"></code>'
+      +'<button id="rt-key-eye" style="'+btnStyle+'flex: 0 0 auto;">Mostrar</button></div></div>'
+      +'<div style="padding: 15px 20px 18px; display: flex; align-items: center; gap: 9px; flex-wrap: wrap;">'
+      +'<button id="rt-key-copy" style="'+btnStyle+'">Copiar</button>'
+      +'<button id="rt-key-new" style="'+btnStyle+'border-color: rgb(243, 221, 180); color: rgb(154, 98, 6);">Regenerar</button>'
+      +'<button id="rt-key-yes" style="'+btnStyle+'background: rgb(239, 68, 68); border-color: rgb(239, 68, 68); color: rgb(255, 255, 255); display: none;">S\u00ed, regenerar</button>'
+      +'<button id="rt-key-no" style="'+btnStyle+'display: none;">Cancelar</button>'
+      +'<span id="rt-key-msg" style="flex: 1 1 100%; font-size: 12px; line-height: 1.5; color: rgb(105, 117, 141); min-height: 16px;"></span></div></div>';
+    document.body.appendChild(km);
+    let cur=null, verla=false;
+    const kv=()=>$('rt-key-val'), kmsg=()=>$('rt-key-msg');
+    function pinta(){
+      const k=cur?(KEYS[cur.id]||''):'';
+      kv().textContent=k?(verla?k:maskKey(k)):'Sin clave';
+      kv().style.color=k?'rgb(19, 32, 56)':'rgb(154, 164, 184)';
+      const eye=$('rt-key-eye'); eye.textContent=verla?'Ocultar':'Mostrar'; eye.disabled=!k; eye.style.opacity=k?'1':'0.5';
+      const cp=$('rt-key-copy'); cp.disabled=!k; cp.style.opacity=k?'1':'0.5';
+      $('rt-key-new').textContent=k?'Regenerar':'Generar clave';
+    }
+    function confirmar(on){
+      $('rt-key-new').style.display=on?'none':'';
+      $('rt-key-copy').style.display=on?'none':'';
+      $('rt-key-yes').style.display=on?'':'none';
+      $('rt-key-no').style.display=on?'':'none';
+      if(on) aviso('La clave actual dejar\u00e1 de funcionar en cuanto la sustituyas. Los env\u00edos que la usen fallar\u00e1n hasta que la actualices.','rgb(154, 98, 6)');
+      else aviso('');
+    }
+    function aviso(t,c){ kmsg().textContent=t; kmsg().style.color=c||'rgb(105, 117, 141)'; }
+    function cerrar(){ km.style.display='none'; cur=null; }
+    async function copiar(txt){
+      try{ if(navigator.clipboard&&navigator.clipboard.writeText){ await navigator.clipboard.writeText(txt); return true; } }catch(e){}
+      try{ const ta=document.createElement('textarea'); ta.value=txt; ta.setAttribute('readonly','');
+        ta.style.cssText='position: fixed; top: -1000px; opacity: 0;'; document.body.appendChild(ta);
+        ta.select(); const ok=document.execCommand&&document.execCommand('copy'); ta.parentNode.removeChild(ta); return !!ok; }catch(e){ return false; }
+    }
+    body.addEventListener('click', function(e){
+      const b=e.target.closest('.rt-key'); if(!b) return;
+      cur={id:b.getAttribute('data-id'), name:b.getAttribute('data-name')||''};
+      verla=false; $('rt-key-cli').textContent=cur.name;
+      confirmar(false); pinta();
+      km.style.display='flex';
+    });
+    km.addEventListener('click', async function(e){
+      if(e.target===km||e.target.closest('#rt-key-x')){ cerrar(); return; }
+      if(!cur) return;
+      if(e.target.closest('#rt-key-eye')){ verla=!verla; pinta(); return; }
+      if(e.target.closest('#rt-key-copy')){
+        const k=KEYS[cur.id]||''; if(!k) return;
+        const ok=await copiar(k);
+        aviso(ok?'Clave copiada al portapapeles.':'No se pudo copiar: p\u00falsala en Mostrar y c\u00f3piala a mano.', ok?'rgb(14, 127, 95)':'rgb(197, 48, 48)');
+        return;
+      }
+      if(e.target.closest('#rt-key-no')){ confirmar(false); return; }
+      if(e.target.closest('#rt-key-new')){
+        if(KEYS[cur.id]){ confirmar(true); return; }
+        await guardar();  /* sin clave previa: nada que invalidar */
+        return;
+      }
+      if(e.target.closest('#rt-key-yes')){ confirmar(false); await guardar(); return; }
+    });
+    async function guardar(){
+      const id=cur.id, k=nuevaClave();
+      const btns=[$('rt-key-new'),$('rt-key-copy'),$('rt-key-eye')];
+      btns.forEach(b=>{ b.disabled=true; b.style.opacity='0.6'; });
+      aviso('Guardando\u2026');
+      const up=await db.from('clients').update({intake_key:k}).eq('id',id);
+      btns.forEach(b=>{ b.disabled=false; b.style.opacity='1'; });
+      if(up.__rtSession){ aviso('Actualizando sesi\u00f3n\u2026 vuelve a intentarlo en un momento.'); return; }
+      if(up.error){ aviso('No se pudo guardar la clave.','rgb(197, 48, 48)'); return; }
+      KEYS[id]=k; verla=true; pinta();
+      aviso('Clave nueva generada. C\u00f3piala ahora y act\u00faliza donde la uses.','rgb(14, 127, 95)');
+      await load(); applyF();
+    }
+    document.addEventListener('keydown', function(e){ if(e.key==='Escape'&&km.style.display!=='none') cerrar(); });
   }
   await load();
   let fch='', fpl='';
