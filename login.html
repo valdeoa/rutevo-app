@@ -57,11 +57,24 @@
     </div>
   </div>
 <script>
-const db = supabase.createClient('https://bcfeawgxswvtlklrkzii.supabase.co','sb_publishable_eSca9huQfloG321aY7UV9A_m50pucxw');
 const $=id=>document.getElementById(id);
-(async()=>{ const {data:{session}}=await db.auth.getSession(); if(session) location.replace('/agenda'); })();
+let db=null;
+/* el SDK viene de un CDN: si tarda o lo bloquean, se avisa en vez de romper */
+async function conectar(){
+  let n=0; while(!window.supabase && n++<200){ await new Promise(r=>setTimeout(r,25)); }
+  if(!window.supabase){
+    const er=$('err'); if(er){ er.textContent='No se pudo cargar el servicio de acceso. Revisa tu conexión y recarga.'; er.style.display='block'; }
+    const b=$('btn'); if(b){ b.disabled=true; b.style.opacity='0.6'; }
+    return null;
+  }
+  db=supabase.createClient('https://bcfeawgxswvtlklrkzii.supabase.co','sb_publishable_eSca9huQfloG321aY7UV9A_m50pucxw');
+  return db;
+}
+const listo=conectar();
+(async()=>{ if(!(await listo)) return; try{ const {data:{session}}=await db.auth.getSession(); if(session) location.replace('/agenda'); }catch(e){} })();
 $('f').addEventListener('submit',async e=>{
   e.preventDefault(); const b=$('btn'), er=$('err'); er.style.display='none'; b.disabled=true; b.textContent='Entrando…';
+  if(!(await listo)){ b.disabled=false; b.textContent='Entrar'; return; }
   const {error}=await db.auth.signInWithPassword({email:$('email').value.trim(),password:$('pass').value});
   b.disabled=false; b.textContent='Entrar';
   if(error){ er.textContent='No se pudo entrar: '+error.message; er.style.display='block'; return; }
