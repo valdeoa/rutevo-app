@@ -134,14 +134,14 @@ input::placeholder{color:#9aa4b8}
       </div>
 
       <div style="display: flex; gap: 14px; align-items: flex-start; flex-wrap: wrap; min-width: 0px;">
-        <section style="flex: 1 1 780px; min-width: 0px; background: rgb(255, 255, 255); border: 1px solid rgb(232, 234, 239); border-radius: 6px; box-shadow: rgba(19, 32, 56, 0.05) 0px 1px 2px; overflow: hidden;">
+        <section style="flex: 1 1 860px; min-width: 0px; background: rgb(255, 255, 255); border: 1px solid rgb(232, 234, 239); border-radius: 6px; box-shadow: rgba(19, 32, 56, 0.05) 0px 1px 2px; overflow: hidden;">
           <div style="display: flex; align-items: center; gap: 12px; padding: 13px 18px 12px; border-bottom: 1px solid rgb(232, 234, 239); background: rgb(250, 251, 252); flex-wrap: wrap;">
             <span id="rt-est-head" style="font-size: 10px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: rgb(105, 117, 141);">Pedidos</span>
             <span id="rt-est-count" style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11.5px; font-weight: 700; color: rgb(58, 70, 95);">—</span>
             <span id="rt-est-bultos" style="margin-left: auto; font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 11.5px; font-weight: 600; color: rgb(105, 117, 141);"></span>
           </div>
           <div style="overflow-x: auto;">
-            <table id="rt-est-table" style="table-layout: fixed; width: 100%; min-width: 780px; max-width: 898px; border-collapse: separate; border-spacing: 0px; font-size: 12.5px;"></table>
+            <table id="rt-est-table" style="table-layout: fixed; width: 100%; min-width: 860px; max-width: 1220px; border-collapse: separate; border-spacing: 0px; font-size: 12.5px;"></table>
           </div>
           <div id="rt-est-empty" style="display: none; padding: 44px 22px; text-align: center; color: rgb(154, 164, 184); font-size: 12.5px;">No hay pedidos con estos filtros.</div>
         </section>
@@ -309,27 +309,29 @@ input::placeholder{color:#9aa4b8}
   }
 
   /* ---- columnas (sin Status binario; la fase se llama Status) ---- */
+  /* anchos en % (suman 100): la tabla llena su contenedor y las proporciones no bailan.
+     Ciudad se queda en el 23% y el max-width de la tabla impide que crezca sin freno. */
   const COLS=[
-    {k:'_ref',  l:'Pedido',          t:'txt',  f:'text', w:112},
-    {k:'_cli',  l:'Cliente',         t:'txt',  f:'text', w:146},
-    {k:'_city', l:'Ciudad',          t:'txt',  f:'text', w:250},
-    {k:'_cp',   l:'CP',              t:'txt',  f:'text', w:62},
-    {k:'_bultos',l:'Bultos',         t:'num',  f:null,   w:62,  a:'right'},
-    {k:'_rec',  l:'Fecha recepción', t:'date', f:null,   w:90},
-    {k:'_sla',  l:'SLA',             t:'num',  f:null,   w:50,  a:'right'},
-    {k:'_fase', l:'Status',          t:'txt',  f:'fase', w:126}
+    {k:'_ref',  l:'Pedido',          t:'txt',  f:'text', w:12.5},
+    {k:'_cli',  l:'Cliente',         t:'txt',  f:'text', w:16.5},
+    {k:'_city', l:'Ciudad',          t:'txt',  f:'text', w:22.5},
+    {k:'_cp',   l:'CP',              t:'txt',  f:'text', w:6},
+    {k:'_bultos',l:'Bultos',         t:'num',  f:null,   w:9.5,  a:'right'},
+    {k:'_rec',  l:'Fecha recepción', t:'date', f:null,   w:12.5},
+    {k:'_sla',  l:'SLA',             t:'num',  f:null,   w:5.5,  a:'right'},
+    {k:'_fase', l:'Status',          t:'txt',  f:'fase', w:15}
   ];
   let sortK='_due', sortDir=1;
   const filters={};
   let headQ='', shown=[], selId=null;
 
   /* ---- cabecera + fila de filtros ---- */
-  const TH='position: sticky; top: 0px; z-index: 3; background: rgb(250, 251, 252); border-bottom: 1px solid rgb(221, 225, 233); padding: 9px 10px; font-size: 10px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: rgb(105, 117, 141); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: pointer; user-select: none;';
+  const TH='position: sticky; top: 0px; z-index: 3; background: rgb(250, 251, 252); border-bottom: 1px solid rgb(221, 225, 233); padding: 9px 10px; font-size: 10px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: rgb(105, 117, 141); white-space: normal; line-height: 1.25; vertical-align: bottom; cursor: pointer; user-select: none;';
   const INP='width: 100%; box-sizing: border-box; border: 1px solid rgb(227, 230, 236); border-radius: 4px; background: rgb(255, 255, 255); font-family: inherit; font-size: 11.5px; color: rgb(19, 32, 56); padding: 4px 6px; outline: 0px;';
   function renderHead(){
     let h='<thead><tr>';
     COLS.forEach(function(c){
-      h+='<th class="rt-sort" data-k="'+c.k+'" style="'+TH+(c.w?(' width: '+c.w+'px;'):'')+(c.a==='right'?' text-align: right;':' text-align: left;')+'">'+esc(c.l)+'<span class="rt-ind" data-k="'+c.k+'" style="font-size: 9px; margin-left: 4px; color: rgb(37, 99, 235);"></span></th>';
+      h+='<th class="rt-sort" data-k="'+c.k+'" style="'+TH+' width: '+c.w+'%;'+(c.a==='right'?' text-align: right;':' text-align: left;')+'">'+esc(c.l)+'<span class="rt-ind" data-k="'+c.k+'" style="font-size: 9px; margin-left: 4px; color: rgb(37, 99, 235);"></span></th>';
     });
     h+='</tr><tr>';
     COLS.forEach(function(c){
@@ -484,7 +486,7 @@ input::placeholder{color:#9aa4b8}
     const C='padding: 11px 10px 11px 0px; border-bottom: 1px solid rgb(240, 242, 245); vertical-align: top;';
     const DASH='<span style="color: rgb(205, 211, 222);">—</span>';
     let h='<tr>'
-      +'<th style="'+H+' width: 78px;">SKU</th>'
+      +'<th style="'+H+' width: 104px;">SKU</th>'
       +'<th style="'+H+'">Artículo</th>'
       +'<th style="'+H+' width: 40px; text-align: right;">Cant</th>'
       +'<th style="'+H+' width: 74px;">Ubicación</th>'
@@ -493,7 +495,7 @@ input::placeholder{color:#9aa4b8}
     return h+list.map(function(i){
       const ub=i.ubicacion?('<span style="display: inline-block; '+MONO+' font-size: 11px; font-weight: 700; color: rgb(29, 78, 216); background: rgb(238, 243, 254); border: 1px solid rgb(207, 224, 253); border-radius: 4px; padding: 3px 7px; white-space: nowrap;">'+esc(i.ubicacion)+'</span>'):DASH;
       return '<tr>'
-        +'<td style="'+C+' '+MONO+' font-size: 11px; color: rgb(105, 117, 141); word-break: break-all; line-height: 1.4;">'+esc(i.sku||'—')+'</td>'
+        +'<td style="'+C+' '+MONO+' font-size: 11px; color: rgb(105, 117, 141); white-space: nowrap; line-height: 1.4;">'+esc(i.sku||'—')+'</td>'
         +'<td style="'+C+' font-size: 13px; font-weight: 600; color: rgb(19, 32, 56); line-height: 1.4;">'+esc(i.description||'Bulto')+'</td>'
         +'<td style="'+C+' '+MONO+' font-weight: 700; font-size: 13px; text-align: right; font-variant-numeric: tabular-nums; color: rgb(19, 32, 56);">'+(i.qty||1)+'</td>'
         +'<td style="'+C+'">'+ub+'</td>'
