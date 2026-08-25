@@ -255,6 +255,12 @@ input::placeholder{color:#9aa4b8}
   const CLOSED=['cerrada','cerrado','resuelta','resuelto','closed','resolved','anulada','anulado'];
   const isOpenInc=i=>CLOSED.indexOf(String(i.estado||'').toLowerCase())<0;
 
+  /* motivo de alerta: fuera de plazo y/o incidencia abierta */
+  function motiv(o){
+    o._inc=(incBy[o.id]||[]).filter(isOpenInc);
+    o._mot=[(o._late?'Fuera de plazo':''),(o._inc.length?'Incidencia':'')].filter(Boolean).join(' · ');
+    return o;
+  }
   function decorate(o){
     const cr=new Date(o.created_at); cr.setHours(0,0,0,0);
     const dest=o.ship_to||{};
@@ -273,7 +279,7 @@ input::placeholder{color:#9aa4b8}
   async function fetchAll(){
     const res=await Promise.all([
       db.from('orders').select('id,external_ref,status,created_at,ship_to,client_id,clients(name,sla_days),order_items(sku,description,qty,ubicacion,ean)'),
-      db.from('incidents').select('order_id,tipo,prioridad,descripcion,estado,responsable,created_at'),
+      db.from('incidents').select('id,order_id,tipo,prioridad,descripcion,estado,responsable,created_at'),
       db.from('clients').select('id,name,sla_days')
     ]);
     if(res[0].error){ T.innerHTML='<tbody><tr><td style="padding: 20px; color: rgb(197, 48, 48); font-size: 12.5px;">Error: '+esc(res[0].error.message)+'</td></tr></tbody>'; return false; }
@@ -282,6 +288,7 @@ input::placeholder{color:#9aa4b8}
     CLIENTS=res[2].data||[];
     byId={}; OR.forEach(o=>{byId[o.id]=o;});
     incBy={}; incidents.forEach(function(i){ (incBy[i.order_id]||(incBy[i.order_id]=[])).push(i); });
+    OR.forEach(motiv);
     return true;
   }
   if(!(await fetchAll())) return;
@@ -291,12 +298,16 @@ input::placeholder{color:#9aa4b8}
   let fixedTitle='', fixedSub='';
   if(mode==='alertas'){ fixedTitle='Alertas'; fixedSub='pedidos fuera de plazo e incidencias abiertas'; }
   if(mode==='buscar'){ fixedTitle='Búsqueda'; fixedSub='"'+qParam+'"'; }
+  let motFilter='';
   function computePool(){
     if(mode==='alertas'){
       const ids={};
       OR.forEach(function(o){ if(o._late) ids[o.id]=1; });
       incidents.forEach(function(i){ if(isOpenInc(i)&&byId[i.order_id]) ids[i.order_id]=1; });
-      return OR.filter(o=>ids[o.id]);
+      let list=OR.filter(o=>ids[o.id]);
+      if(motFilter==='plazo') list=list.filter(o=>o._late);
+      else if(motFilter==='incidencia') list=list.filter(o=>(o._inc||[]).length>0);
+      return list;
     }
     if(mode==='buscar'){
       const q=qParam.toLowerCase(); if(q.length<2) return [];
@@ -311,7 +322,7 @@ input::placeholder{color:#9aa4b8}
   /* ---- columnas (sin Status binario; la fase se llama Status) ---- */
   /* anchos en % (suman 100): la tabla llena su contenedor y las proporciones no bailan.
      Ciudad se queda en el 23% y el max-width de la tabla impide que crezca sin freno. */
-  const COLS=[
+  const COLS_BASE=[
     {k:'_ref',  l:'Pedido',          t:'txt',  f:'text', w:12.5},
     {k:'_cli',  l:'Cliente',         t:'txt',  f:'text', w:16.5},
     {k:'_city', l:'Ciudad',          t:'txt',  f:'text', w:22.5},
@@ -321,6 +332,21 @@ input::placeholder{color:#9aa4b8}
     {k:'_sla',  l:'SLA',             t:'num',  f:null,   w:5.5,  a:'right'},
     {k:'_fase', l:'Status',          t:'txt',  f:'fase', w:15}
   ];
+  /* en Alertas cabe una columna más: el motivo (suman 100 igual) */
+  const COLS_ALERT=[
+    {k:'_ref',  l:'Pedido',          t:'txt',  f:'text', w:11},
+    {k:'_cli',  l:'Cliente',         t:'txt',  f:'text', w:13},
+    {k:'_city', l:'Ciudad',          t:'txt',  f:'text', w:16},
+    {k:'_cp',   l:'CP',              t:'txt',  f:'text', w:5.5},
+    {k:'_bultos',l:'Bultos',         t:'num',  f:null,   w:7,    a:'right'},
+    {k:'_rec',  l:'Fecha recepción', t:'date', f:null,   w:11},
+    {k:'_sla',  l:'SLA',             t:'num',  f:null,   w:5,    a:'right'},
+    {k:'_fase', l:'Status',          t:'txt',  f:'fase', w:14},
+    {k:'_mot',  l:'Motivo',          t:'txt',  f:null,   w:17.5}
+  ];
+  const ALERTAS=(mode==='alertas');
+  const COLS=ALERTAS?COLS_ALERT:COLS_BASE;
+  if(ALERTAS){ T.style.minWidth='980px'; const sc=T.closest('section'); if(sc) sc.style.flex='1 1 980px'; }
   let sortK='_due', sortDir=1;
   const filters={};
   let headQ='', shown=[], selId=null;
@@ -345,6 +371,16 @@ input::placeholder{color:#9aa4b8}
   }
 
   const TD='padding: 9px 10px; border-bottom: 1px solid rgb(240, 242, 245); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;';
+  const CHIP='display: inline-flex; align-items: center; gap: 5px; font-size: 10.5px; font-weight: 700; padding: 3px 8px; border-radius: 3px; white-space: nowrap;';
+  const chipPlazo='<span style="'+CHIP+' background: rgb(253, 244, 228); color: rgb(154, 98, 6); border: 1px solid rgb(243, 221, 180);">⏰ Fuera de plazo</span>';
+  const chipInc=p=>'<span style="'+CHIP+' background: rgb(253, 238, 238); color: rgb(197, 48, 48); border: 1px solid rgb(246, 207, 207);">⚠ Incidencia'+(p?(' · '+esc(p)):'')+'</span>';
+  function motCell(o){
+    const bits=[];
+    if(o._late) bits.push(chipPlazo);
+    (o._inc||[]).slice(0,1).forEach(function(i){ bits.push(chipInc(i.prioridad)); });
+    const html=bits.length?bits.join(''):'<span style="color: rgb(205, 211, 222);">—</span>';
+    return '<td style="'+TD+' white-space: normal; line-height: 1.9;">'+html+'</td>';
+  }
   function rowHTML(o){
     const sel=(o.id===selId);
     return '<tr class="rt-est-item" data-id="'+esc(o.id)+'" style="cursor: pointer;'+(o._late?' box-shadow: inset 2px 0px 0px 0px rgb(239, 68, 68);':'')+(sel?' background: rgb(248, 250, 253);':'')+'">'
@@ -355,7 +391,8 @@ input::placeholder{color:#9aa4b8}
       +'<td style="'+TD+' '+MONO+' font-weight: 700; text-align: right; font-variant-numeric: tabular-nums; color: rgb(19, 32, 56);">'+o._bultos+'</td>'
       +'<td style="'+TD+' '+MONO+' font-size: 11.5px; color: rgb(105, 117, 141);">'+fes(o._rec)+'</td>'
       +'<td style="'+TD+' '+MONO+' font-weight: 600; text-align: right; font-variant-numeric: tabular-nums; color: rgb(58, 70, 95);">'+o._sla+' d</td>'
-      +'<td style="'+TD+'">'+badge(FASE[o.status]||FASE.recibido)+'</td></tr>';
+      +'<td style="'+TD+'">'+badge(FASE[o.status]||FASE.recibido)+'</td>'
+      +(ALERTAS?motCell(o):'')+'</tr>';
   }
   function currentSel(){
     let s=computePool();
@@ -431,7 +468,21 @@ input::placeholder{color:#9aa4b8}
 
   /* ---- sub-nav ---- */
   { const box=$('rt-est-chips');
-    if(box && !ENTRANTES){
+    if(box && ALERTAS){
+      const OPC=[['','Todas'],['plazo','⏰ Fuera de plazo'],['incidencia','⚠ Incidencias']];
+      const paint=function(){
+        box.innerHTML=OPC.map(function(o){
+          const on=(motFilter===o[0]);
+          return '<button class="rt-motchip" data-mot="'+o[0]+'" style="display: inline-flex; align-items: center; gap: 7px; font-family: inherit; font-size: 12px; font-weight: 700; padding: 6px 11px; border-radius: 5px; cursor: pointer; white-space: nowrap; background: '+(on?'rgb(14, 31, 61)':'rgb(255, 255, 255)')+'; color: '+(on?'rgb(255, 255, 255)':'rgb(105, 117, 141)')+'; border: 1px solid '+(on?'rgb(14, 31, 61)':'rgb(221, 225, 233)')+';">'+esc(o[1])+'</button>';
+        }).join('');
+      };
+      paint();
+      box.addEventListener('click', function(e){
+        const b=e.target.closest('.rt-motchip'); if(!b) return;
+        motFilter=b.getAttribute('data-mot')||''; paint(); renderBody();
+      });
+    }
+    else if(box && !ENTRANTES){
       const q=dParam?('?d='+encodeURIComponent(dParam)):'';
       box.innerHTML=VIEWS.map(function(v){
         const on=(mode==='estado'&&v.slug===base.slug);
@@ -479,6 +530,9 @@ input::placeholder{color:#9aa4b8}
   }
 
   /* ---- detalle ---- */
+  { const st=document.createElement('style');
+    st.textContent='.rt-inc-link:hover{background:rgb(251,226,226)!important;border-color:rgb(238,174,174)!important}';
+    document.head.appendChild(st); }
   const dbody=$('rt-est-detail-body');
   const rowg=(k,v,c)=>'<span style="color: rgb(154, 164, 184); font-weight: 600; font-size: 11px; letter-spacing: 0.03em; text-transform: uppercase;">'+k+'</span><span style="font-weight: 600;'+(c?(' color: '+c+';'):'')+'">'+esc(v)+'</span>';
   function linesHTML(list){
@@ -520,7 +574,16 @@ input::placeholder{color:#9aa4b8}
     const SEC='font-size: 10px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(105, 117, 141);';
     const field=(k,v,c)=>'<div style="min-width: 0px;"><div style="font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(154, 164, 184);">'+k+'</div>'
       +'<div style="font-size: 13px; font-weight: 600; margin-top: 4px; line-height: 1.35;'+(c?(' color: '+c+';'):' color: rgb(19, 32, 56);')+'">'+esc(v)+'</div></div>';
-    const incHTML=incs.length?('<div style="padding: 0px 24px 6px;"><span style="'+SEC+'">Incidencia</span></div><div style="padding: 0px 24px 16px;">'+incs.map(i=>'<div style="border: 1px solid rgb(246, 207, 207); background: rgb(253, 238, 238); border-radius: 6px; padding: 12px 14px; margin-bottom: 9px;"><div style="display: flex; align-items: center; gap: 8px;"><span style="font-size: 12px; font-weight: 700; color: rgb(197, 48, 48);">'+esc(i.tipo||'Incidencia')+'</span><span style="margin-left: auto; '+MONO+' font-size: 10.5px; font-weight: 700; color: rgb(197, 48, 48); text-transform: uppercase;">'+esc(i.prioridad||'')+'</span></div><div style="font-size: 13px; color: rgb(19, 32, 56); margin-top: 6px; line-height: 1.4;">'+esc(i.descripcion||'—')+'</div><div style="font-size: 12px; color: rgb(105, 117, 141); margin-top: 6px;">'+esc(i.estado||'—')+(i.responsable?(' · '+esc(i.responsable)):'')+'</div></div>').join('')+'</div>'):'';
+    const incHTML=incs.length?('<div style="padding: 0px 24px 6px;"><span style="'+SEC+'">Incidencia</span></div><div style="padding: 0px 24px 16px;">'+incs.map(function(i){
+      const inner='<div style="display: flex; align-items: center; gap: 8px;"><span style="font-size: 12px; font-weight: 700; color: rgb(197, 48, 48);">'+esc(i.tipo||'Incidencia')+'</span><span style="margin-left: auto; '+MONO+' font-size: 10.5px; font-weight: 700; color: rgb(197, 48, 48); text-transform: uppercase;">'+esc(i.prioridad||'')+'</span></div>'
+        +'<div style="font-size: 13px; color: rgb(19, 32, 56); margin-top: 6px; line-height: 1.4;">'+esc(i.descripcion||'—')+'</div>'
+        +'<div style="display: flex; align-items: center; gap: 8px; margin-top: 8px;"><span style="font-size: 12px; color: rgb(105, 117, 141);">'+esc(i.estado||'—')+(i.responsable?(' · '+esc(i.responsable)):'')+'</span>'
+        +'<span style="margin-left: auto; font-size: 11.5px; font-weight: 700; color: rgb(197, 48, 48); white-space: nowrap;">Gestionar →</span></div>';
+      const box='border: 1px solid rgb(246, 207, 207); background: rgb(253, 238, 238); border-radius: 6px; padding: 12px 14px; margin-bottom: 9px; display: block; text-decoration: none;';
+      return i.id
+        ? ('<a class="rt-inc-link" href="/gestionar-incidencia?id='+encodeURIComponent(i.id)+'" style="'+box+' cursor: pointer;">'+inner+'</a>')
+        : ('<div style="'+box+'">'+inner+'</div>');
+    }).join('')+'</div>'):'';
     dbody.innerHTML=''
       /* cabecera: pedido + cliente destacados */
       +'<div style="padding: 20px 24px 18px; border-bottom: 1px solid rgb(232, 234, 239);">'
@@ -562,7 +625,7 @@ input::placeholder{color:#9aa4b8}
     const msg=$('rt-phase-msg'); if(msg){ msg.textContent='Guardando…'; msg.style.color='rgb(105, 117, 141)'; }
     const r=await db.from('orders').update({status:ph,updated_at:new Date().toISOString()}).eq('id',id);
     if(r.error){ if(msg){ msg.textContent='Error: '+r.error.message; msg.style.color='rgb(197, 48, 48)'; } return; }
-    o.status=ph; decorate(o);
+    o.status=ph; decorate(o); motiv(o);
     showDetail(o); renderBody();
     const m2=$('rt-phase-msg'); if(m2){ m2.textContent='Fase actualizada a "'+FASE[ph].l+'".'; m2.style.color='rgb(14, 127, 95)'; }
   });
