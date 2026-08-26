@@ -77,7 +77,7 @@ $('f').addEventListener('submit',async e=>{
   if(!(await listo)){ b.disabled=false; b.textContent='Entrar'; return; }
   const {error}=await db.auth.signInWithPassword({email:$('email').value.trim(),password:$('pass').value});
   b.disabled=false; b.textContent='Entrar';
-  if(error){ er.textContent='No se pudo entrar: '+error.message; er.style.display='block'; return; }
+  if(error){ er.textContent=/invalid|credential|password/i.test(error.message||'')?'Email o contraseña incorrectos.':'No se pudo entrar. Inténtalo de nuevo.'; er.style.display='block'; return; }
   location.replace('/agenda');
 });
 document.querySelectorAll('.demo button').forEach(x=>x.addEventListener('click',()=>{ $('email').value=x.dataset.u; $('pass').value='Rutevo2026!'; }));

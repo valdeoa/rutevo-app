@@ -596,6 +596,7 @@ select{font:inherit;color:inherit}
     { const h=$('rt-cli-header'); if(h){ const act=cls.filter(x=>x.active).length; h.textContent=cls.length+' clientes · '+act+' activos'; } }
     { const setc=(id,v)=>{const e=$(id);if(e)e.textContent=v;}; const nn=cls.length;
       setc('rt-pc-todas',nn); setc('rt-pc-mens',arche==='courier'?nn:0); setc('rt-pc-3pl',arche==='3pl'?nn:0); setc('rt-pc-alma',arche==='almacen'?nn:0); }
+    document.querySelectorAll('.rt-pchip').forEach(function(ch){ var p=ch.getAttribute('data-plant')||''; if(p && p!==arche) ch.style.display='none'; });
     if(!cls.length){ body.innerHTML='<tr><td colspan="7" style="padding:30px;text-align:center;color:rgb(154,164,184);font-size:13px">Sin clientes todavía.</td></tr>'; return; }
     cls.forEach(function(c){ KEYS[c.id]=c.intake_key||''; });
     body.innerHTML=cls.map(function(c){

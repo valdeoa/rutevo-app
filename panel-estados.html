@@ -848,7 +848,7 @@ input::placeholder{color:#9aa4b8}
   const DAYMS=86400000;
   const T0=(function(){ const d=new Date(); d.setHours(0,0,0,0); return d.getTime(); })();
   function dueOf(o){ const c=new Date(o.created_at); c.setHours(0,0,0,0); const sla=(o.clients&&o.clients.sla_days!=null)?o.clients.sla_days:1; return c.getTime()+sla*DAYMS; }
-  function atRisk(o){ return o.status!=='enviado' && dueOf(o)<=T0; }
+  function atRisk(o){ return o.status!=='enviado' && COLS.some(c=>c.k===o.status) && dueOf(o)<=T0; }
   function matchQ(o){
     if(!q) return true;
     const d=o.ship_to||{};
@@ -862,7 +862,7 @@ input::placeholder{color:#9aa4b8}
       return '<div style="display: flex; flex: 1 1 244px; min-width: 236px;"><div style="flex: 1 1 auto; min-width: 0px; background: rgb(250, 251, 252); border: 1px solid rgb(232, 234, 239); border-radius: 6px; overflow: hidden; box-shadow: rgba(19, 32, 56, 0.04) 0px 1px 2px;"><div style="height: 2px; background: '+c.ac+';"></div><div style="display: flex; align-items: center; gap: 8px; padding: 10px 12px 9px; background: rgb(255, 255, 255); border-bottom: 1px solid rgb(232, 234, 239);"><span style="width: 7px; height: 7px; border-radius: 50%; flex: 0 0 auto; background: '+c.ac+';"></span><span style="font-size: 11px; font-weight: 800; letter-spacing: 0.07em; text-transform: uppercase; color: rgb(58, 70, 95); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">'+esc(c.l)+'</span><span style="margin-left: auto; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 11.5px; font-weight: 700; color: rgb(58, 70, 95);">'+items.length+'</span></div><div style="padding: 10px; display: flex; flex-direction: column; gap: 9px; min-height: 120px;">'+cards+'</div></div></div>';
     }).join('');
   }
-  { const e=$('rt-active'); if(e){ e.textContent=(orders||[]).filter(o=>o.status!=='enviado').length; } }
+  { const e=$('rt-active'); if(e){ e.textContent=(orders||[]).filter(o=>o.status!=='enviado' && COLS.some(c=>c.k===o.status)).length; } }
   // detail
   const dbody=$('rt-pe-detail-body'); const map={}; (orders||[]).forEach(o=>map[o.id]=o);
   const STL={recibido:{l:'Recibido',bg:'rgb(253, 244, 228)',c:'rgb(154, 98, 6)',b:'rgb(243, 221, 180)',d:'rgb(245, 158, 11)'},picking:{l:'En preparación',bg:'rgb(238, 243, 254)',c:'rgb(29, 78, 216)',b:'rgb(207, 224, 253)',d:'rgb(37, 99, 235)'},picked:{l:'Preparado',bg:'rgb(238, 240, 253)',c:'rgb(67, 56, 202)',b:'rgb(213, 217, 248)',d:'rgb(99, 102, 241)'},enviado:{l:'Enviado',bg:'rgb(233, 248, 242)',c:'rgb(14, 127, 95)',b:'rgb(201, 233, 220)',d:'rgb(16, 185, 129)'},incidencia:{l:'Incidencia',bg:'rgb(253, 238, 238)',c:'rgb(197, 48, 48)',b:'rgb(246, 207, 207)',d:'rgb(239, 68, 68)'}};

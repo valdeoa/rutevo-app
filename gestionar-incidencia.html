@@ -469,10 +469,11 @@ input::placeholder{color:#9aa4b8}
       responsable: (inResp&&inResp.value.trim())?inResp.value.trim():null,
       resolucion: (taRes&&taRes.value.trim())?taRes.value.trim():null
     };
-    const up=await db.from('incidents').update(patch).eq('id',id);
+    const up=await db.from('incidents').update(patch).eq('id',id).select();
     btn.disabled=false; btn.style.opacity='1';
     if(up.__rtSession){ setMsg('Actualizando sesión… vuelve a guardar en un momento.','rgb(105, 117, 141)'); return; }
     if(up.error){ setMsg('No se pudo guardar: '+up.error.message,'rgb(197, 48, 48)'); return; }
+    if(!up.data||!up.data.length){ setMsg('No se pudo guardar: sin permiso o el registro no existe.','rgb(197, 48, 48)'); return; }
     inc.estado=patch.estado; inc.responsable=patch.responsable; inc.resolucion=patch.resolucion;
     const e2=EST[patch.estado]||EST.abierta;
     const bg=$('rt-gi-estbadge');

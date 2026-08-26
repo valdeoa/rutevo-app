@@ -1183,6 +1183,11 @@ input::placeholder{color:#9aa4b8}
     db.from('incidents').select('order_id,estado')
   ]);
   const orders=res[0].data, error=res[0].error, clientsAll=res[1].data, incidents=res[2].data;
+  if(error){
+    ['rt-ag-k1','rt-ag-k2','rt-ag-k3','rt-ag-k4','rt-ag-k2sub'].forEach(function(id){var e=$(id); if(e)e.textContent='—';});
+    table.innerHTML='<tbody><tr><td style="padding: 20px; color: rgb(197, 48, 48); font-size: 12.5px;">No se pudo cargar la agenda.</td></tr></tbody>';
+    return;
+  }
 
   const OR=(orders||[]).map(function(o){
     const cr=new Date(o.created_at); cr.setHours(0,0,0,0);

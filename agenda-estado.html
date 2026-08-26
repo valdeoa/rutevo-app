@@ -469,7 +469,7 @@ input::placeholder{color:#9aa4b8}
     const dest=o.ship_to||{};
     o._rec=cr.getTime();
     o._sla=(o.clients&&o.clients.sla_days!=null)?o.clients.sla_days:1;
-    o._due=o._rec+o._sla*DAYMS;
+    { const _d=new Date(o._rec); _d.setDate(_d.getDate()+o._sla); o._due=_d.getTime(); }
     o._bultos=(o.order_items||[]).reduce((a,i)=>a+(i.qty||0),0);
     o._cli=(o.clients&&o.clients.name)||'—';
     o._city=dest.city||'—';
@@ -600,7 +600,7 @@ input::placeholder{color:#9aa4b8}
   function currentSel(){
     let s=computePool();
     if(onlyLate) s=s.filter(o=>o._late);
-    else if(curDay!=null) s=s.filter(o=>o._due===curDay);
+    else if(curDay!=null) s=s.filter(o=>ymd(o._due)===ymd(curDay));
     return s;
   }
   function applyFilters(list){
@@ -643,7 +643,7 @@ input::placeholder{color:#9aa4b8}
     });
     const cc=$('rt-est-count'); if(cc) cc.textContent=shown.length+' pedidos';
     const bb=$('rt-est-bultos'); if(bb) bb.textContent=shown.reduce((a,o)=>a+o._bultos,0)+' bultos';
-    renderTitle(sel.length);
+    renderTitle(shown.length);
   }
 
   function renderTitle(count){
@@ -703,7 +703,7 @@ input::placeholder{color:#9aa4b8}
     dInp.addEventListener('input', function(){ if(dInp.value) setDay(parseYmd(dInp.value)); });
   }
   { const bp=$('rt-day-prev'), bn=$('rt-day-next'), ba=$('rt-day-all');
-    const step=k=>{ const from=(curDay==null)?T0:curDay; setDay(from+k*DAYMS); };
+    const step=k=>{ const from=(curDay==null)?T0:curDay; const _d=new Date(from); _d.setDate(_d.getDate()+k); setDay(_d.getTime()); };
     if(bp) bp.addEventListener('click', function(){ step(-1); });
     if(bn) bn.addEventListener('click', function(){ step(1); });
     if(ba) ba.addEventListener('click', function(){ setDay(null); });
@@ -869,7 +869,7 @@ input::placeholder{color:#9aa4b8}
     const t=String(text).replace(/^﻿/,'').replace(/\r\n?/g,'\n');
     const lines=t.split('\n').filter(l=>l.trim()!=='');
     if(!lines.length) return [];
-    const sep=(lines[0].split(';').length>lines[0].split(',').length)?';':',';
+    const probe=lines.slice(0,5).join('\n'); const sep=((probe.split(';').length-1)>(probe.split(',').length-1))?';':',';
     const head=splitCsvLine(lines[0],sep).map(h=>h.trim().toLowerCase().replace(/\s+/g,''));
     return lines.slice(1).map(function(l){
       const cells=splitCsvLine(l,sep);
@@ -879,6 +879,11 @@ input::placeholder{color:#9aa4b8}
   }
   function normName(s){ return String(s==null?'':s).trim().toLowerCase(); }
   const txt=v=>String(v==null?'':v).trim();
+  function parseQty(v){ let s=String(v==null?'':v).trim(); if(!s) return NaN;
+    const lc=s.lastIndexOf(','), ld=s.lastIndexOf('.');
+    if(lc>=0 && ld>=0){ if(lc>ld) s=s.replace(/\./g,'').replace(',','.'); else s=s.replace(/,/g,''); }
+    else if(lc>=0){ s=s.replace(',','.'); }
+    return Number(s); }
 
   /* agrupa por la columna 'pedido'; sin ella (o vacía) cada fila es un pedido */
   function groupRows(rows){
@@ -911,7 +916,7 @@ input::placeholder{color:#9aa4b8}
       }
       g.client=cli||null;
       g.lines.forEach(function(l){
-        const q=Number(txt(l.raw.cantidad).replace(',','.'));
+        const q=parseQty(l.raw.cantidad);
         l.qty=q; l.errs=[];
         if(!txt(l.raw.cantidad) || !isFinite(q) || q<=0) l.errs.push('cantidad no numérica');
         l.ok=l.errs.length===0;
@@ -1016,10 +1021,10 @@ input::placeholder{color:#9aa4b8}
     }
     if(go){ go.disabled=true; go.style.opacity='0.5'; go.textContent='Importando…'; }
     let created=0, lines=0;
-    const failed=[];
-    /* líneas descartadas dentro de pedidos por lo demás válidos */
+    const failed=[];      /* fallos a nivel de pedido */
+    const discarded=[];   /* líneas sueltas descartadas dentro de pedidos válidos */
     valid.forEach(function(g){
-      g.lines.filter(l=>!l.ok).forEach(function(l){ failed.push('fila '+l.n+' (línea de '+(g.key||'pedido suelto')+'): '+l.errs.join(' · ')); });
+      g.lines.filter(l=>!l.ok).forEach(function(l){ discarded.push('fila '+l.n+' (línea de '+(g.key||'pedido suelto')+'): '+l.errs.join(' · ')); });
     });
     for(let i=0;i<valid.length;i++){
       const g=valid[i], f=g.first;
@@ -1047,11 +1052,13 @@ input::placeholder{color:#9aa4b8}
     const skipped=bad.length+failed.length;
     if(res){
       res.style.display='block';
-      res.innerHTML='<div style="font-size: 13px; font-weight: 700; color: rgb(19, 32, 56);">'+created+' creados · '+skipped+' saltados</div>'
+      const dtxt=discarded.length?(' · '+discarded.length+' línea'+(discarded.length===1?'':'s')+' descartada'+(discarded.length===1?'':'s')):'';
+      res.innerHTML='<div style="font-size: 13px; font-weight: 700; color: rgb(19, 32, 56);">'+created+' creados · '+skipped+' saltados'+dtxt+'</div>'
         +'<div style="font-size: 12px; color: rgb(105, 117, 141); margin-top: 2px;">'+lines+' línea'+(lines===1?'':'s')+' importada'+(lines===1?'':'s')+'</div>'
-        +((bad.length||failed.length)?('<ul style="margin: 8px 0px 0px; padding-left: 18px; font-size: 11.5px; color: rgb(197, 48, 48); line-height: 1.5;">'
+        +((bad.length||failed.length||discarded.length)?('<ul style="margin: 8px 0px 0px; padding-left: 18px; font-size: 11.5px; color: rgb(197, 48, 48); line-height: 1.5;">'
           +bad.map(g=>'<li>'+(g.key?('pedido '+esc(g.key)):('fila '+g.firstN))+': '+esc(g.errs.join(' · '))+'</li>').join('')
-          +failed.map(m=>'<li>'+esc(m)+'</li>').join('')+'</ul>'):'');
+          +failed.map(m=>'<li>'+esc(m)+'</li>').join('')
+          +discarded.map(m=>'<li style="color: rgb(154, 164, 184);">'+esc(m)+'</li>').join('')+'</ul>'):'');
     }
     if(go){ go.disabled=false; go.textContent='Importar'; go.style.opacity='1'; }
     await fetchAll();

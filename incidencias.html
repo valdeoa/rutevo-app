@@ -97,7 +97,7 @@ input::placeholder{color:#9aa4b8}
     <header style="display: flex; align-items: center; gap: 16px; padding: 0px 28px; height: 66px; background: rgb(245, 246, 248); border-bottom: 1px solid rgb(232, 234, 239); position: sticky; top: 0px; z-index: 20;">
       <div style="display: flex; flex-direction: column; gap: 1px;">
         <h1 style="font-family: Newsreader, Georgia, serif; font-size: 21px; font-weight: 500; letter-spacing: -0.01em; line-height: 1.1; margin: 0px;">Incidencias</h1>
-        <span style="font-size: 11px; color: rgb(154, 164, 184);"><span style="color: rgb(197, 48, 48); font-weight: 700;"><span class="sc-interp" id="rt-hdr-abiertas" data-rt-mock="cifra">8</span> abiertas</span> · <span class="sc-interp" id="rt-hdr-resueltas" data-rt-mock="cifra">5</span> resueltas hoy</span>
+        <span style="font-size: 11px; color: rgb(154, 164, 184);"><span style="color: rgb(197, 48, 48); font-weight: 700;"><span class="sc-interp" id="rt-hdr-abiertas" data-rt-mock="cifra">8</span> abiertas</span> · <span class="sc-interp" id="rt-hdr-resueltas" data-rt-mock="cifra">5</span> resueltas</span>
       </div>
       <div style="margin-left: auto; display: flex; align-items: center; gap: 9px; width: 330px; max-width: 32vw; background: rgb(255, 255, 255); border: 1px solid rgb(221, 225, 233); border-radius: 5px; padding: 8px 12px; color: rgb(105, 117, 141);">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3-3"></path></svg>
@@ -164,7 +164,7 @@ input::placeholder{color:#9aa4b8}
           <button id="rt-inc-cl-all" style="font-family: inherit; font-size: 11.5px; font-weight: 700; padding: 6px 10px; border-radius: 5px; cursor: pointer; white-space: nowrap; background: rgb(255, 255, 255); color: rgb(105, 117, 141); border: 1px solid rgb(221, 225, 233);">Todos</button>
           <span style="font-size: 11px; color: rgb(154, 164, 184); font-family: Newsreader, Georgia, serif; font-style: italic;">ctrl/cmd para varios</span>
         </div>
-        <button id="rt-inc-openonly" style="display: flex; align-items: center; gap: 7px; font-family: inherit; font-size: 12px; font-weight: 700; padding: 6px 11px; border-radius: 5px; cursor: pointer; white-space: nowrap; background: rgb(255, 255, 255); color: rgb(105, 117, 141); border: 1px solid rgb(221, 225, 233);"><span style="display: inline-flex; align-items: center; width: 24px; height: 14px; border-radius: 8px; padding: 2px; flex: 0 0 auto; background: rgb(221, 225, 233);"><span style="width: 10px; height: 10px; border-radius: 50%; background: rgb(255, 255, 255);"></span></span>Solo abiertas</button>
+        <button id="rt-inc-openonly" style="display: flex; align-items: center; gap: 7px; font-family: inherit; font-size: 12px; font-weight: 700; padding: 6px 11px; border-radius: 5px; cursor: pointer; white-space: nowrap; background: rgb(255, 255, 255); color: rgb(105, 117, 141); border: 1px solid rgb(221, 225, 233);"><span style="display: inline-flex; align-items: center; width: 24px; height: 14px; border-radius: 8px; padding: 2px; flex: 0 0 auto; background: rgb(221, 225, 233);"><span style="width: 10px; height: 10px; border-radius: 50%; background: rgb(255, 255, 255);"></span></span>Solo activas</button>
       </div>
 
       <div style="display: flex; flex-wrap: wrap; gap: 18px; align-items: flex-start; min-width: 0px;">
@@ -668,23 +668,23 @@ input::placeholder{color:#9aa4b8}
     const rows=visible();
     const bits=[filter?(TIPO[filter]||{}).l:'todos los tipos'];
     if(clientSel.length) bits.push(clientSel.length+' cliente'+(clientSel.length===1?'':'s'));
-    if(onlyOpen) bits.push('solo abiertas');
+    if(onlyOpen) bits.push('solo activas');
     if($('rt-inc-count')) $('rt-inc-count').textContent=rows.length+' incidencia'+(rows.length===1?'':'s')+' · '+bits.join(' · ');
     if(!rows.length){ body.innerHTML='<tr><td colspan="9" style="padding:30px;text-align:center;color:rgb(154,164,184);font-size:13px">Sin incidencias en este filtro.</td></tr>'; return; }
     body.innerHTML=rows.map(function(r){
       const o=r.orders||{}; const dest=o.ship_to||{}; const cli=(o.clients&&o.clients.name)||'—';
       const tp=TIPO[r.tipo]||TIPO.otro, pr=PRIO[r.prioridad]||PRIO.media, es=EST[r.estado]||EST.abierta;
       const loc=[dest.city,dest.postal].filter(Boolean).join(' · '); const resp=r.responsable||''; const selBg=r.id===selId?' background: rgb(247, 250, 255);':'';
-      return '<tr data-id="'+r.id+'" style="cursor: pointer;'+selBg+'">'
+      return '<tr data-id="'+esc(r.id)+'" style="cursor: pointer;'+selBg+'">'
        +'<td style="padding: 11px 10px; '+BB+' font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 12px; font-weight: 600; white-space: nowrap; color: rgb(19, 32, 56);">'+esc(o.external_ref||'—')+'</td>'
        +'<td style="padding: 11px 10px; '+BB+' font-weight: 600; min-width: 150px;">'+esc(cli)+'<span style="display: block; font-size: 11px; font-weight: 500; color: rgb(154, 164, 184); margin-top: 1px;">'+esc(loc)+'</span></td>'
        +'<td style="padding: 11px 10px; '+BB+'"><span style="display: inline-flex; align-items: center; gap: 7px; font-size: 11.5px; font-weight: 700; white-space: nowrap; color: rgb(58, 70, 95);"><span style="display: inline-block; width: 7px; height: 7px; border-radius: 2px; flex: 0 0 auto; background: '+tp.d+';"></span>'+esc(tp.l)+'</span></td>'
-       +'<td style="padding: 11px 10px; '+BB+'"><span style="display: inline-block; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 7px; border-radius: 3px; background: '+pr.bg+'; color: '+pr.c+'; border: 1px solid '+pr.b+';">'+esc(r.prioridad)+'</span></td>'
+       +'<td style="padding: 11px 10px; '+BB+'"><span style="display: inline-block; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 7px; border-radius: 3px; background: '+pr.bg+'; color: '+pr.c+'; border: 1px solid '+pr.b+';">'+esc(r.prioridad||'—')+'</span></td>'
        +'<td style="padding: 11px 10px; '+BB+' color: rgb(58, 70, 95); min-width: 180px;"><span style="display: block; max-width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">'+esc(r.descripcion||'')+'</span></td>'
        +'<td style="padding: 11px 10px; '+BB+' color: rgb(105, 117, 141); font-size: 12.5px; white-space: nowrap;">'+esc(ago(r.created_at))+'</td>'
        +'<td style="padding: 11px 10px; '+BB+'"><span style="display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 3px; white-space: nowrap; background: '+es.bg+'; color: '+es.c+'; border: 1px solid '+es.b+';"><span style="width: 5px; height: 5px; border-radius: 50%; flex: 0 0 auto; background: '+es.d+';"></span>'+esc(es.l)+'</span></td>'
        +'<td style="padding: 11px 10px; '+BB+'"><span style="display: inline-flex; align-items: center; gap: 7px; font-size: 12px; white-space: nowrap; color: rgb(58, 70, 95); font-weight: 600;"><span style="display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 4px; font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 9.5px; font-weight: 700; flex: 0 0 auto; background: rgb(240, 242, 245); color: rgb(58, 70, 95);">'+(resp?esc(ini(resp)):'—')+'</span>'+(resp?esc(resp):'sin asignar')+'</span></td>'
-       +'<td style="padding: 11px 18px 11px 10px; '+BB+' text-align: right; white-space: nowrap;"><button data-id="'+r.id+'" class="rt-inc-open" style="font-family: inherit; font-size: 12px; font-weight: 700; border-radius: 4px; padding: 6px 11px; cursor: pointer; background: rgb(37, 99, 235); color: rgb(255, 255, 255); border: 1px solid rgb(37, 99, 235);">Gestionar</button></td>'
+       +'<td style="padding: 11px 18px 11px 10px; '+BB+' text-align: right; white-space: nowrap;"><button data-id="'+esc(r.id)+'" class="rt-inc-open" style="font-family: inherit; font-size: 12px; font-weight: 700; border-radius: 4px; padding: 6px 11px; cursor: pointer; background: rgb(37, 99, 235); color: rgb(255, 255, 255); border: 1px solid rgb(37, 99, 235);">Gestionar</button></td>'
        +'</tr>';
     }).join('');
   }
@@ -695,7 +695,7 @@ input::placeholder{color:#9aa4b8}
     const rowg=(k,v)=>'<span style="color: rgb(154, 164, 184); font-weight: 600; font-size: 11px; letter-spacing: 0.03em; text-transform: uppercase;">'+k+'</span><span style="font-weight: 600;">'+esc(v)+'</span>';
     db2.innerHTML=''
       +'<div style="padding: 15px 18px 14px; border-bottom: 1px solid rgb(232, 234, 239);">'
-      +'<div style="display: flex; align-items: center; gap: 8px;"><span style="display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 3px; background: '+es.bg+'; color: '+es.c+'; border: 1px solid '+es.b+';"><span style="width: 5px; height: 5px; border-radius: 50%; background: '+es.d+';"></span>'+esc(es.l)+'</span><span style="font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 7px; border-radius: 3px; background: '+pr.bg+'; color: '+pr.c+'; border: 1px solid '+pr.b+';">'+esc(r.prioridad)+'</span><span style="margin-left: auto; font-size: 11px; color: rgb(154, 164, 184); font-weight: 600;">'+esc(ago(r.created_at))+'</span></div>'
+      +'<div style="display: flex; align-items: center; gap: 8px;"><span style="display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 3px; background: '+es.bg+'; color: '+es.c+'; border: 1px solid '+es.b+';"><span style="width: 5px; height: 5px; border-radius: 50%; background: '+es.d+';"></span>'+esc(es.l)+'</span><span style="font-family: &quot;JetBrains Mono&quot;, ui-monospace, Menlo, monospace; font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 7px; border-radius: 3px; background: '+pr.bg+'; color: '+pr.c+'; border: 1px solid '+pr.b+';">'+esc(r.prioridad||'—')+'</span><span style="margin-left: auto; font-size: 11px; color: rgb(154, 164, 184); font-weight: 600;">'+esc(ago(r.created_at))+'</span></div>'
       +'<div style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 16px; font-weight: 700; margin-top: 10px;">'+esc(o.external_ref||'—')+'</div>'
       +'<div style="font-size: 12.5px; color: rgb(105, 117, 141); margin-top: 2px;"><span style="display:inline-block;width:7px;height:7px;border-radius:2px;background:'+tp.d+';margin-right:6px"></span>'+esc(tp.l)+' · '+esc(cli)+'</div></div>'
       +'<div style="padding: 14px 18px 4px;"><span style="font-size: 9.5px; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase; color: rgb(105, 117, 141);">Descripción</span></div>'
@@ -705,7 +705,9 @@ input::placeholder{color:#9aa4b8}
       +'</div>';
   }
   async function load(){
-    const {data:rows,error}=await db.from('incidents').select('id,tipo,prioridad,descripcion,estado,responsable,created_at,orders(external_ref,ship_to,clients(name))').order('created_at',{ascending:false});
+    const rr=await db.from('incidents').select('id,tipo,prioridad,descripcion,estado,responsable,created_at,orders(external_ref,ship_to,clients(name))').order('created_at',{ascending:false});
+    if(rr&&rr.__rtSession){ body.innerHTML='<tr><td colspan="9" style="padding:22px;text-align:center;color:rgb(105,117,141);font-size:13px">Actualizando sesión…</td></tr>'; return; }
+    const rows=rr.data, error=rr.error;
     if(error){ body.innerHTML='<tr><td colspan="9" style="padding:22px;text-align:center;color:#c53030;font-size:13px">No se pudieron cargar las incidencias.</td></tr>'; return; }
     ALL=rows||[]; setKpis(); render();
   }
@@ -723,6 +725,7 @@ input::placeholder{color:#9aa4b8}
       const run=function(){ q=inp.value.trim().toLowerCase(); render(); };
       inp.addEventListener('input', function(){ clearTimeout(tm); tm=setTimeout(run,180); });
       inp.addEventListener('keydown', function(e){ if(e.key==='Enter'){ clearTimeout(tm); run(); } });
+      document.addEventListener('keydown', function(e){ if((e.metaKey||e.ctrlKey) && (e.key==='k'||e.key==='K')){ e.preventDefault(); inp.focus(); } });
     }
   }
   /* ---- lista de clientes (RLS) ---- */
